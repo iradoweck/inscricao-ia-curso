@@ -1,61 +1,1368 @@
 <!doctype html>
 <html lang="pt">
+<!-- ==========================================================================
+  PROJETO: ZEDECKS TRAINING — PROGRAMAÇÃO ASSISTIDA POR IA (DO ZERO AO JÚNIOR)
+  ARQUIVO: index.html
+  ARQUITETURA: Single-File Clean Code (HTML5 + CSS3 + Vanilla JavaScript)
+  DIREITOS: Todos os direitos reservados a Zedecks Training.
+========================================================================== -->
+
+<!-- ==========================================================================
+  [SEÇÃO 1] METADADOS & CABEÇALHO DO DOCUMENTO
+========================================================================== -->
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#07111f">
-<title>Inscrição | Programação Assistida por IA</title>
-<style>
-:root{--bg:#07111f;--panel:#0c1b2d;--line:#18344e;--blue:#00b7ff;--text:#f4f8fc;--muted:#9db1c5;--gold:#ffb21c;--green:#28d69a}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#103c68 0,transparent 32%),var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-.wrap{width:min(1050px,92%);margin:auto}.top{padding:24px 0;display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{font-weight:900;letter-spacing:1.5px}.brand span{color:var(--blue)}.tag{border:1px solid var(--line);border-radius:99px;padding:6px 12px;color:var(--muted);font-size:.8rem}
-.hero{padding:38px 0 26px;display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}.eyebrow{color:var(--blue);font-size:.82rem;font-weight:800;letter-spacing:2px;text-transform:uppercase}h1{font-size:clamp(2.25rem,6vw,4.5rem);line-height:.98;letter-spacing:-2px;margin:14px 0}h1 em{font-style:normal;color:var(--blue)}.sub{font-size:1.2rem;color:#d5e4f1;max-width:620px}.chips{display:flex;flex-wrap:wrap;gap:9px;margin:20px 0}.chip{border:1px solid var(--line);padding:7px 11px;border-radius:8px;color:#d9e8f5;font-size:.9rem}.pricebox{background:linear-gradient(150deg,#102b45,#091522);border:1px solid var(--line);border-radius:18px;padding:22px}.pricebox h2{margin:0 0 14px;font-size:1.1rem}.price{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.price:last-child{border:0}.price strong{display:block}.amount{font-weight:900;font-size:1.2rem;color:var(--blue);white-space:nowrap}.amount.gold{color:var(--gold)}.notice{color:var(--muted);font-size:.87rem;margin-top:12px}
-.tabs{display:flex;gap:8px;margin:20px 0 14px}.tab{background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:10px;padding:11px 15px;font-weight:800;cursor:pointer}.tab.active{background:var(--blue);border-color:var(--blue);color:#001321}
-.card{background:rgba(12,27,45,.94);border:1px solid var(--line);border-radius:18px;padding:clamp(18px,4vw,30px);margin-bottom:28px;box-shadow:0 18px 50px #0002}.card h2{margin:0 0 6px;font-size:1.5rem}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:flex;flex-direction:column;gap:7px;margin-top:15px}.field.full{grid-column:1/-1}label{font-weight:700;font-size:.92rem}input,select{width:100%;background:#06111e;border:1px solid #29445c;border-radius:10px;padding:13px 14px;color:var(--text);font:inherit;outline:none}input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #00b7ff22}input[type=file]{padding:10px}.btn{border:0;border-radius:10px;background:var(--blue);color:#001321;padding:14px 18px;font:inherit;font-weight:900;cursor:pointer;width:100%;margin-top:20px}.btn.secondary{background:#17334c;color:var(--text);border:1px solid #29445c}.btn:hover{filter:brightness(1.08)}.hidden{display:none!important}.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}.stat{background:#06111e;border:1px solid var(--line);padding:14px;border-radius:12px}.stat small{display:block;color:var(--muted)}.stat strong{font-size:1.05rem;overflow-wrap:anywhere}.steps{padding-left:20px;color:#d7e5f1}.steps li{margin:7px 0}.status{display:inline-block;border-radius:99px;background:#3b2a0a;color:#ffd36c;padding:5px 10px;font-size:.85rem;font-weight:800}.status.ok{background:#073b30;color:#65f2c0}.alert{padding:12px 14px;border:1px solid #28516d;border-radius:10px;background:#092036;color:#cfeaff;margin-top:14px}.footer{padding:6px 0 35px;color:var(--muted);font-size:.85rem;text-align:center}.contact{color:var(--blue);font-weight:800;text-decoration:none}
-@media(max-width:720px){.hero{grid-template-columns:1fr;padding-top:22px}.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.summary{grid-template-columns:1fr}.top{align-items:flex-start}.tag{font-size:.72rem}h1{letter-spacing:-1.2px}.pricebox{padding:18px}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="Curso Prático de Programação Assistida por IA — Aprende a pensar como um engenheiro e constrói projectos reais em qualquer linguagem.">
+  <title>Inscrição | Programação Assistida por IA — Zedecks Training</title>
+  
+  <!-- Ícone da Aplicação -->
+  <link rel="icon" type="image/png" href="assets/icone.png">
+
+  <!-- ==========================================================================
+    [SEÇÃO 2] ESTILOS VISUAIS (CSS)
+  ========================================================================== -->
+  <style>
+    /* ------------------------------------------------------------------------
+       2.1 DESIGN SYSTEM & VARIÁVEIS GLOBAIS
+    ------------------------------------------------------------------------ */
+    :root {
+      --bg: #07111f;
+      --panel: #0c1b2d;
+      --panel-card: rgba(12, 27, 45, 0.92);
+      --line: #18344e;
+      --line-bright: rgba(0, 183, 255, 0.3);
+      --blue: #00b7ff;
+      --blue-glow: rgba(0, 183, 255, 0.25);
+      --text: #f4f8fc;
+      --muted: #9db1c5;
+      --gold: #ffb21c;
+      --green: #28d69a;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-pill: 9999px;
+      --transition-fast: 0.2s ease;
+    }
+
+    /* ------------------------------------------------------------------------
+       2.2 RESET & TIPOGRAFIA BASE
+    ------------------------------------------------------------------------ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at 85% 5%, #103c68 0, transparent 35%),
+                  radial-gradient(circle at 10% 40%, #092644 0, transparent 30%),
+                  var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    .wrap {
+      width: min(1120px, 92%);
+      margin-inline: auto;
+    }
+
+    /* ------------------------------------------------------------------------
+       2.3 CABEÇALHO & BRANDING
+    ------------------------------------------------------------------------ */
+    .top {
+      padding: 22px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      gap: 12px;
+    }
+
+    .logo-img {
+      height: 46px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+    }
+
+    .brand-fallback {
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      color: #fff;
+      font-size: 1.15rem;
+    }
+
+    .brand-fallback span {
+      color: var(--blue);
+    }
+
+    .tag {
+      border: 1px solid var(--line-bright);
+      background: rgba(0, 183, 255, 0.08);
+      border-radius: var(--radius-pill);
+      padding: 7px 16px;
+      color: #d7eafd;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    /* ------------------------------------------------------------------------
+       2.4 HERO SECTION & BADGES FLUTUANTES
+    ------------------------------------------------------------------------ */
+    .hero {
+      padding: 40px 0 50px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: var(--blue);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--blue);
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 5.5vw, 4.2rem);
+      line-height: 1.02;
+      letter-spacing: -1.8px;
+      margin: 16px 0 18px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--blue);
+      text-shadow: 0 0 25px rgba(0, 183, 255, 0.4);
+    }
+
+    .sub {
+      font-size: 1.18rem;
+      color: #d3e4f3;
+      max-width: 620px;
+      line-height: 1.6;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 22px 0 28px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      background: rgba(12, 27, 45, 0.6);
+      padding: 7px 13px;
+      border-radius: var(--radius-sm);
+      color: #d9e8f5;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-cta {
+      background: var(--blue);
+      color: #001321;
+      border: 0;
+      border-radius: var(--radius-md);
+      padding: 14px 24px;
+      font-weight: 900;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(0, 183, 255, 0.3);
+      transition: all var(--transition-fast);
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 183, 255, 0.45);
+      filter: brightness(1.08);
+    }
+
+    .hero-subcta {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 10px;
+      transition: color var(--transition-fast);
+    }
+
+    .hero-subcta:hover {
+      color: #fff;
+    }
+
+    .hero-media {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .photo-frame {
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      border-radius: 24px;
+      padding: 6px;
+      background: linear-gradient(145deg, rgba(0, 183, 255, 0.4), rgba(24, 52, 78, 0.2) 60%, rgba(0, 183, 255, 0.2));
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 183, 255, 0.15);
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 440px;
+      object-fit: cover;
+      border-radius: 20px;
+      display: block;
+    }
+
+    .floating-badge {
+      position: absolute;
+      background: rgba(7, 17, 31, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(0, 183, 255, 0.35);
+      border-radius: 14px;
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #fff;
+      z-index: 2;
+    }
+
+    .floating-badge.badge-top {
+      top: 20px;
+      right: -14px;
+    }
+
+    .floating-badge.badge-bottom {
+      bottom: 25px;
+      left: -14px;
+    }
+
+    .badge-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 10px var(--blue);
+    }
+
+    .badge-dot.gold {
+      background: var(--gold);
+      box-shadow: 0 0 10px var(--gold);
+    }
+
+    /* ------------------------------------------------------------------------
+       2.5 TABELA DE PREÇOS & MODALIDADES
+    ------------------------------------------------------------------------ */
+    .pricing-section {
+      padding: 30px 0 50px;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 36px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.8rem, 3.8vw, 2.5rem);
+      margin: 0 0 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin: 0;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .price-card {
+      background: linear-gradient(160deg, #0e2338, #081524);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      transition: transform var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .price-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--line-bright);
+    }
+
+    .price-card.featured {
+      border-color: rgba(255, 178, 28, 0.5);
+      background: linear-gradient(160deg, #152e46, #0a1a2b);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 178, 28, 0.1);
+    }
+
+    .card-pill {
+      position: absolute;
+      top: -12px;
+      right: 24px;
+      background: var(--gold);
+      color: #1a1000;
+      font-size: 0.75rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+    }
+
+    .price-card-header h3 {
+      font-size: 1.45rem;
+      margin: 0 0 6px;
+    }
+
+    .price-card-header .desc {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+    }
+
+    .price-val {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--blue);
+      margin: 14px 0 20px;
+    }
+
+    .price-val.gold {
+      color: var(--gold);
+    }
+
+    .price-val span {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #d5e5f5;
+      font-size: 0.94rem;
+      margin-bottom: 11px;
+    }
+
+    .feature-list li::before {
+      content: "✓";
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .btn-select {
+      width: 100%;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-select:hover {
+      background: var(--blue);
+      color: #001321;
+      border-color: var(--blue);
+    }
+
+    .price-card.featured .btn-select {
+      background: var(--gold);
+      color: #1a1000;
+      border-color: var(--gold);
+    }
+
+    .price-card.featured .btn-select:hover {
+      filter: brightness(1.1);
+    }
+
+    /* ------------------------------------------------------------------------
+       2.6 METODOLOGIA & PÚBLICO (HUMANIZAÇÃO VISUAL)
+    ------------------------------------------------------------------------ */
+    .story-section {
+      padding: 40px 0 60px;
+    }
+
+    .story-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 46px;
+      align-items: center;
+      margin-bottom: 60px;
+    }
+
+    .story-block.reversed {
+      direction: rtl;
+    }
+
+    .story-block.reversed > * {
+      direction: ltr;
+    }
+
+    .story-text h3 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      line-height: 1.15;
+      margin: 10px 0 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .story-text p {
+      color: #d5e5f5;
+      font-size: 1.05rem;
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+
+    .story-pill {
+      display: inline-block;
+      color: var(--blue);
+      background: rgba(0, 183, 255, 0.1);
+      border: 1px solid rgba(0, 183, 255, 0.25);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+    }
+
+    .story-badges {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .story-badge-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(12, 27, 45, 0.7);
+      border: 1px solid var(--line);
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .story-badge-item span.icon {
+      background: rgba(0, 183, 255, 0.15);
+      color: var(--blue);
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+    }
+
+    .story-img-wrapper {
+      position: relative;
+      border-radius: 22px;
+      padding: 5px;
+      background: linear-gradient(135deg, rgba(0, 183, 255, 0.3), rgba(24, 52, 78, 0.2) 70%, rgba(0, 183, 255, 0.15));
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .story-img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 18px;
+      display: block;
+    }
+
+    /* ------------------------------------------------------------------------
+       2.7 ABAS, PAINÉIS & FORMULÁRIOS
+    ------------------------------------------------------------------------ */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin: 20px 0 16px;
+    }
+
+    .tab {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 12px 20px;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all var(--transition-fast);
+    }
+
+    .tab:hover {
+      color: #fff;
+      border-color: var(--line-bright);
+    }
+
+    .tab.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #001321;
+      box-shadow: 0 4px 18px rgba(0, 183, 255, 0.3);
+    }
+
+    .card {
+      background: var(--panel-card);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: clamp(20px, 4.5vw, 36px);
+      margin-bottom: 34px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 1.6rem;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-top: 16px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    input, select {
+      width: 100%;
+      background: #06111e;
+      border: 1px solid #29445c;
+      border-radius: var(--radius-md);
+      padding: 14px 15px;
+      color: var(--text);
+      font: inherit;
+      outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    input:focus, select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(0, 183, 255, 0.2);
+    }
+
+    input[type="file"] {
+      padding: 11px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: var(--radius-md);
+      background: var(--blue);
+      color: #001321;
+      padding: 15px 20px;
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 22px;
+      font-size: 1rem;
+      transition: all var(--transition-fast);
+    }
+
+    .btn:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    .btn.secondary {
+      background: #17334c;
+      color: var(--text);
+      border: 1px solid #29445c;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* ------------------------------------------------------------------------
+       2.8 ÁREA DO ALUNO & STATUS
+    ------------------------------------------------------------------------ */
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .stat {
+      background: #06111e;
+      border: 1px solid var(--line);
+      padding: 14px;
+      border-radius: var(--radius-md);
+    }
+
+    .stat small {
+      display: block;
+      color: var(--muted);
+    }
+
+    .stat strong {
+      font-size: 1.05rem;
+      overflow-wrap: anywhere;
+    }
+
+    .status {
+      display: inline-block;
+      border-radius: var(--radius-pill);
+      background: #3b2a0a;
+      color: #ffd36c;
+      padding: 5px 12px;
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    .status.ok {
+      background: #073b30;
+      color: #65f2c0;
+    }
+
+    .alert {
+      padding: 14px 16px;
+      border: 1px solid #28516d;
+      border-radius: var(--radius-md);
+      background: #092036;
+      color: #cfeaff;
+      margin-top: 16px;
+      font-size: 0.92rem;
+    }
+
+    /* ------------------------------------------------------------------------
+       2.9 RODAPÉ
+    ------------------------------------------------------------------------ */
+    .footer {
+      padding: 24px 0 45px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      text-align: center;
+      border-top: 1px solid rgba(24, 52, 78, 0.5);
+      margin-top: 40px;
+    }
+
+    .contact {
+      color: var(--blue);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .contact:hover {
+      text-decoration: underline;
+    }
+
+    /* ------------------------------------------------------------------------
+       2.10 RESPONSIVIDADE (MEDIA QUERIES)
+    ------------------------------------------------------------------------ */
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 36px;
+        padding-top: 20px;
+      }
+      .hero-media {
+        order: -1;
+      }
+      .photo-frame {
+        max-width: 100%;
+        height: auto;
+      }
+      .hero-img {
+        height: 340px;
+      }
+      .floating-badge.badge-top {
+        right: 10px;
+        top: 15px;
+      }
+      .floating-badge.badge-bottom {
+        left: 10px;
+        bottom: 15px;
+      }
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+      .story-block {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .story-block.reversed {
+        direction: ltr;
+      }
+      .story-img {
+        height: 300px;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .field.full {
+        grid-column: auto;
+      }
+      .summary {
+        grid-template-columns: 1fr;
+      }
+      .top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
+
+<!-- ==========================================================================
+  [SEÇÃO 3] ESTRUTURA SEMÂNTICA (HTML)
+========================================================================== -->
 <body>
-<header class="wrap top"><div class="brand">ZEDECKS <span>TRAINING</span></div><div class="tag">INSCRIÇÕES · 15/10 A 25/10</div></header>
-<main class="wrap">
-<section class="hero">
-<div><div class="eyebrow">Curso online & presencial</div><h1>PROGRAMAÇÃO<br>ASSISTIDA POR <em>IA</em></h1><p class="sub"><strong>Do zero ao júnior em qualquer linguagem.</strong> Domina a programação tradicional com o poder da Inteligência Artificial — raciocínio lógico, engenharia de software e projectos reais, sem ficar dependente de simples Vibe Coding.</p><div class="chips"><span class="chip">Agnóstico a Linguagens</span><span class="chip">Lógica & Fundamentos Sólidos</span><span class="chip">IA como Co-Piloto Técnico</span><span class="chip">Arquitectura & Clean Code</span><span class="chip">Projectos do Mundo Real</span></div></div>
-<aside class="pricebox"><h2>Escolhe a tua modalidade</h2><div class="price"><div><strong>Curso online</strong><span class="muted">Aprende à distância</span></div><div class="amount">4.000 MT</div></div><div class="price"><div><strong>Curso presencial</strong><span class="muted">Aprende presencialmente</span></div><div class="amount gold">5.000 MT</div></div><p class="notice">Certificado incluído · Inscrições até 25/10</p></aside>
-</section>
-<div class="tabs"><button class="tab active" id="tabRegister" type="button">Fazer inscrição</button><button class="tab" id="tabPortal" type="button">Área do aluno</button></div>
-<section class="card" id="registerPanel">
-<h2>Reserva a tua vaga</h2><p class="muted">Preenche os teus dados. Os campos com * são obrigatórios.</p>
-<form id="registerForm"><div class="grid">
-<div class="field full"><label for="name">Nome completo *</label><input id="name" name="name" autocomplete="name" required placeholder="O teu nome e apelido"></div>
-<div class="field"><label for="phone">Número de telefone *</label><input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="Ex.: 84 123 4567" minlength="9"></div>
-<div class="field"><label for="mode">Modalidade *</label><select id="mode" name="mode" required><option value="">Escolhe uma opção</option><option value="online">Online — 4.000 MT</option><option value="presencial">Presencial — 5.000 MT</option></select></div>
-</div><div class="alert">Após a inscrição, receberás um código e os dados de acesso para acompanhar o pagamento e o estado da inscrição.</div><button class="btn" type="submit">CONTINUAR PARA PAGAMENTO →</button></form>
-</section>
-<section class="card hidden" id="portalPanel">
-<div id="loginView"><h2>Área do aluno</h2><p class="muted">Entra com os dados apresentados quando fizeste a inscrição neste dispositivo.</p><form id="loginForm"><div class="grid"><div class="field"><label for="loginUser">Utilizador / código de inscrição</label><input id="loginUser" required placeholder="Ex.: IA-ABC123"></div><div class="field"><label for="loginPass">Senha</label><input id="loginPass" required type="password" placeholder="A tua senha"></div></div><button class="btn" type="submit">CONSULTAR INSCRIÇÃO</button></form><p class="muted">Perdeste os dados? Contacta-nos pelo WhatsApp <a class="contact" href="https://wa.me/258847703309" target="_blank" rel="noopener">84 770 3309</a>.</p></div>
-<div id="studentView" class="hidden"><h2>Resumo da inscrição</h2><p class="muted">Guarda o teu código de inscrição e a senha.</p><div class="summary"><div class="stat"><small>Inscrito</small><strong id="sName"></strong></div><div class="stat"><small>Modalidade</small><strong id="sMode"></strong></div><div class="stat"><small>Valor a pagar</small><strong id="sAmount"></strong></div></div><p>Estado: <span class="status" id="sStatus">A aguardar pagamento</span></p><div class="alert"><strong>Detalhes de pagamento</strong><p id="paymentDetails">Os dados de pagamento serão anunciados pela organização.</p><p class="notice">Antes de pagar, confirma os dados oficiais com a organização. Não transfiras dinheiro para dados não confirmados.</p></div>
-<form id="proofForm"><div class="field"><label for="proof">Carregar comprovativo (JPG, PNG ou PDF)</label><input id="proof" type="file" accept=".jpg,.jpeg,.png,.pdf" required><small class="muted">Demonstração: o ficheiro não é enviado para um servidor nesta versão.</small></div><button class="btn" type="submit">REGISTAR COMPROVATIVO</button></form><button class="btn secondary" id="logoutBtn" type="button">Terminar sessão</button><div class="alert hidden" id="proofMsg"></div></div>
-</section>
-<div class="footer">Dúvidas e inscrições: <a class="contact" href="https://wa.me/258847703309" target="_blank" rel="noopener">WhatsApp 84 770 3309</a><br>Programação Assistida por IA · Do zero ao júnior</div>
-</main>
-<script>
-const $=id=>document.getElementById(id);
-const PRICE={online:4000,presencial:5000};
-const fmt=n=>new Intl.NumberFormat('pt-MZ').format(n)+' MT';
-const storeKey='zedecks_course_demo_v1';
-let current=null;
-function getAll(){try{return JSON.parse(localStorage.getItem(storeKey)||'[]')}catch{return []}}
-function saveAll(rows){localStorage.setItem(storeKey,JSON.stringify(rows))}
-function makeCode(){return 'IA-'+Math.random().toString(36).slice(2,8).toUpperCase()}
-function makePass(){return Math.random().toString(36).slice(2,6).toUpperCase()+Math.floor(10+Math.random()*90)}
-function switchTab(which){const reg=which==='register';$('registerPanel').classList.toggle('hidden',!reg);$('portalPanel').classList.toggle('hidden',reg);$('tabRegister').classList.toggle('active',reg);$('tabPortal').classList.toggle('active',!reg)}
-$('tabRegister').onclick=()=>switchTab('register');
-$('tabPortal').onclick=()=>switchTab('portal');
-$('registerForm').addEventListener('submit',e=>{e.preventDefault();const mode=$('mode').value;const student={name:$('name').value.trim(),phone:$('phone').value.trim(),mode,amount:PRICE[mode],code:makeCode(),password:makePass(),status:'A aguardar pagamento',proofName:'',createdAt:new Date().toISOString()};if(!student.name||!student.phone||!mode)return;const rows=getAll();rows.push(student);saveAll(rows);current=student;switchTab('portal');$('loginView').classList.add('hidden');$('studentView').classList.remove('hidden');renderStudent(student);alert('Inscrição criada nesta demonstração. Guarda o código e a senha apresentados na área do aluno.');});
-function renderStudent(s){$('sName').textContent=s.name;$('sMode').textContent=s.mode==='online'?'Online':'Presencial';$('sAmount').textContent=fmt(s.amount);$('sStatus').textContent=s.status;$('sStatus').classList.toggle('ok',s.status==='Comprovativo registado');$('paymentDetails').textContent='Contacta a organização pelo WhatsApp 84 770 3309 para receber os dados oficiais de pagamento. Referência da inscrição: '+s.code+'.';$('proofMsg').classList.add('hidden')}
-$('loginForm').addEventListener('submit',e=>{e.preventDefault();const u=$('loginUser').value.trim().toUpperCase(),p=$('loginPass').value.trim();const s=getAll().find(x=>(x.code.toUpperCase()===u||x.phone===u)&&x.password===p);if(!s){alert('Dados não encontrados neste dispositivo. Confirma o código e a senha.');return}current=s;$('loginView').classList.add('hidden');$('studentView').classList.remove('hidden');renderStudent(s)});
-$('proofForm').addEventListener('submit',e=>{e.preventDefault();if(!current)return;const file=$('proof').files[0];if(!file)return;if(file.size>5*1024*1024){alert('O ficheiro deve ter no máximo 5 MB.');return}if(!/\.(jpg|jpeg|png|pdf)$/i.test(file.name)){alert('Formato inválido. Envia JPG, PNG ou PDF.');return}const rows=getAll();const i=rows.findIndex(x=>x.code===current.code);if(i<0)return;rows[i].proofName=file.name;rows[i].status='Comprovativo registado';saveAll(rows);current=rows[i];renderStudent(current);$('proofMsg').textContent='Comprovativo registado nesta demonstração: '+file.name+'. Para a equipa receber e validar o ficheiro, é necessário ligar esta página a um servidor.';$('proofMsg').classList.remove('hidden');$('proof').value=''});
-$('logoutBtn').onclick=()=>{current=null;$('studentView').classList.add('hidden');$('loginView').classList.remove('hidden');$('loginForm').reset();switchTab('portal')};
-</script>
+
+  <!-- 3.1 Cabeçalho & Marca -->
+  <header class="wrap top">
+    <a href="#" class="brand-link" aria-label="Zedecks Training">
+      <img 
+        src="assets/img/ztrining-logo.png" 
+        alt="ZEDECKS TRAINING" 
+        class="logo-img" 
+        onerror="this.style.display='none'; document.getElementById('brandFallback').style.display='block';"
+      >
+      <div id="brandFallback" class="brand-fallback" style="display:none">
+        ZEDECKS <span>TRAINING</span>
+      </div>
+    </a>
+    <div class="tag">INSCRIÇÕES ABERTAS · 15/10 A 25/10</div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- 3.2 Hero Principal com Impacto Humano -->
+    <section class="hero" aria-label="Apresentação do Curso">
+      <div>
+        <div class="eyebrow">Formação Prática · Online & Presencial</div>
+        <h1>PROGRAMAÇÃO<br>ASSISTIDA POR <em>IA</em></h1>
+        <p class="sub">
+          <strong>Do zero ao júnior em qualquer linguagem.</strong> Domina a programação tradicional com o poder da Inteligência Artificial — raciocínio lógico, engenharia de software e projectos reais, sem ficar dependente de simples Vibe Coding.
+        </p>
+        
+        <div class="chips">
+          <span class="chip">Agnóstico a Linguagens</span>
+          <span class="chip">Lógica & Fundamentos Sólidos</span>
+          <span class="chip">IA como Co-Piloto Técnico</span>
+          <span class="chip">Arquitectura & Clean Code</span>
+          <span class="chip">Projectos do Mundo Real</span>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#inscricao" class="hero-cta" id="heroCtaBtn">GARANTIR MINHA VAGA →</a>
+          <a href="#planos" class="hero-subcta">Ver modalidades e preços ↓</a>
+        </div>
+      </div>
+
+      <div class="hero-media">
+        <div class="photo-frame">
+          <img 
+            src="assets/img/hero-programmer.png" 
+            alt="Programador com código na tela do computador trabalhando com IA" 
+            class="hero-img"
+          >
+          <div class="floating-badge badge-top">
+            <span class="badge-dot"></span>
+            <span>Lógica & Arquitectura Real</span>
+          </div>
+          <div class="floating-badge badge-bottom">
+            <span class="badge-dot gold"></span>
+            <span>IA como Co-Piloto Técnico</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3.3 Tabela de Preços & Comparativo de Modalidades -->
+    <section class="pricing-section" id="planos" aria-label="Modalidades e Preços">
+      <div class="section-header">
+        <span class="story-pill">Investimento no Teu Futuro</span>
+        <h2>Escolhe a tua modalidade</h2>
+        <p>Ambas as modalidades incluem certificação, acesso directo aos instrutores e construção de projectos para o teu portfólio.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Card: Online -->
+        <div class="price-card">
+          <div>
+            <div class="price-card-header">
+              <h3>Curso Online</h3>
+              <div class="desc">Ideal para quem quer aprender à distância com flexibilidade total.</div>
+            </div>
+            <div class="price-val">4.000 <span>MT</span></div>
+            <ul class="feature-list">
+              <li>Aulas práticas interactivas e gravadas</li>
+              <li>Acesso total à comunidade de alunos</li>
+              <li>Acompanhamento de dúvidas em tempo real</li>
+              <li>Feedback de código linha por linha</li>
+              <li>Certificado oficial Zedecks Training</li>
+            </ul>
+          </div>
+          <button class="btn-select" type="button" data-mode="online">SELECCIONAR ONLINE →</button>
+        </div>
+
+        <!-- Card: Presencial (Destaque) -->
+        <div class="price-card featured">
+          <div class="card-pill">Mais Recomendado</div>
+          <div>
+            <div class="price-card-header">
+              <h3>Curso Presencial</h3>
+              <div class="desc">Imersão completa com mentoria lado a lado em sala de aula.</div>
+            </div>
+            <div class="price-val gold">5.000 <span>MT</span></div>
+            <ul class="feature-list">
+              <li>Tudo do curso Online incluído</li>
+              <li>Aulas presenciais com mentoria directa</li>
+              <li>Networking exclusivo com desenvolvedores locais</li>
+              <li>Resolução prática de problemas na tua máquina</li>
+              <li>Vagas estritamente limitadas para garantir qualidade</li>
+            </ul>
+          </div>
+          <button class="btn-select" type="button" data-mode="presencial">SELECCIONAR PRESENCIAL →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3.4 Metodologia & Para Quem É (Narrativa Humana) -->
+    <section class="story-section" aria-label="Metodologia e Público-Alvo">
+      <!-- Bloco 1: Metodologia -->
+      <div class="story-block">
+        <div class="story-text">
+          <span class="story-pill">O Nosso Método</span>
+          <h3>Aprende a pensar como um Engenheiro, não apenas a colar prompts</h3>
+          <p>
+            A inteligência artificial transformou o desenvolvimento, mas ferramentas de IA sem base sólida produzem código frágil e erros que tu não saberás resolver.
+          </p>
+          <p>
+            No <strong>Zedecks Training</strong>, ensinamos-te os conceitos fundamentais: raciocínio algorítmico, modularidade, segurança e leitura de erros em qualquer linguagem. A IA torna-se o teu acelerador de produtividade, e tu manténs o controlo total do projecto.
+          </p>
+          <div class="story-badges">
+            <div class="story-badge-item">
+              <span class="icon">⚡</span>
+              <span>Aprende a arquitetar sistemas antes de pedir código à IA</span>
+            </div>
+            <div class="story-badge-item">
+              <span class="icon">🔍</span>
+              <span>Domina técnicas de debugging e auditoria de código gerado</span>
+            </div>
+          </div>
+        </div>
+        <div class="story-img-wrapper">
+          <img 
+            src="assets/img/methodology-focus.png" 
+            alt="Desenvolvedor focado em lógica e arquitectura de sistemas" 
+            class="story-img"
+          >
+        </div>
+      </div>
+
+      <!-- Bloco 2: Para Quem É -->
+      <div class="story-block reversed">
+        <div class="story-text">
+          <span class="story-pill">Público-Alvo</span>
+          <h3>Do Zero Absoluto ao Júnior Preparado para o Mercado</h3>
+          <p>
+            Não precisas de formação em informática prévia. Construímos a tua curva de aprendizagem passo a passo, desde como um computador pensa até ao deploy de aplicações completas no mundo real.
+          </p>
+          <p>
+            Ao final do curso, terás projectos funcionais no teu repositório, domínio do terminal e ferramentas de IA (Copilot, ChatGPT, Claude, Cursor) aplicadas com rigor técnico.
+          </p>
+          <div class="story-badges">
+            <div class="story-badge-item">
+              <span class="icon">🚀</span>
+              <span>Iniciantes que querem a transição de carreira mais rápida</span>
+            </div>
+            <div class="story-badge-item">
+              <span class="icon">💼</span>
+              <span>Profissionais que precisam automatizar rotinas e criar produtos</span>
+            </div>
+          </div>
+        </div>
+        <div class="story-img-wrapper">
+          <img 
+            src="assets/img/audience-macbook.png" 
+            alt="Aluna utilizando portátil para construir aplicações funcionais" 
+            class="story-img"
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- 3.5 Abas de Navegação (Inscrição vs Portal do Aluno) -->
+    <div id="inscricao">
+      <div class="tabs" role="tablist">
+        <button class="tab active" id="tabRegister" type="button" role="tab" aria-selected="true">Fazer inscrição</button>
+        <button class="tab" id="tabPortal" type="button" role="tab" aria-selected="false">Área do aluno</button>
+      </div>
+
+      <!-- 3.6 Painel de Inscrição -->
+      <section class="card" id="registerPanel" role="tabpanel" aria-labelledby="tabRegister">
+        <h2>Reserva a tua vaga</h2>
+        <p class="muted">Preenche os teus dados abaixo. As vagas presenciais são limitadas.</p>
+        
+        <form id="registerForm">
+          <div class="grid">
+            <div class="field full">
+              <label for="name">Nome completo *</label>
+              <input id="name" name="name" autocomplete="name" required placeholder="O teu nome e apelido">
+            </div>
+            <div class="field">
+              <label for="phone">Número de telefone / WhatsApp *</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="Ex.: 84 123 4567" minlength="9">
+            </div>
+            <div class="field">
+              <label for="mode">Modalidade *</label>
+              <select id="mode" name="mode" required>
+                <option value="">Escolhe uma opção</option>
+                <option value="online">Online — 4.000 MT</option>
+                <option value="presencial">Presencial — 5.000 MT</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="alert">
+            Após submeteres a inscrição, receberás o teu código de aluno e poderás acompanhar o pagamento directamente na Área do Aluno.
+          </div>
+          
+          <button class="btn" type="submit">CONTINUAR PARA PAGAMENTO →</button>
+        </form>
+      </section>
+
+      <!-- 3.7 Painel da Área do Aluno -->
+      <section class="card hidden" id="portalPanel" role="tabpanel" aria-labelledby="tabPortal">
+        <!-- Vista de Login -->
+        <div id="loginView">
+          <h2>Área do aluno</h2>
+          <p class="muted">Entra com o teu código de inscrição ou telefone para acompanhar o estado.</p>
+          <form id="loginForm">
+            <div class="grid">
+              <div class="field">
+                <label for="loginUser">Código de inscrição ou Telefone</label>
+                <input id="loginUser" required placeholder="Ex.: IA-ABC123 ou 841234567">
+              </div>
+              <div class="field">
+                <label for="loginPass">Senha</label>
+                <input id="loginPass" required type="password" placeholder="A tua senha">
+              </div>
+            </div>
+            <button class="btn" type="submit">CONSULTAR INSCRIÇÃO</button>
+          </form>
+          <p class="muted" style="margin-top:16px">
+            Dúvidas sobre o teu acesso? Fala directamente connosco pelo WhatsApp: 
+            <a class="contact" href="https://wa.me/258847703309" target="_blank" rel="noopener">84 770 3309</a>.
+          </p>
+        </div>
+
+        <!-- Vista do Aluno Logado -->
+        <div id="studentView" class="hidden">
+          <h2>Resumo da inscrição</h2>
+          <p class="muted">Guarda o teu código de inscrição e a senha para consultas futuras.</p>
+          
+          <div class="summary">
+            <div class="stat"><small>Inscrito</small><strong id="sName"></strong></div>
+            <div class="stat"><small>Modalidade</small><strong id="sMode"></strong></div>
+            <div class="stat"><small>Valor a pagar</small><strong id="sAmount"></strong></div>
+          </div>
+          
+          <p>Estado actual: <span class="status" id="sStatus">A aguardar pagamento</span></p>
+          
+          <div class="alert">
+            <strong>Detalhes de Pagamento</strong>
+            <p id="paymentDetails">Os dados de pagamento oficiais serão fornecidos pela organização.</p>
+            <p class="notice" style="color:var(--muted);font-size:.85rem;margin-top:8px">
+              Nota de Segurança: Confirma sempre os dados com o WhatsApp oficial da Zedecks Training (+258 84 770 3309).
+            </p>
+          </div>
+
+          <form id="proofForm">
+            <div class="field">
+              <label for="proof">Carregar comprovativo (JPG, PNG ou PDF)</label>
+              <input id="proof" type="file" accept=".jpg,.jpeg,.png,.pdf" required>
+              <small class="muted">Versão demonstrativa: o ficheiro é registado localmente no teu navegador.</small>
+            </div>
+            <button class="btn" type="submit">REGISTAR COMPROVATIVO</button>
+          </form>
+
+          <button class="btn secondary" id="logoutBtn" type="button" style="margin-top:14px">Terminar sessão</button>
+          <div class="alert hidden" id="proofMsg"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 3.8 Rodapé Oficial -->
+    <footer class="footer">
+      Dúvidas e suporte oficial: <a class="contact" href="https://wa.me/258847703309" target="_blank" rel="noopener">WhatsApp +258 84 770 3309</a><br>
+      <strong>ZEDECKS TRAINING</strong> · Programação Assistida por IA · Do Zero ao Júnior
+    </footer>
+
+  </main>
+
+  <!-- ==========================================================================
+    [SEÇÃO 4] LÓGICA DA APLICAÇÃO (VANILLA JAVASCRIPT)
+  ========================================================================== -->
+  <script>
+    /**
+     * Módulo de Gestão de Inscrições — Zedecks Training
+     * Princípios Clean Code: SRP (Responsabilidade Única), Nomes Intencionais, Funções Curtas.
+     */
+    (() => {
+      'use strict';
+
+      // 4.1 CONSTANTES E CONFIGURAÇÃO
+      const STORAGE_KEY = 'zedecks_course_demo_v1';
+      const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
+      const VALID_EXTENSIONS_REGEX = /\.(jpg|jpeg|png|pdf)$/i;
+
+      const COURSE_PRICES = {
+        online: 4000,
+        presencial: 5000
+      };
+
+      // Estado em memória da sessão atual
+      let activeStudentSession = null;
+
+      // 4.2 UTILITÁRIOS DE DOM E FORMATAÇÃO
+      const getElement = (id) => document.getElementById(id);
+      const formatCurrency = (value) => new Intl.NumberFormat('pt-MZ').format(value) + ' MT';
+
+      // 4.3 REPOSITÓRIO LOCAL (LOCALSTORAGE)
+      const StorageRepository = {
+        getAllStudents() {
+          try {
+            return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+          } catch (error) {
+            console.error('Falha ao aceder ao LocalStorage:', error);
+            return [];
+          }
+        },
+
+        saveAllStudents(studentsList) {
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(studentsList));
+          } catch (error) {
+            console.error('Falha ao salvar no LocalStorage:', error);
+          }
+        },
+
+        addStudent(student) {
+          const students = this.getAllStudents();
+          students.push(student);
+          this.saveAllStudents(students);
+        },
+
+        updateStudentProof(code, proofFileName) {
+          const students = this.getAllStudents();
+          const targetIndex = students.findIndex((item) => item.code === code);
+          
+          if (targetIndex >= 0) {
+            students[targetIndex].proofName = proofFileName;
+            students[targetIndex].status = 'Comprovativo registado';
+            this.saveAllStudents(students);
+            return students[targetIndex];
+          }
+          return null;
+        },
+
+        findStudentByCredentials(credential, password) {
+          const cleanCredential = credential.trim().toUpperCase();
+          const students = this.getAllStudents();
+
+          return students.find((student) => {
+            const matchesCode = student.code.toUpperCase() === cleanCredential;
+            const matchesPhone = student.phone === cleanCredential;
+            const matchesPass = student.password === password;
+            return (matchesCode || matchesPhone) && matchesPass;
+          }) || null;
+        }
+      };
+
+      // 4.4 GERADORES DE CREDENCIAIS
+      const CredentialGenerator = {
+        generateStudentCode() {
+          const randomPart = Math.random().toString(36).slice(2, 8).toUpperCase();
+          return `IA-${randomPart}`;
+        },
+
+        generateInitialPassword() {
+          const letterPart = Math.random().toString(36).slice(2, 6).toUpperCase();
+          const numberPart = Math.floor(10 + Math.random() * 90);
+          return `${letterPart}${numberPart}`;
+        }
+      };
+
+      // 4.5 CONTROLADOR DE NAVEGAÇÃO E ABAS
+      const TabNavigator = {
+        switchTo(tabName) {
+          const isRegisterTab = tabName === 'register';
+
+          // Painéis
+          getElement('registerPanel').classList.toggle('hidden', !isRegisterTab);
+          getElement('portalPanel').classList.toggle('hidden', isRegisterTab);
+
+          // Botões de Abas
+          getElement('tabRegister').classList.toggle('active', isRegisterTab);
+          getElement('tabRegister').setAttribute('aria-selected', isRegisterTab ? 'true' : 'false');
+          getElement('tabPortal').classList.toggle('active', !isRegisterTab);
+          getElement('tabPortal').setAttribute('aria-selected', !isRegisterTab ? 'true' : 'false');
+        },
+
+        selectModeAndScroll(mode) {
+          this.switchTo('register');
+          getElement('mode').value = mode;
+          getElement('name').focus();
+
+          const targetSection = getElement('inscricao');
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      };
+
+      // 4.6 RENDERIZAÇÃO DA ÁREA DO ALUNO
+      const StudentViewRenderer = {
+        render(student) {
+          getElement('sName').textContent = student.name;
+          getElement('sMode').textContent = student.mode === 'online' ? 'Online' : 'Presencial';
+          getElement('sAmount').textContent = formatCurrency(student.amount);
+          getElement('sStatus').textContent = student.status;
+          getElement('sStatus').classList.toggle('ok', student.status === 'Comprovativo registado');
+
+          getElement('paymentDetails').textContent = 
+            `Contacta a organização pelo WhatsApp 84 770 3309 para receber os dados oficiais de pagamento. Referência da tua inscrição: ${student.code}.`;
+          
+          getElement('proofMsg').classList.add('hidden');
+        },
+
+        showDashboard(student) {
+          activeStudentSession = student;
+          getElement('loginView').classList.add('hidden');
+          getElement('studentView').classList.remove('hidden');
+          this.render(student);
+        },
+
+        showLogin() {
+          activeStudentSession = null;
+          getElement('studentView').classList.add('hidden');
+          getElement('loginView').classList.remove('hidden');
+          getElement('loginForm').reset();
+        }
+      };
+
+      // 4.7 HANDLERS DE FORMULÁRIO (CLEAN CODE)
+      const FormHandlers = {
+        handleRegistration(event) {
+          event.preventDefault();
+
+          const name = getElement('name').value.trim();
+          const phone = getElement('phone').value.trim();
+          const mode = getElement('mode').value;
+
+          if (!name || !phone || !mode) {
+            alert('Por favor, preenche todos os campos obrigatórios.');
+            return;
+          }
+
+          const newStudent = {
+            name,
+            phone,
+            mode,
+            amount: COURSE_PRICES[mode] || 0,
+            code: CredentialGenerator.generateStudentCode(),
+            password: CredentialGenerator.generateInitialPassword(),
+            status: 'A aguardar pagamento',
+            proofName: '',
+            createdAt: new Date().toISOString()
+          };
+
+          StorageRepository.addStudent(newStudent);
+          TabNavigator.switchTo('portal');
+          StudentViewRenderer.showDashboard(newStudent);
+
+          alert(
+            `Inscrição criada com sucesso!\n\nCódigo do Aluno: ${newStudent.code}\nSenha de Acesso: ${newStudent.password}\n\nGuarda estes dados para consultar o estado na Área do Aluno.`
+          );
+        },
+
+        handleLogin(event) {
+          event.preventDefault();
+
+          const credential = getElement('loginUser').value;
+          const password = getElement('loginPass').value.trim();
+
+          const student = StorageRepository.findStudentByCredentials(credential, password);
+
+          if (!student) {
+            alert('Dados não encontrados neste dispositivo. Confirma o código/telefone e a senha digitada.');
+            return;
+          }
+
+          StudentViewRenderer.showDashboard(student);
+        },
+
+        handleProofUpload(event) {
+          event.preventDefault();
+
+          if (!activeStudentSession) {
+            alert('Nenhuma sessão de aluno ativa.');
+            return;
+          }
+
+          const fileInput = getElement('proof');
+          const file = fileInput.files[0];
+
+          if (!file) {
+            alert('Por favor, selecciona um ficheiro de comprovativo.');
+            return;
+          }
+
+          if (file.size > MAX_FILE_SIZE_BYTES) {
+            alert('O ficheiro ultrapassa o limite máximo permitido de 5 MB.');
+            return;
+          }
+
+          if (!VALID_EXTENSIONS_REGEX.test(file.name)) {
+            alert('Formato de ficheiro inválido. Envia um ficheiro JPG, PNG ou PDF.');
+            return;
+          }
+
+          const updatedStudent = StorageRepository.updateStudentProof(activeStudentSession.code, file.name);
+
+          if (updatedStudent) {
+            activeStudentSession = updatedStudent;
+            StudentViewRenderer.render(updatedStudent);
+
+            const proofMsgEl = getElement('proofMsg');
+            proofMsgEl.textContent = `Comprovativo registado com sucesso (${file.name}). A equipa da Zedecks Training validará os dados.`;
+            proofMsgEl.classList.remove('hidden');
+            fileInput.value = '';
+          }
+        },
+
+        handleLogout() {
+          StudentViewRenderer.showLogin();
+          TabNavigator.switchTo('portal');
+        }
+      };
+
+      // 4.8 INICIALIZAÇÃO E BINDINGS DE EVENTOS
+      const initApp = () => {
+        // Abas
+        getElement('tabRegister').addEventListener('click', () => TabNavigator.switchTo('register'));
+        getElement('tabPortal').addEventListener('click', () => TabNavigator.switchTo('portal'));
+
+        // Botões de CTA & Seleção de Modalidade
+        getElement('heroCtaBtn').addEventListener('click', () => TabNavigator.switchTo('register'));
+
+        document.querySelectorAll('button[data-mode]').forEach((button) => {
+          button.addEventListener('click', (e) => {
+            const selectedMode = e.currentTarget.getAttribute('data-mode');
+            TabNavigator.selectModeAndScroll(selectedMode);
+          });
+        });
+
+        // Formulários
+        getElement('registerForm').addEventListener('submit', FormHandlers.handleRegistration);
+        getElement('loginForm').addEventListener('submit', FormHandlers.handleLogin);
+        getElement('proofForm').addEventListener('submit', FormHandlers.handleProofUpload);
+        getElement('logoutBtn').addEventListener('click', FormHandlers.handleLogout);
+      };
+
+      // Execução no carregamento da DOM
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initApp);
+      } else {
+        initApp();
+      }
+    })();
+  </script>
 </body>
 </html>
