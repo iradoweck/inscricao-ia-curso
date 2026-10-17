@@ -655,6 +655,32 @@
     label {
       font-weight: 700;
       font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .field-hint {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: normal;
+    }
+
+    .field-error {
+      color: #ff6b6b;
+      font-size: 0.82rem;
+      margin-top: 2px;
+      display: none;
+    }
+
+    .field.has-error input,
+    .field.has-error select {
+      border-color: #ff6b6b !important;
+      box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2) !important;
+    }
+
+    .field.has-error .field-error {
+      display: block;
     }
 
     input, select {
@@ -674,6 +700,35 @@
       box-shadow: 0 0 0 3px rgba(0, 183, 255, 0.2);
     }
 
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-wrapper input {
+      padding-right: 120px;
+    }
+
+    .input-action-btn {
+      position: absolute;
+      right: 8px;
+      background: rgba(0, 183, 255, 0.12);
+      border: 1px solid rgba(0, 183, 255, 0.35);
+      color: var(--blue);
+      border-radius: var(--radius-sm);
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .input-action-btn:hover {
+      background: var(--blue);
+      color: #04101e;
+    }
+
     input[type="file"] {
       padding: 11px;
     }
@@ -691,6 +746,11 @@
       margin-top: 22px;
       font-size: 1rem;
       transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
     }
 
     .btn:hover {
@@ -702,6 +762,35 @@
       background: #17334c;
       color: var(--text);
       border: 1px solid #29445c;
+      margin-top: 12px;
+    }
+
+    .btn.secondary:hover {
+      background: #204566;
+    }
+
+    .btn.success {
+      background: #28d69a;
+      color: #02261b;
+    }
+
+    .btn.success:hover {
+      background: #39e6aa;
+    }
+
+    .btn.accent {
+      background: #ffb21c;
+      color: #2e1c00;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .btn-row .btn {
+      margin-top: 0;
     }
 
     .hidden {
@@ -709,11 +798,94 @@
     }
 
     /* ------------------------------------------------------------------------
-       2.8 ÁREA DO ALUNO & STATUS
+       2.8 BARRA DE PROGRESSO EM ETAPAS (STEPPER)
+    ------------------------------------------------------------------------ */
+    .stepper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      margin: 28px 0 32px;
+      padding: 0 10px;
+    }
+
+    .stepper-track {
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      right: 30px;
+      height: 4px;
+      background: #17334c;
+      z-index: 1;
+    }
+
+    .stepper-bar {
+      height: 100%;
+      width: 25%;
+      background: linear-gradient(90deg, var(--blue), var(--green));
+      transition: width 0.4s ease;
+    }
+
+    .step-node {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 80px;
+    }
+
+    .step-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #091a2c;
+      border: 2px solid #244b6e;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .step-label {
+      margin-top: 8px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--muted);
+      line-height: 1.25;
+    }
+
+    .step-node.completed .step-circle {
+      background: #064030;
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .step-node.completed .step-label {
+      color: var(--green);
+    }
+
+    .step-node.active .step-circle {
+      background: #002c4b;
+      border-color: var(--blue);
+      color: #fff;
+      box-shadow: 0 0 14px var(--blue-glow);
+    }
+
+    .step-node.active .step-label {
+      color: var(--blue);
+    }
+
+    /* ------------------------------------------------------------------------
+       2.9 CARDS DE PAGAMENTO & ÁREA DO ALUNO
     ------------------------------------------------------------------------ */
     .summary {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 12px;
       margin: 20px 0;
     }
@@ -728,11 +900,27 @@
     .stat small {
       display: block;
       color: var(--muted);
+      font-size: 0.78rem;
     }
 
     .stat strong {
       font-size: 1.05rem;
       overflow-wrap: anywhere;
+    }
+
+    .student-badge-id {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 183, 255, 0.12);
+      border: 1px dashed var(--blue);
+      color: var(--blue);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      font-family: monospace;
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
     }
 
     .status {
@@ -745,9 +933,92 @@
       font-weight: 800;
     }
 
+    .status.review {
+      background: #0b3459;
+      color: #79c5ff;
+    }
+
     .status.ok {
       background: #073b30;
       color: #65f2c0;
+    }
+
+    .payment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin: 18px 0;
+    }
+
+    .pay-card {
+      background: #061322;
+      border: 1px solid #1a3955;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      position: relative;
+      transition: border-color var(--transition-fast);
+    }
+
+    .pay-card:hover {
+      border-color: rgba(0, 183, 255, 0.5);
+    }
+
+    .pay-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .pay-title {
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pay-tag {
+      font-size: 0.72rem;
+      background: #12283e;
+      color: var(--blue);
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+    }
+
+    .pay-number {
+      font-family: monospace;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 6px 0;
+      word-break: break-all;
+    }
+
+    .pay-holder {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .copy-chip {
+      background: #17334c;
+      border: 0;
+      color: var(--text);
+      border-radius: var(--radius-sm);
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+    }
+
+    .copy-chip:hover {
+      background: var(--blue);
+      color: #031221;
     }
 
     .alert {
@@ -758,6 +1029,456 @@
       color: #cfeaff;
       margin-top: 16px;
       font-size: 0.92rem;
+    }
+
+    .alert.warning {
+      background: #2b1f09;
+      border-color: #6d4e17;
+      color: #ffe6b0;
+    }
+
+    .alert.success {
+      background: #072a22;
+      border-color: #176d54;
+      color: #bbf7e1;
+    }
+
+    .course-updates-box {
+      margin-top: 24px;
+      background: linear-gradient(180deg, #0a1f33 0%, #061524 100%);
+      border: 1px solid #1a3f61;
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+
+    .course-updates-box h3 {
+      margin: 0 0 10px;
+      font-size: 1.15rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .update-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .update-item:last-child {
+      border-bottom: 0;
+    }
+
+    /* ------------------------------------------------------------------------
+       2.10 TEMPLATE EXECUTIVO DA FACTURA & RECIBO A4 OFICIAL (PRINT ONLY)
+    ------------------------------------------------------------------------ */
+    #invoicePrintContainer {
+      display: none !important;
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm;
+    }
+
+    @media print {
+      html, body {
+        background: #ffffff !important;
+        color: #1a2530 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+      }
+
+      /* Oculta toda a aplicação web e navegação */
+      header,
+      main,
+      footer,
+      .wrap,
+      .top,
+      .footer,
+      .inv-modal-overlay,
+      .inv-modal-container,
+      .inv-modal-toolbar {
+        display: none !important;
+        visibility: hidden !important;
+      }
+
+      /* Exibe com fidelidade corporativa máxima apenas a Factura / Recibo */
+      #invoicePrintContainer {
+        display: block !important;
+        visibility: visible !important;
+        position: static !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+        color: #1a2530 !important;
+        font-size: 11px !important;
+        line-height: 1.35 !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      #invoicePrintContainer * {
+        visibility: visible !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .inv-top-bar {
+        height: 4px !important;
+        background: linear-gradient(90deg, #0b2545 0%, #00b7ff 50%, #ffb21c 100%) !important;
+        margin-bottom: 12px !important;
+        border-radius: 2px !important;
+      }
+
+      .inv-header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: flex-start !important;
+        border-bottom: 2px solid #0b2545 !important;
+        padding-bottom: 10px !important;
+        margin-bottom: 12px !important;
+        gap: 16px !important;
+      }
+
+      .inv-brand-wrapper {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+      }
+
+      .inv-logo {
+        height: 46px !important;
+        max-width: 160px !important;
+        object-fit: contain !important;
+      }
+
+      .inv-brand-text h1 {
+        margin: 0 !important;
+        font-size: 18px !important;
+        color: #0b2545 !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.5px !important;
+      }
+
+      .inv-brand-sub {
+        margin: 2px 0 0 !important;
+        color: #475569 !important;
+        font-size: 10px !important;
+        font-weight: 600 !important;
+      }
+
+      .inv-brand-contact {
+        margin: 2px 0 0 !important;
+        color: #64748b !important;
+        font-size: 9.5px !important;
+      }
+
+      .inv-doc-card {
+        background: #0b2545 !important;
+        color: #ffffff !important;
+        border-radius: 6px !important;
+        padding: 8px 14px !important;
+        min-width: 220px !important;
+        text-align: right !important;
+      }
+
+      .inv-doc-badge {
+        font-size: 12.5px !important;
+        font-weight: 800 !important;
+        color: #00b7ff !important;
+        letter-spacing: 0.8px !important;
+        margin-bottom: 5px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.18) !important;
+        padding-bottom: 3px !important;
+        text-transform: uppercase !important;
+      }
+
+      .inv-info-row {
+        display: flex !important;
+        justify-content: space-between !important;
+        font-size: 10px !important;
+        margin-top: 2px !important;
+        color: #e2e8f0 !important;
+      }
+
+      .inv-info-row strong {
+        color: #ffffff !important;
+        font-weight: 700 !important;
+      }
+
+      .inv-grid-modern {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12px !important;
+        margin-bottom: 12px !important;
+      }
+
+      .inv-card {
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 6px !important;
+        background: #f8fafc !important;
+        overflow: hidden !important;
+      }
+
+      .inv-card-header {
+        background: #e2e8f0 !important;
+        color: #0b2545 !important;
+        padding: 5px 10px !important;
+        font-size: 10px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        border-bottom: 1px solid #cbd5e1 !important;
+      }
+
+      .inv-card-body {
+        padding: 8px 10px !important;
+      }
+
+      .inv-student-name,
+      .inv-course-name {
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        color: #0b2545 !important;
+        margin-bottom: 3px !important;
+      }
+
+      .inv-detail-row {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        font-size: 10px !important;
+        margin-top: 3px !important;
+        color: #334155 !important;
+      }
+
+      .inv-detail-row .lbl {
+        color: #64748b !important;
+        font-weight: 600 !important;
+      }
+
+      .inv-id-chip {
+        background: #0b2545 !important;
+        color: #ffffff !important;
+        font-family: monospace !important;
+        font-weight: 700 !important;
+        padding: 1px 6px !important;
+        border-radius: 3px !important;
+        font-size: 10.5px !important;
+      }
+
+      .inv-status-chip {
+        background: #fef3c7 !important;
+        color: #92400e !important;
+        border: 1px solid #fde68a !important;
+        font-weight: 700 !important;
+        font-size: 9.5px !important;
+        padding: 1px 6px !important;
+        border-radius: 3px !important;
+        text-transform: uppercase !important;
+      }
+
+      .inv-table-modern {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        margin-bottom: 12px !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 6px !important;
+        overflow: hidden !important;
+      }
+
+      .inv-table-modern th {
+        background: #0b2545 !important;
+        color: #ffffff !important;
+        text-align: left !important;
+        padding: 6px 10px !important;
+        font-size: 10px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+      }
+
+      .inv-table-modern td {
+        border-bottom: 1px solid #e2e8f0 !important;
+        padding: 7px 10px !important;
+        font-size: 10.5px !important;
+        color: #1e293b !important;
+        vertical-align: middle !important;
+      }
+
+      .inv-item-title {
+        font-weight: 700 !important;
+        color: #0b2545 !important;
+        font-size: 11px !important;
+      }
+
+      .inv-item-desc {
+        color: #64748b !important;
+        font-size: 9.5px !important;
+        margin-top: 2px !important;
+        line-height: 1.3 !important;
+      }
+
+      .inv-mode-pill {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        font-weight: 700 !important;
+        font-size: 10px !important;
+        padding: 2px 8px !important;
+        border-radius: 12px !important;
+        display: inline-block !important;
+      }
+
+      .inv-total-row td {
+        background: #f1f5f9 !important;
+        border-top: 2px solid #0b2545 !important;
+        border-bottom: none !important;
+        font-weight: 800 !important;
+        font-size: 12px !important;
+        color: #0b2545 !important;
+        padding: 8px 10px !important;
+      }
+
+      .inv-pay-section {
+        background: #f8fafc !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 6px !important;
+        padding: 9px 10px !important;
+        margin-bottom: 10px !important;
+      }
+
+      .inv-pay-title {
+        font-size: 10px !important;
+        font-weight: 800 !important;
+        color: #0b2545 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        margin-bottom: 6px !important;
+        border-bottom: 1px solid #e2e8f0 !important;
+        padding-bottom: 3px !important;
+      }
+
+      .inv-pay-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr 1.2fr !important;
+        gap: 8px !important;
+      }
+
+      .inv-pay-card {
+        background: #ffffff !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 4px !important;
+        padding: 5px 8px !important;
+      }
+
+      .inv-pay-badge {
+        font-size: 9px !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        margin-bottom: 2px !important;
+      }
+      .inv-pay-badge.mpesa { color: #e11d48 !important; }
+      .inv-pay-badge.emola { color: #ea580c !important; }
+      .inv-pay-badge.bim   { color: #0284c7 !important; }
+
+      .inv-pay-num {
+        font-size: 10.5px !important;
+        font-weight: 700 !important;
+        color: #0f172a !important;
+        margin-bottom: 1px !important;
+      }
+
+      .inv-pay-holder {
+        font-size: 8.5px !important;
+        color: #64748b !important;
+      }
+
+      .inv-ref-alert {
+        background: #fffbeb !important;
+        border: 1px solid #fef3c7 !important;
+        border-left: 3px solid #d97706 !important;
+        border-radius: 4px !important;
+        padding: 5px 8px !important;
+        margin-top: 6px !important;
+        font-size: 9px !important;
+        color: #92400e !important;
+        line-height: 1.3 !important;
+      }
+
+      .inv-stamp-modern {
+        display: inline-block !important;
+        border: 2px dashed #059669 !important;
+        padding: 2px !important;
+        border-radius: 6px !important;
+        background: #ecfdf5 !important;
+        transform: rotate(-1.5deg) !important;
+      }
+
+      .inv-stamp-inner {
+        border: 1px solid #059669 !important;
+        padding: 3px 12px !important;
+        border-radius: 4px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+
+      .inv-stamp-check {
+        font-size: 13px !important;
+        color: #059669 !important;
+        font-weight: 900 !important;
+        line-height: 1 !important;
+      }
+
+      .inv-stamp-text {
+        color: #059669 !important;
+        font-weight: 900 !important;
+        font-size: 10.5px !important;
+        letter-spacing: 0.5px !important;
+        text-transform: uppercase !important;
+      }
+
+      .inv-stamp-sub {
+        color: #047857 !important;
+        font-size: 8px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.3px !important;
+      }
+
+      .inv-footer-modern {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: flex-end !important;
+        border-top: 1px solid #cbd5e1 !important;
+        padding-top: 6px !important;
+        margin-top: 6px !important;
+        font-size: 8.5px !important;
+        color: #64748b !important;
+      }
+
+      .inv-footer-left {
+        max-width: 65% !important;
+        line-height: 1.3 !important;
+      }
+
+      .inv-footer-right {
+        text-align: right !important;
+        font-weight: 600 !important;
+        color: #0b2545 !important;
+      }
     }
 
     /* ------------------------------------------------------------------------
@@ -1032,33 +1753,104 @@
       <!-- 3.6 Painel de Inscrição -->
       <section class="card" id="registerPanel" role="tabpanel" aria-labelledby="tabRegister">
         <h2>Reserva a tua vaga</h2>
-        <p class="muted">Preenche os teus dados abaixo. As vagas presenciais são limitadas.</p>
+        <p class="muted">Preenche os teus dados abaixo para gerar a tua factura pró-forma e o teu ID de estudante.</p>
         
-        <form id="registerForm">
+        <form id="registerForm" novalidate>
           <div class="grid">
-            <div class="field full">
+            <!-- Campo Nome Completo -->
+            <div class="field full" id="fieldNameWrapper">
               <label for="name">Nome completo *</label>
-              <input id="name" name="name" autocomplete="name" required placeholder="O teu nome e apelido">
+              <input 
+                id="name" 
+                name="name" 
+                autocomplete="name" 
+                required 
+                maxlength="52" 
+                placeholder="O teu nome e apelido"
+              >
+              <div class="field-error" id="nameError">Por favor, insere o nome sem números/símbolos e apenas um espaço entre os nomes.</div>
             </div>
-            <div class="field">
-              <label for="phone">Número de telefone / WhatsApp *</label>
-              <input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="Ex.: 84 123 4567" minlength="9">
+
+            <!-- Campo Telefone / WhatsApp -->
+            <div class="field" id="fieldPhoneWrapper">
+              <label for="phone">WhatsApp / Telefone *</label>
+              <input 
+                id="phone" 
+                name="phone" 
+                type="tel" 
+                autocomplete="tel" 
+                required 
+                maxlength="17" 
+                placeholder="Ex.: +258 84 000 0000 ou 84 000 0000"
+              >
+              <div class="field-error" id="phoneError">Número inválido. Usa 9 dígitos ou +258 com operadores válidos (82, 83, 84, 85, 86, 87, 88).</div>
             </div>
-            <div class="field">
-              <label for="mode">Modalidade *</label>
+
+            <!-- Campo E-mail -->
+            <div class="field" id="fieldEmailWrapper">
+              <label for="email">E-mail *</label>
+              <input 
+                id="email" 
+                name="email" 
+                type="email" 
+                autocomplete="email" 
+                required 
+                placeholder="exemplo@gmail.com"
+              >
+              <div class="field-error" id="emailError">Apenas aceitamos e-mails @gmail.com. Por favor introduz uma conta válida da Google (exemplo@gmail.com).</div>
+            </div>
+
+            <!-- Campo Nível / Perfil -->
+            <div class="field" id="fieldLevelWrapper">
+              <label for="level">Perfil de entrada *</label>
+              <select id="level" name="level" required>
+                <option value="">Selecciona o teu ponto de partida</option>
+                <option value="zero">Começar do Zero Absoluto (Sem conhecimento de código)</option>
+                <option value="iniciante">Iniciante (Já estou a dar os primeiros passos)</option>
+                <option value="conciliar">Programador Tradicional (Quero conciliar Tradição com IA)</option>
+              </select>
+              <div class="field-error" id="levelError">Por favor, selecciona o teu nível de entrada.</div>
+            </div>
+
+            <!-- Campo Modalidade -->
+            <div class="field" id="fieldModeWrapper">
+              <label for="mode">Modalidade de Ensino *</label>
               <select id="mode" name="mode" required>
                 <option value="">Escolhe uma opção</option>
-                <option value="online">Online — 4.000 MT</option>
-                <option value="presencial">Presencial — 5.000 MT</option>
+                <option value="online">Online ao Vivo — 4.000 MT</option>
+                <option value="presencial">Presencial (Nampula) — 5.000 MT</option>
               </select>
+              <div class="field-error" id="modeError">Por favor, escolhe a modalidade pretendida.</div>
+            </div>
+
+            <!-- Campo Senha de Acesso -->
+            <div class="field full" id="fieldPasswordWrapper">
+              <label for="password">Senha de Acesso à Área do Aluno *</label>
+              <div class="input-wrapper">
+                <input 
+                  id="password" 
+                  name="password" 
+                  type="text" 
+                  required 
+                  minlength="6" 
+                  placeholder="Senha para consultar a tua vaga"
+                >
+                <button type="button" class="input-action-btn" id="generatePassBtn" title="Gerar nova sugestão de senha">
+                  ⚡ Sugerir Senha
+                </button>
+              </div>
+              <div class="field-error" id="passwordError">A senha deve ter no mínimo 6 caracteres alfanuméricos (apenas letras e números).</div>
             </div>
           </div>
           
           <div class="alert">
-            Após submeteres a inscrição, receberás o teu código de aluno e poderás acompanhar o pagamento directamente na Área do Aluno.
+            ℹ️ Ao clicares em Inscrever, o sistema gerará o teu <strong>ID de Estudante Único</strong> e a tua <strong>Factura à Pagar (A4)</strong> oficial para download imediato.
           </div>
           
-          <button class="btn" type="submit">CONTINUAR PARA PAGAMENTO →</button>
+          <button class="btn" type="submit" id="submitRegisterBtn">
+            <span>CONCLUIR INSCRIÇÃO & EMITIR FACTURA</span>
+            <span>→</span>
+          </button>
         </form>
       </section>
 
@@ -1066,59 +1858,207 @@
       <section class="card hidden" id="portalPanel" role="tabpanel" aria-labelledby="tabPortal">
         <!-- Vista de Login -->
         <div id="loginView">
-          <h2>Área do aluno</h2>
-          <p class="muted">Entra com o teu código de inscrição ou telefone para acompanhar o estado.</p>
-          <form id="loginForm">
+          <h2>Acesso à Área do Aluno</h2>
+          <p class="muted">Acompanha a tua candidatura, descarrega a factura pró-forma ou submete o comprovativo.</p>
+          <form id="loginForm" novalidate>
             <div class="grid">
               <div class="field">
-                <label for="loginUser">Código de inscrição ou Telefone</label>
-                <input id="loginUser" required placeholder="Ex.: IA-ABC123 ou 841234567">
+                <label for="loginUser">Código de Inscrição (ID) ou Telefone</label>
+                <input id="loginUser" required placeholder="Ex.: IA-C7UP8X ou 841234567">
               </div>
               <div class="field">
-                <label for="loginPass">Senha</label>
-                <input id="loginPass" required type="password" placeholder="A tua senha">
+                <label for="loginPass">Senha de Acesso</label>
+                <input id="loginPass" required type="password" placeholder="A tua senha de estudante">
               </div>
             </div>
-            <button class="btn" type="submit">CONSULTAR INSCRIÇÃO</button>
+            <button class="btn" type="submit">ENTRAR NA ÁREA DO ALUNO</button>
           </form>
           <p class="muted" style="margin-top:16px">
-            Dúvidas sobre o teu acesso? Fala directamente connosco pelo WhatsApp: 
+            Esqueceste a senha ou precisas de apoio directo? Fala connosco via WhatsApp: 
             <a class="contact" href="https://wa.me/258847703309" target="_blank" rel="noopener">84 770 3309</a>.
           </p>
         </div>
 
         <!-- Vista do Aluno Logado -->
         <div id="studentView" class="hidden">
-          <h2>Resumo da inscrição</h2>
-          <p class="muted">Guarda o teu código de inscrição e a senha para consultas futuras.</p>
-          
-          <div class="summary">
-            <div class="stat"><small>Inscrito</small><strong id="sName"></strong></div>
-            <div class="stat"><small>Modalidade</small><strong id="sMode"></strong></div>
-            <div class="stat"><small>Valor a pagar</small><strong id="sAmount"></strong></div>
-          </div>
-          
-          <p>Estado actual: <span class="status" id="sStatus">A aguardar pagamento</span></p>
-          
-          <div class="alert">
-            <strong>Detalhes de Pagamento</strong>
-            <p id="paymentDetails">Os dados de pagamento oficiais serão fornecidos pela organização.</p>
-            <p class="notice" style="color:var(--muted);font-size:.85rem;margin-top:8px">
-              Nota de Segurança: Confirma sempre os dados com o WhatsApp oficial da Zedecks Training (+258 84 770 3309).
-            </p>
-          </div>
-
-          <form id="proofForm">
-            <div class="field">
-              <label for="proof">Carregar comprovativo (JPG, PNG ou PDF)</label>
-              <input id="proof" type="file" accept=".jpg,.jpeg,.png,.pdf" required>
-              <small class="muted">Versão demonstrativa: o ficheiro é registado localmente no teu navegador.</small>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <div>
+              <h2 style="margin-bottom:4px">Painel da Tua Inscrição</h2>
+              <p class="muted" style="margin:0">Acompanha o processo de confirmação da tua vaga na Zedecks Training.</p>
             </div>
-            <button class="btn" type="submit">REGISTAR COMPROVATIVO</button>
-          </form>
+            <div class="student-badge-id" id="badgeStudentId" title="O teu identificador único de estudante">
+              ID: <span id="sIdText">IA-XXXXXX</span>
+            </div>
+          </div>
 
-          <button class="btn secondary" id="logoutBtn" type="button" style="margin-top:14px">Terminar sessão</button>
-          <div class="alert hidden" id="proofMsg"></div>
+          <!-- Barra de Progresso em 4 Etapas -->
+          <div class="stepper" aria-label="Progresso da Inscrição">
+            <div class="stepper-track">
+              <div class="stepper-bar" id="stepperBar"></div>
+            </div>
+            <div class="step-node completed" id="step1Node">
+              <div class="step-circle" id="step1Circle">✓</div>
+              <div class="step-label">1. Inscrição Criada</div>
+            </div>
+            <div class="step-node active" id="step2Node">
+              <div class="step-circle" id="step2Circle">2</div>
+              <div class="step-label">2. Factura & Pagamento</div>
+            </div>
+            <div class="step-node" id="step3Node">
+              <div class="step-circle" id="step3Circle">3</div>
+              <div class="step-label">3. Comprovativo Enviado</div>
+            </div>
+            <div class="step-node" id="step4Node">
+              <div class="step-circle" id="step4Circle">4</div>
+              <div class="step-label">4. Vaga Confirmada</div>
+            </div>
+          </div>
+          
+          <!-- Resumo de Dados do Aluno -->
+          <div class="summary">
+            <div class="stat">
+              <small>Estudante</small>
+              <strong id="sName">-</strong>
+            </div>
+            <div class="stat">
+              <small>WhatsApp / Contacto</small>
+              <strong id="sPhone">-</strong>
+            </div>
+            <div class="stat">
+              <small>Modalidade & Perfil</small>
+              <strong id="sMode">-</strong>
+            </div>
+            <div class="stat">
+              <small>Valor da Inscrição</small>
+              <strong id="sAmount" style="color:var(--green)">-</strong>
+            </div>
+          </div>
+          
+          <!-- Banner de Status -->
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin: 16px 0;">
+            <div>
+              Estado actual: <span class="status" id="sStatus">A aguardar pagamento</span>
+            </div>
+            <!-- Botão de Ação: Baixar Factura ou Recibo -->
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn secondary" id="downloadInvoiceBtn" type="button" style="width:auto; margin:0; padding:10px 16px; font-size:0.9rem;">
+                📄 Baixar Factura à Pagar (A4 / PDF)
+              </button>
+              <button class="btn success hidden" id="downloadReceiptBtn" type="button" style="width:auto; margin:0; padding:10px 16px; font-size:0.9rem;">
+                🎖️ Baixar Recibo de Quitação (PDF)
+              </button>
+            </div>
+          </div>
+
+          <!-- Cards de Métodos de Pagamento Oficiais -->
+          <div class="alert warning" id="paymentAlertNotice">
+            <strong>⚠️ Atenção Obrigatória ao Pagar:</strong>
+            Ao efectuares a transferência ou pagamento móvel, <strong>indica obrigatoriamente o teu ID de Estudante (<span id="alertStudentId">IA-XXXXXX</span>)</strong> no descritivo/referência para validação imediata da tua inscrição.
+          </div>
+
+          <div class="payment-grid">
+            <!-- M-Pesa -->
+            <div class="pay-card">
+              <div class="pay-header">
+                <span class="pay-title">📱 M-Pesa</span>
+                <span class="pay-tag">Vodacom</span>
+              </div>
+              <div class="pay-number">+258 84 770 3309</div>
+              <div class="pay-holder">Titular: EDMILSON M********O</div>
+              <button class="copy-chip" type="button" data-copy="+258 84 770 3309">
+                📋 Copiar Número
+              </button>
+            </div>
+
+            <!-- E-Mola -->
+            <div class="pay-card">
+              <div class="pay-header">
+                <span class="pay-title">⚡ E-Mola</span>
+                <span class="pay-tag">Movitel</span>
+              </div>
+              <div class="pay-number">+258 87 770 3308</div>
+              <div class="pay-holder">Titular: EDMILSON ADELINO MUACIGARRO</div>
+              <button class="copy-chip" type="button" data-copy="+258 87 770 3308">
+                📋 Copiar Número
+              </button>
+            </div>
+
+            <!-- Transferência Bancária BIM -->
+            <div class="pay-card">
+              <div class="pay-header">
+                <span class="pay-title">🏦 Millennium BIM</span>
+                <span class="pay-tag">Transferência / NIB</span>
+              </div>
+              <div class="pay-number" style="font-size:0.95rem;">0001 0000 0038 5397 39457</div>
+              <div class="pay-holder">Titular: EDMILSON ADELINO MUACIGARRO</div>
+              <button class="copy-chip" type="button" data-copy="000100000038539739457">
+                📋 Copiar NIB
+              </button>
+            </div>
+          </div>
+
+          <!-- Formulário de Envio de Comprovativo -->
+          <div style="background:#091b2e; border:1px solid #1f4263; border-radius:var(--radius-md); padding:20px; margin-top:20px;">
+            <h3 style="margin-top:0; font-size:1.1rem; display:flex; align-items:center; gap:8px;">
+              📤 Envio de Comprovativo de Pagamento
+            </h3>
+            <p class="muted" style="margin-bottom:14px; font-size:0.9rem;">
+              Podes enviar o teu comprovativo agora ou voltar mais tarde para anexá-lo entrando com o teu ID/Telefone e Senha.
+            </p>
+
+            <form id="proofForm">
+              <div class="field" style="margin-top:0;">
+                <label for="proof">Selecciona o comprovativo (JPG, PNG ou PDF — Máx. 5 MB)</label>
+                <input id="proof" type="file" accept=".jpg,.jpeg,.png,.pdf" required>
+              </div>
+              <button class="btn accent" type="submit" style="margin-top:14px;">
+                SUBMETER COMPROVATIVO DE PAGAMENTO
+              </button>
+            </form>
+            <div class="alert success hidden" id="proofMsg" style="margin-top:14px;"></div>
+          </div>
+
+          <!-- Caixa de Acompanhamento do Curso & Grupo da Turma -->
+          <div class="course-updates-box">
+            <h3>🎓 Informações & Comunicação Oficial da Turma</h3>
+            <p class="muted" style="margin:0 0 14px; font-size:0.88rem;">
+              Mantém esta área guardada nos teus favoritos para acompanhar os avisos e datas das aulas.
+            </p>
+            <div class="update-item">
+              <span>📅</span>
+              <div>
+                <strong>Início das Aulas:</strong> 26 de Outubro de 2026.<br>
+                <small class="muted">Os links das sessões ao vivo serão disponibilizados aos alunos com comprovativo validado.</small>
+              </div>
+            </div>
+            <div class="update-item">
+              <span>💬</span>
+              <div>
+                <strong>Comunidade da Turma (WhatsApp):</strong><br>
+                <a class="contact" href="https://wa.me/258847703309?text=Ol%C3%A1%20Zedecks%20Training!%20Fiz%20minha%20inscri%C3%A7%C3%A3o%20e%20gostaria%20de%20tirar%20d%C3%BAvidas." target="_blank" rel="noopener">
+                  Clica aqui para falar directamente com a equipa académica (+258 84 770 3309)
+                </a>
+              </div>
+            </div>
+            <div class="update-item">
+              <span>🛠️</span>
+              <div>
+                <strong>Preparação do Ambiente:</strong><br>
+                <small class="muted">Antes da primeira aula, orientaremos como instalar o VS Code, Git e configurar as extensões de IA no teu computador.</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controles de Sessão e Ferramenta de Demonstração / Validação -->
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:24px; padding-top:18px; border-top:1px solid #18344e;">
+            <button class="btn secondary" id="logoutBtn" type="button" style="width:auto; margin:0;">
+              🔒 Terminar Sessão
+            </button>
+            <!-- Toggle de simulação para o usuário testar a validação de admin e emissão de recibo -->
+            <button class="copy-chip" id="adminToggleValidationBtn" type="button" style="background:#132d44;" title="Simular aprovação de admin para testar recibo de quitação">
+              ⚙️ Simular Aprovação Admin (Testar Recibo)
+            </button>
+          </div>
         </div>
       </section>
     </div>
@@ -1131,19 +2071,184 @@
 
   </main>
 
+  <!-- 3.9 Template Executivo Oficial da Factura / Recibo A4 (Utilizado para Impressão e PDF) -->
+  <div id="invoicePrintContainer" aria-hidden="true">
+    <!-- Fita Superior Gradiente Corporativa -->
+    <div class="inv-top-bar"></div>
+
+    <!-- Cabeçalho Institucional -->
+    <div class="inv-header">
+      <div class="inv-brand-wrapper">
+        <img 
+          src="assets/img/ztrining-logo.png" 
+          alt="ZEDECKS TRAINING" 
+          class="inv-logo" 
+          onerror="this.style.display='none';"
+        >
+        <div class="inv-brand-text">
+          <h1>ZEDECKS TRAINING</h1>
+          <p class="inv-brand-sub">Centro de Engenharia de Software & Formação Prática em IA</p>
+          <p class="inv-brand-contact">Nampula, Moçambique · Suporte Oficial: +258 84 770 3309</p>
+        </div>
+      </div>
+
+      <div class="inv-doc-card">
+        <div class="inv-doc-badge" id="invDocTypeTitle">FACTURA PRÓ-FORMA</div>
+        <div class="inv-doc-info">
+          <div class="inv-info-row">
+            <span>Nº Documento:</span>
+            <strong id="invDocNumber">FT-2026-0001</strong>
+          </div>
+          <div class="inv-info-row">
+            <span>Data de Emissão:</span>
+            <span id="invDate">17/10/2026</span>
+          </div>
+          <div class="inv-info-row">
+            <span>Vencimento:</span>
+            <strong id="invDueDate">20/10/2026</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grade de Identificação em 2 Colunas -->
+    <div class="inv-grid-modern">
+      <div class="inv-card">
+        <div class="inv-card-header">
+          <span>👤 Dados do Estudante (Beneficiário)</span>
+        </div>
+        <div class="inv-card-body">
+          <div class="inv-student-name" id="invStudentName">Carlos Alberto Sitoe</div>
+          <div class="inv-detail-row">
+            <span class="lbl">ID de Estudante:</span>
+            <span class="inv-id-chip" id="invStudentId">IA-C7UP8X</span>
+          </div>
+          <div class="inv-detail-row">
+            <span class="lbl">WhatsApp / Contacto:</span>
+            <span id="invStudentPhone">+258 84 123 4567</span>
+          </div>
+          <div class="inv-detail-row">
+            <span class="lbl">E-mail:</span>
+            <span id="invStudentEmail">aluno@gmail.com</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="inv-card">
+        <div class="inv-card-header">
+          <span>📚 Especificação da Formação</span>
+        </div>
+        <div class="inv-card-body">
+          <div class="inv-course-name">Programação Assistida por IA — Do Zero ao Júnior</div>
+          <div class="inv-detail-row">
+            <span class="lbl">Modalidade:</span>
+            <strong id="invStudentMode" style="color:#005696;">Presencial (Nampula)</strong>
+          </div>
+          <div class="inv-detail-row">
+            <span class="lbl">Perfil de Entrada:</span>
+            <span id="invStudentLevel">Iniciante</span>
+          </div>
+          <div class="inv-detail-row">
+            <span class="lbl">Estado da Inscrição:</span>
+            <span class="inv-status-chip" id="invStatusBadge">Aguardando Pagamento</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabela Discriminada de Itens -->
+    <table class="inv-table-modern">
+      <thead>
+        <tr>
+          <th style="width:52%;">Descrição do Serviço Educacional</th>
+          <th style="width:24%; text-align:center;">Modalidade / Polo</th>
+          <th style="width:24%; text-align:right;">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="inv-item-title">Inscrição no Curso de Programação Assistida por IA</div>
+            <div class="inv-item-desc">Capacitação intensiva em arquitetura de código, terminal, Git, raciocínio lógico e copilotos de inteligência artificial aplicados à engenharia de software real.</div>
+          </td>
+          <td style="text-align:center; vertical-align:middle;">
+            <span class="inv-mode-pill" id="invTableMode">Online</span>
+          </td>
+          <td style="text-align:right; vertical-align:middle; font-weight:bold;" id="invTableSubtotal">
+            4.000 MT
+          </td>
+        </tr>
+        <tr class="inv-total-row">
+          <td colspan="2" style="text-align:right;">VALOR TOTAL A PAGAR:</td>
+          <td style="text-align:right;" id="invTableTotal">4.000 MT</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Coordenadas Oficiais de Pagamento -->
+    <div class="inv-pay-section">
+      <div class="inv-pay-title">
+        <span>💳 Coordenadas Oficiais de Liquidação (Moçambique)</span>
+      </div>
+      <div class="inv-pay-grid">
+        <div class="inv-pay-card">
+          <div class="inv-pay-badge mpesa">Vodacom M-Pesa</div>
+          <div class="inv-pay-num">+258 84 770 3309</div>
+          <div class="inv-pay-holder">Titular: EDMILSON M********O</div>
+        </div>
+        <div class="inv-pay-card">
+          <div class="inv-pay-badge emola">Movitel E-Mola</div>
+          <div class="inv-pay-num">+258 87 770 3308</div>
+          <div class="inv-pay-holder">Titular: EDMILSON ADELINO MUACIGARRO</div>
+        </div>
+        <div class="inv-pay-card">
+          <div class="inv-pay-badge bim">Millennium BIM (NIB)</div>
+          <div class="inv-pay-num" style="font-size:10px;">0001 0000 0038 5397 39457</div>
+          <div class="inv-pay-holder">Titular: EDMILSON ADELINO MUACIGARRO</div>
+        </div>
+      </div>
+      <div class="inv-ref-alert">
+        <strong>⚠️ INDICAÇÃO OBRIGATÓRIA NA OPERAÇÃO:</strong> Ao efetuar o pagamento móvel ou transferência bancária, indique impreterivelmente o seu <strong>ID DE ESTUDANTE (<span id="invPayRefId">IA-XXXXXX</span>)</strong> no descritivo/motivo para conferência imediata da inscrição.
+      </div>
+    </div>
+
+    <!-- Carimbo Oficial de Quitação (Exibido apenas no Recibo) -->
+    <div id="invReceiptStampArea" style="text-align:center; display:none; margin: 10px 0;">
+      <div class="inv-stamp-modern">
+        <div class="inv-stamp-inner">
+          <span class="inv-stamp-check">✓</span>
+          <span class="inv-stamp-text">PAGAMENTO LIQUIDADO · VAGA OFICIALIZADA</span>
+          <span class="inv-stamp-sub">ZEDECKS TRAINING · DEPARTAMENTO ACADÉMICO</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rodapé Institucional da Factura -->
+    <div class="inv-footer-modern">
+      <div class="inv-footer-left">
+        Documento emitido eletronicamente pela Zedecks Training nos termos regulamentares de formação profissional.<br>
+        Após efetuar o pagamento, submeta o comprovativo na Área do Aluno com o seu ID e senha.
+      </div>
+      <div class="inv-footer-right">
+        ZEDECKS TRAINING © 2026 · Nampula, Moçambique
+      </div>
+    </div>
+  </div>
+
   <!-- ==========================================================================
     [SEÇÃO 4] LÓGICA DA APLICAÇÃO (VANILLA JAVASCRIPT)
   ========================================================================== -->
   <script>
     /**
-     * Módulo de Gestão de Inscrições — Zedecks Training
+     * MÓDULO DE GESTÃO DE INSCRIÇÕES & PORTAL DO ALUNO — ZEDECKS TRAINING
      * Princípios Clean Code: SRP (Responsabilidade Única), Nomes Intencionais, Funções Curtas.
+     * Tecnologias: Vanilla JavaScript Moderno (ES6+)
      */
     (() => {
       'use strict';
 
-      // 4.1 CONSTANTES E CONFIGURAÇÃO
-      const STORAGE_KEY = 'zedecks_course_demo_v1';
+      // 4.1 CONSTANTES E DADOS DE CONFIGURAÇÃO FISCAL
+      const STORAGE_KEY = 'zedecks_course_enrollments_v2';
       const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
       const VALID_EXTENSIONS_REGEX = /\.(jpg|jpeg|png|pdf)$/i;
 
@@ -1152,14 +2257,408 @@
         presencial: 5000
       };
 
-      // Estado em memória da sessão atual
+      const COURSE_LEVEL_LABELS = {
+        zero: 'Zero Absoluto (Sem base de código)',
+        iniciante: 'Iniciante (Primeiros passos)',
+        conciliar: 'Programador Tradicional + IA'
+      };
+
+      const OFFICIAL_PAYMENT_COORDINATES = {
+        mpesaHolder: 'EDMILSON M********O',
+        standardHolder: 'EDMILSON ADELINO MUACIGARRO',
+        mpesa: '+258 84 770 3309',
+        emola: '+258 87 770 3308',
+        bimNib: '000100000038539739457',
+        bimFormattedNib: '0001 0000 0038 5397 39457'
+      };
+
+      // Sessão em memória do estudante ativo na Área do Aluno
       let activeStudentSession = null;
 
       // 4.2 UTILITÁRIOS DE DOM E FORMATAÇÃO
       const getElement = (id) => document.getElementById(id);
-      const formatCurrency = (value) => new Intl.NumberFormat('pt-MZ').format(value) + ' MT';
+      
+      const formatCurrency = (value) => {
+        return new Intl.NumberFormat('pt-MZ').format(value) + ' MT';
+      };
 
-      // 4.3 REPOSITÓRIO LOCAL (LOCALSTORAGE)
+      const formatDatePt = (date) => {
+        const d = date || new Date();
+        const day = String(d.getDate()).padStart(2, '0');
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const year = d.getFullYear();
+        return `${day}/${month}/${year}`;
+      };
+
+      // 4.3 VALIDATION & LIVE TYPING SERVICE (REGRAS DE NEGÓCIO E VALIDAÇÃO INSTANTÂNEA)
+      const ValidationService = {
+        // Auto-capitaliza o nome em tempo real no evento input preservando a posição do cursor
+        applyLiveTitleCase(inputEl) {
+          const raw = inputEl.value;
+          const start = inputEl.selectionStart;
+
+          // Sanitiza caracteres não permitidos (apenas letras latinas, acentuadas e espaços)
+          const sanitized = raw.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, '').slice(0, 52);
+
+          // Capitaliza a primeira letra de cada palavra (Title Case)
+          const titled = sanitized.replace(/(^|\s)([a-zà-öø-ÿ])/g, (match, prefix, letter) => {
+            return prefix + letter.toUpperCase();
+          });
+
+          if (raw !== titled) {
+            const diff = titled.length - raw.length;
+            inputEl.value = titled;
+            const newCursor = Math.max(0, (start || 0) + diff);
+            inputEl.setSelectionRange(newCursor, newCursor);
+          }
+
+          return titled;
+        },
+
+        // Validação em tempo real do campo Nome
+        validateName(name, isTyping = false) {
+          const trimmed = (name || '').trim();
+          if (!trimmed) {
+            return {
+              isValid: false,
+              message: isTyping ? '' : 'Por favor introduz o teu nome completo.'
+            };
+          }
+
+          // Se o usuário digitou números ou caracteres especiais
+          if (/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/.test(name)) {
+            return {
+              isValid: false,
+              message: 'O nome completo deve conter apenas letras e espaços.'
+            };
+          }
+
+          const words = trimmed.split(/\s+/).filter(Boolean);
+          if (words.length < 2) {
+            return {
+              isValid: false,
+              message: 'Por favor introduz o teu nome completo (nome e apelido).'
+            };
+          }
+
+          const allWordsValid = words.every((w) => w.length >= 2);
+          if (!allWordsValid) {
+            return {
+              isValid: false,
+              message: 'Por favor introduz nomes válidos (pelo menos duas letras por nome).'
+            };
+          }
+
+          return { isValid: true, message: '' };
+        },
+
+        // Validação em tempo real do campo E-mail (@gmail.com)
+        validateGmail(email, isTyping = false) {
+          const clean = (email || '').trim().toLowerCase();
+          if (!clean) {
+            return {
+              isValid: false,
+              message: isTyping ? '' : 'Por favor introduz o teu e-mail.'
+            };
+          }
+
+          if (clean.includes(' ')) {
+            return {
+              isValid: false,
+              message: 'O endereço de e-mail não pode conter espaços.'
+            };
+          }
+
+          if (clean.includes('@')) {
+            const parts = clean.split('@');
+            if (parts.length > 2) {
+              return {
+                isValid: false,
+                message: 'O e-mail não pode conter múltiplos símbolos @.'
+              };
+            }
+
+            const [userPart, domainPart] = parts;
+            if (!userPart) {
+              return {
+                isValid: false,
+                message: 'Por favor introduz o nome da tua conta Google antes de @gmail.com.'
+              };
+            }
+
+            // Se começou a digitar o domínio após o @
+            if (domainPart.length > 0) {
+              const expected = 'gmail.com';
+              // Se o que o utilizador digitou diverge do prefixo de 'gmail.com'
+              if (!expected.startsWith(domainPart)) {
+                return {
+                  isValid: false,
+                  message: 'Apenas aceitamos e-mails @gmail.com. Por favor introduz uma conta válida da Google (exemplo@gmail.com).'
+                };
+              }
+
+              // Se terminou a digitação do domínio e não é exatamente 'gmail.com'
+              if (domainPart.length >= expected.length && domainPart !== expected) {
+                return {
+                  isValid: false,
+                  message: 'Apenas aceitamos e-mails @gmail.com. Por favor introduz uma conta válida da Google (exemplo@gmail.com).'
+                };
+              }
+
+              // Se é exatamente 'gmail.com'
+              if (domainPart === expected) {
+                const gmailRegex = /^[a-z0-9._%+-]+@gmail\.com$/i;
+                if (!gmailRegex.test(clean)) {
+                  return {
+                    isValid: false,
+                    message: 'Conta Google inválida. Verifica os caracteres antes de @gmail.com.'
+                  };
+                }
+                return { isValid: true, message: '' };
+              }
+
+              // Enquanto estiver a digitar @g, @gm, @gma... no fluxo de digitação:
+              if (isTyping) {
+                return {
+                  isValid: false,
+                  message: 'Apenas aceitamos e-mails @gmail.com. Continua com @gmail.com.'
+                };
+              }
+            } else {
+              // Digitou apenas @
+              if (isTyping) {
+                return {
+                  isValid: false,
+                  message: 'Apenas aceitamos e-mails @gmail.com. Por favor introduz uma conta válida da Google (exemplo@gmail.com).'
+                };
+              }
+            }
+          }
+
+          const fullRegex = /^[a-z0-9._%+-]+@gmail\.com$/i;
+          if (!fullRegex.test(clean)) {
+            return {
+              isValid: false,
+              message: 'Apenas aceitamos e-mails @gmail.com. Por favor introduz uma conta válida da Google (exemplo@gmail.com).'
+            };
+          }
+
+          return { isValid: true, message: '' };
+        },
+
+        // Validação em tempo real do campo Telefone / WhatsApp de Moçambique
+        validateMozambiquePhone(phone, isTyping = false) {
+          const raw = (phone || '').trim();
+          if (!raw) {
+            return {
+              isValid: false,
+              message: isTyping ? '' : 'Por favor introduz o teu número de WhatsApp / Telefone.'
+            };
+          }
+
+          if (/[^\d\s\+\-\(\)]/.test(raw)) {
+            return {
+              isValid: false,
+              message: 'O telefone deve conter apenas números (e o indicativo +258 opcional).'
+            };
+          }
+
+          const clean = raw.replace(/[\s\-\(\)]/g, '');
+
+          // Caso com indicativo +258
+          if (clean.startsWith('+258')) {
+            const localPart = clean.slice(4);
+            if (localPart.length > 0) {
+              if (localPart[0] !== '8') {
+                return {
+                  isValid: false,
+                  message: 'Número de Moçambique inválido. O operador deve começar por 82, 83, 84, 85, 86, 87 ou 88.'
+                };
+              }
+              if (localPart.length >= 2 && !/^8[2-8]/.test(localPart)) {
+                return {
+                  isValid: false,
+                  message: 'Operador móvel não reconhecido. Em Moçambique usa 82, 83, 84, 85, 86, 87 ou 88.'
+                };
+              }
+              if (localPart.length > 9) {
+                return {
+                  isValid: false,
+                  message: 'O número tem dígitos a mais. O formato local tem exactamente 9 dígitos.'
+                };
+              }
+            }
+            if (localPart.length === 9 && /^8[2-8][0-9]{7}$/.test(localPart)) {
+              return { isValid: true, message: '' };
+            }
+            return {
+              isValid: false,
+              message: isTyping && localPart.length < 9 
+                ? 'Continua a digitar os 9 dígitos do teu número móvel.' 
+                : 'Número inválido. O número móvel deve ter 9 dígitos (ex.: +258 84 770 3309).'
+            };
+          }
+
+          // Caso com 258 sem o símbolo '+'
+          if (clean.startsWith('258')) {
+            const localPart = clean.slice(3);
+            if (localPart.length > 0) {
+              if (localPart[0] !== '8') {
+                return {
+                  isValid: false,
+                  message: 'Número inválido. O operador deve começar por 82, 83, 84, 85, 86, 87 ou 88.'
+                };
+              }
+              if (localPart.length >= 2 && !/^8[2-8]/.test(localPart)) {
+                return {
+                  isValid: false,
+                  message: 'Operador não reconhecido. Usa 82, 83, 84, 85, 86, 87 ou 88.'
+                };
+              }
+              if (localPart.length > 9) {
+                return {
+                  isValid: false,
+                  message: 'O número tem dígitos a mais. Deve ter 9 dígitos locais.'
+                };
+              }
+            }
+            if (localPart.length === 9 && /^8[2-8][0-9]{7}$/.test(localPart)) {
+              return { isValid: true, message: '' };
+            }
+            return {
+              isValid: false,
+              message: isTyping && localPart.length < 9 
+                ? 'Continua a digitar os 9 dígitos do teu número móvel.' 
+                : 'Número incompleto. Deve ter 9 dígitos locais.'
+            };
+          }
+
+          // Caso local directo (9 dígitos iniciando com 82..88)
+          if (clean.length > 0) {
+            if (clean[0] !== '8' && clean[0] !== '+') {
+              return {
+                isValid: false,
+                message: 'Número de Moçambique inválido. Deve começar por 82, 83, 84, 85, 86, 87 ou 88.'
+              };
+            }
+            if (clean.length >= 2 && !/^8[2-8]/.test(clean)) {
+              return {
+                isValid: false,
+                message: 'Operador móvel inválido. Em Moçambique usa 82, 83, 84, 85, 86, 87 ou 88.'
+              };
+            }
+            if (clean.length > 9) {
+              return {
+                isValid: false,
+                message: 'O número local tem no máximo 9 dígitos.'
+              };
+            }
+          }
+
+          if (clean.length === 9 && /^8[2-8][0-9]{7}$/.test(clean)) {
+            return { isValid: true, message: '' };
+          }
+
+          return {
+            isValid: false,
+            message: isTyping && clean.length < 9
+              ? 'Continua a digitar o teu número móvel (9 dígitos).'
+              : 'Número inválido. Deve ter 9 números locais e começar por 82, 83, 84, 85, 86, 87 ou 88.'
+          };
+        },
+
+        // Normalização de telefone
+        normalizePhone(phone) {
+          const clean = (phone || '').replace(/[\s\-\(\)]/g, '');
+          if (clean.startsWith('+258')) {
+            const local = clean.slice(4);
+            return `+258 ${local.slice(0, 2)} ${local.slice(2, 5)} ${local.slice(5)}`;
+          }
+          if (clean.startsWith('258') && clean.length === 12) {
+            const local = clean.slice(3);
+            return `+258 ${local.slice(0, 2)} ${local.slice(2, 5)} ${local.slice(5)}`;
+          }
+          if (clean.length === 9) {
+            return `+258 ${clean.slice(0, 2)} ${clean.slice(2, 5)} ${clean.slice(5)}`;
+          }
+          return phone.trim();
+        },
+
+        // Validação em tempo real da senha de acesso
+        validatePassword(password, isTyping = false) {
+          const clean = (password || '').trim();
+          if (!clean) {
+            return {
+              isValid: false,
+              message: isTyping ? '' : 'Por favor cria ou aceita a senha de acesso.'
+            };
+          }
+
+          if (/[^A-Za-z0-9]/.test(clean)) {
+            return {
+              isValid: false,
+              message: 'A senha de acesso deve conter apenas letras e números (0-9, A-Z, a-z).'
+            };
+          }
+
+          if (clean.length < 6) {
+            return {
+              isValid: false,
+              message: 'A senha de acesso deve ter no mínimo 6 caracteres alfanuméricos.'
+            };
+          }
+
+          return { isValid: true, message: '' };
+        }
+      };
+
+      // 4.4 GERADOR DE CREDENCIAIS (ID ÚNICO E SENHA SUGERIDA)
+      const CredentialGenerator = {
+        generateUniqueStudentId(existingStudentsList) {
+          const charset = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+          let uniqueId = '';
+          let isUnique = false;
+          let attempts = 0;
+
+          while (!isUnique && attempts < 100) {
+            attempts++;
+            let codePart = '';
+            for (let i = 0; i < 6; i++) {
+              const randomIndex = Math.floor(Math.random() * charset.length);
+              codePart += charset[randomIndex];
+            }
+            uniqueId = `IA-${codePart}`;
+
+            const alreadyExists = existingStudentsList.some(
+              (item) => (item.code || '').toUpperCase() === uniqueId
+            );
+            if (!alreadyExists) {
+              isUnique = true;
+            }
+          }
+
+          return uniqueId;
+        },
+
+        generateSuggestedPassword() {
+          const upper = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+          const lower = 'abcdefghjkmnpqrstuvwxyz';
+          const numbers = '23456789';
+          
+          let pass = '';
+          pass += upper[Math.floor(Math.random() * upper.length)];
+          pass += lower[Math.floor(Math.random() * lower.length)];
+          pass += numbers[Math.floor(Math.random() * numbers.length)];
+          
+          const all = upper + lower + numbers;
+          for (let i = 0; i < 5; i++) {
+            pass += all[Math.floor(Math.random() * all.length)];
+          }
+          return pass.split('').sort(() => 0.5 - Math.random()).join('');
+        }
+      };
+
+      // 4.5 REPOSITÓRIO LOCAL (LOCALSTORAGE)
       const StorageRepository = {
         getAllStudents() {
           try {
@@ -1182,15 +2681,27 @@
           const students = this.getAllStudents();
           students.push(student);
           this.saveAllStudents(students);
+          return student;
+        },
+
+        updateStudentStatus(code, newStatus) {
+          const students = this.getAllStudents();
+          const targetIndex = students.findIndex((item) => item.code === code);
+          if (targetIndex >= 0) {
+            students[targetIndex].status = newStatus;
+            this.saveAllStudents(students);
+            return students[targetIndex];
+          }
+          return null;
         },
 
         updateStudentProof(code, proofFileName) {
           const students = this.getAllStudents();
           const targetIndex = students.findIndex((item) => item.code === code);
-          
           if (targetIndex >= 0) {
             students[targetIndex].proofName = proofFileName;
-            students[targetIndex].status = 'Comprovativo registado';
+            students[targetIndex].status = 'Comprovativo enviado';
+            students[targetIndex].proofUploadedAt = new Date().toISOString();
             this.saveAllStudents(students);
             return students[targetIndex];
           }
@@ -1198,42 +2709,84 @@
         },
 
         findStudentByCredentials(credential, password) {
-          const cleanCredential = credential.trim().toUpperCase();
+          if (!credential || !password) return null;
+          const cleanCred = credential.trim().replace(/[\s\-\(\)]/g, '').toUpperCase();
           const students = this.getAllStudents();
 
           return students.find((student) => {
-            const matchesCode = student.code.toUpperCase() === cleanCredential;
-            const matchesPhone = student.phone === cleanCredential;
-            const matchesPass = student.password === password;
+            const studentCode = (student.code || '').replace(/[\s\-]/g, '').toUpperCase();
+            const studentPhone = (student.phone || '').replace(/[\s\-\(\)\+]/g, '');
+            const credPhone = cleanCred.replace(/^\+/, '');
+
+            const matchesCode = studentCode === cleanCred;
+            const matchesPhone = studentPhone.endsWith(credPhone) || credPhone.endsWith(studentPhone);
+            const matchesPass = student.password === password.trim();
+
             return (matchesCode || matchesPhone) && matchesPass;
           }) || null;
         }
       };
 
-      // 4.4 GERADORES DE CREDENCIAIS
-      const CredentialGenerator = {
-        generateStudentCode() {
-          const randomPart = Math.random().toString(36).slice(2, 8).toUpperCase();
-          return `IA-${randomPart}`;
+      // 4.6 SERVIÇO DE IMPRESSÃO DE FACTURA E RECIBO A4 (INVOICE PRINTER)
+      const InvoicePrinter = {
+        populateData(student, isReceipt = false) {
+          if (!student) return;
+
+          const creationDate = student.createdAt ? new Date(student.createdAt) : new Date();
+          const dueDate = new Date(creationDate);
+          dueDate.setDate(dueDate.getDate() + 3);
+
+          getElement('invDocTypeTitle').textContent = isReceipt 
+            ? 'RECIBO DE QUITAÇÃO & CONFIRMAÇÃO DE VAGA' 
+            : 'FACTURA PRÓ-FORMA';
+          
+          getElement('invDocNumber').textContent = isReceipt
+            ? `RC-${student.code.replace('IA-', '')}-2026`
+            : `FT-${student.code.replace('IA-', '')}-2026`;
+
+          getElement('invDate').textContent = formatDatePt(creationDate);
+          getElement('invDueDate').textContent = isReceipt ? 'PAGO / LIQUIDADO' : formatDatePt(dueDate);
+
+          getElement('invStudentName').textContent = student.name;
+          getElement('invStudentId').textContent = student.code;
+          getElement('invStudentPhone').textContent = student.phone;
+          getElement('invStudentEmail').textContent = student.email || '-';
+
+          // Modalidade e Localização oficiais (Nampula)
+          const modeText = student.mode === 'online' ? 'Online ao Vivo' : 'Presencial (Nampula)';
+          getElement('invStudentMode').textContent = modeText;
+          getElement('invStudentLevel').textContent = COURSE_LEVEL_LABELS[student.level] || student.level || 'Geral';
+          getElement('invStatusBadge').textContent = student.status;
+
+          getElement('invTableMode').textContent = student.mode === 'online' ? 'Online' : 'Presencial';
+          const formattedAmount = formatCurrency(student.amount);
+          getElement('invTableSubtotal').textContent = formattedAmount;
+          getElement('invTableTotal').textContent = formattedAmount;
+
+          getElement('invPayRefId').textContent = student.code;
+
+          const stampArea = getElement('invReceiptStampArea');
+          if (isReceipt || student.status === 'Inscrição confirmada') {
+            stampArea.style.display = 'block';
+          } else {
+            stampArea.style.display = 'none';
+          }
         },
 
-        generateInitialPassword() {
-          const letterPart = Math.random().toString(36).slice(2, 6).toUpperCase();
-          const numberPart = Math.floor(10 + Math.random() * 90);
-          return `${letterPart}${numberPart}`;
+        print(student, isReceipt = false) {
+          this.populateData(student, isReceipt);
+          window.print();
         }
       };
 
-      // 4.5 CONTROLADOR DE NAVEGAÇÃO E ABAS
+      // 4.7 CONTROLADOR DE NAVEGAÇÃO E ABAS
       const TabNavigator = {
         switchTo(tabName) {
           const isRegisterTab = tabName === 'register';
 
-          // Painéis
           getElement('registerPanel').classList.toggle('hidden', !isRegisterTab);
           getElement('portalPanel').classList.toggle('hidden', isRegisterTab);
 
-          // Botões de Abas
           getElement('tabRegister').classList.toggle('active', isRegisterTab);
           getElement('tabRegister').setAttribute('aria-selected', isRegisterTab ? 'true' : 'false');
           getElement('tabPortal').classList.toggle('active', !isRegisterTab);
@@ -1243,6 +2796,7 @@
         selectModeAndScroll(mode) {
           this.switchTo('register');
           getElement('mode').value = mode;
+          FormValidatorUI.clearError('fieldModeWrapper');
           getElement('name').focus();
 
           const targetSection = getElement('inscricao');
@@ -1252,19 +2806,87 @@
         }
       };
 
-      // 4.6 RENDERIZAÇÃO DA ÁREA DO ALUNO
+      // 4.8 RENDERIZAÇÃO DA ÁREA DO ALUNO E PROGRESSO
       const StudentViewRenderer = {
-        render(student) {
-          getElement('sName').textContent = student.name;
-          getElement('sMode').textContent = student.mode === 'online' ? 'Online' : 'Presencial';
-          getElement('sAmount').textContent = formatCurrency(student.amount);
-          getElement('sStatus').textContent = student.status;
-          getElement('sStatus').classList.toggle('ok', student.status === 'Comprovativo registado');
+        updateStepper(status) {
+          const stepperBar = getElement('stepperBar');
+          const step1 = getElement('step1Node');
+          const step2 = getElement('step2Node');
+          const step3 = getElement('step3Node');
+          const step4 = getElement('step4Node');
 
-          getElement('paymentDetails').textContent = 
-            `Contacta a organização pelo WhatsApp 84 770 3309 para receber os dados oficiais de pagamento. Referência da tua inscrição: ${student.code}.`;
-          
-          getElement('proofMsg').classList.add('hidden');
+          [step1, step2, step3, step4].forEach((node) => {
+            node.classList.remove('active', 'completed');
+          });
+
+          step1.classList.add('completed');
+          getElement('step1Circle').textContent = '✓';
+
+          if (status === 'Inscrição confirmada') {
+            stepperBar.style.width = '100%';
+            step2.classList.add('completed');
+            getElement('step2Circle').textContent = '✓';
+            step3.classList.add('completed');
+            getElement('step3Circle').textContent = '✓';
+            step4.classList.add('completed');
+            getElement('step4Circle').textContent = '✓';
+          } else if (status === 'Comprovativo enviado') {
+            stepperBar.style.width = '75%';
+            step2.classList.add('completed');
+            getElement('step2Circle').textContent = '✓';
+            step3.classList.add('active');
+            getElement('step3Circle').textContent = '✓';
+            step4.classList.remove('completed', 'active');
+            getElement('step4Circle').textContent = '4';
+          } else {
+            stepperBar.style.width = '35%';
+            step2.classList.add('active');
+            getElement('step2Circle').textContent = '2';
+            getElement('step3Circle').textContent = '3';
+            getElement('step4Circle').textContent = '4';
+          }
+        },
+
+        render(student) {
+          getElement('sIdText').textContent = student.code;
+          getElement('alertStudentId').textContent = student.code;
+          getElement('sName').textContent = student.name;
+          getElement('sPhone').textContent = student.phone;
+
+          const modeLabel = student.mode === 'online' ? 'Online ao Vivo' : 'Presencial (Nampula)';
+          const levelLabel = COURSE_LEVEL_LABELS[student.level] ? ` · ${COURSE_LEVEL_LABELS[student.level]}` : '';
+          getElement('sMode').textContent = `${modeLabel}${levelLabel}`;
+          getElement('sAmount').textContent = formatCurrency(student.amount);
+
+          const statusEl = getElement('sStatus');
+          statusEl.textContent = student.status;
+          statusEl.className = 'status';
+
+          const receiptBtn = getElement('downloadReceiptBtn');
+          const paymentNotice = getElement('paymentAlertNotice');
+
+          if (student.status === 'Inscrição confirmada') {
+            statusEl.classList.add('ok');
+            receiptBtn.classList.remove('hidden');
+            paymentNotice.classList.add('hidden');
+          } else if (student.status === 'Comprovativo enviado') {
+            statusEl.classList.add('review');
+            receiptBtn.classList.add('hidden');
+            paymentNotice.classList.remove('hidden');
+          } else {
+            receiptBtn.classList.add('hidden');
+            paymentNotice.classList.remove('hidden');
+          }
+
+          this.updateStepper(student.status);
+
+          const proofMsgEl = getElement('proofMsg');
+          if (student.proofName) {
+            proofMsgEl.textContent = `✓ Comprovativo registado: ${student.proofName}. A nossa equipa está a conferir a quitação.`;
+            proofMsgEl.classList.remove('hidden');
+          } else {
+            proofMsgEl.classList.add('hidden');
+          }
         },
 
         showDashboard(student) {
@@ -1282,27 +2904,114 @@
         }
       };
 
-      // 4.7 HANDLERS DE FORMULÁRIO (CLEAN CODE)
+      // 4.9 CONTROLADOR DE VALIDAÇÃO VISUAL DE CAMPOS
+      const FormValidatorUI = {
+        setError(wrapperId, errorId, message) {
+          const wrapper = getElement(wrapperId);
+          const errorEl = getElement(errorId);
+          if (wrapper) wrapper.classList.add('has-error');
+          if (errorEl && message) errorEl.textContent = message;
+        },
+
+        clearError(wrapperId) {
+          const wrapper = getElement(wrapperId);
+          if (wrapper) wrapper.classList.remove('has-error');
+        },
+
+        clearAllErrors() {
+          ['fieldNameWrapper', 'fieldPhoneWrapper', 'fieldEmailWrapper', 'fieldLevelWrapper', 'fieldModeWrapper', 'fieldPasswordWrapper'].forEach((id) => {
+            this.clearError(id);
+          });
+        }
+      };
+
+      // 4.10 HANDLERS DE FORMULÁRIO E EVENTOS DO SISTEMA
       const FormHandlers = {
         handleRegistration(event) {
           event.preventDefault();
+          FormValidatorUI.clearAllErrors();
 
-          const name = getElement('name').value.trim();
-          const phone = getElement('phone').value.trim();
-          const mode = getElement('mode').value;
+          let hasError = false;
+          let firstErrorEl = null;
 
-          if (!name || !phone || !mode) {
-            alert('Por favor, preenche todos os campos obrigatórios.');
+          // 1. Campo Nome
+          const nameInput = getElement('name');
+          const nameValidation = ValidationService.validateName(nameInput.value, false);
+          if (!nameValidation.isValid) {
+            FormValidatorUI.setError('fieldNameWrapper', 'nameError', nameValidation.message);
+            hasError = true;
+            if (!firstErrorEl) firstErrorEl = nameInput;
+          }
+
+          // 2. Campo Telefone
+          const phoneInput = getElement('phone');
+          const phoneValidation = ValidationService.validateMozambiquePhone(phoneInput.value, false);
+          if (!phoneValidation.isValid) {
+            FormValidatorUI.setError('fieldPhoneWrapper', 'phoneError', phoneValidation.message);
+            hasError = true;
+            if (!firstErrorEl) firstErrorEl = phoneInput;
+          }
+
+          // 3. Campo E-mail (@gmail.com)
+          const emailInput = getElement('email');
+          const emailValidation = ValidationService.validateGmail(emailInput.value, false);
+          if (!emailValidation.isValid) {
+            FormValidatorUI.setError('fieldEmailWrapper', 'emailError', emailValidation.message);
+            hasError = true;
+            if (!firstErrorEl) firstErrorEl = emailInput;
+          }
+
+          // 4. Campo Nível / Perfil
+          const levelSelect = getElement('level');
+          if (!levelSelect.value) {
+            FormValidatorUI.setError('fieldLevelWrapper', 'levelError', 'Por favor, selecciona o teu nível de entrada no curso.');
+            hasError = true;
+            if (!firstErrorEl) firstErrorEl = levelSelect;
+          }
+
+          // 5. Campo Modalidade
+          const modeSelect = getElement('mode');
+          if (!modeSelect.value) {
+            FormValidatorUI.setError('fieldModeWrapper', 'modeError', 'Por favor, selecciona a modalidade de ensino (Online ou Presencial).');
+            hasError = true;
+            if (!firstErrorEl) firstErrorEl = modeSelect;
+          }
+
+          // 6. Campo Senha
+          const passInput = getElement('password');
+          const passValidation = ValidationService.validatePassword(passInput.value, false);
+          if (!passValidation.isValid) {
+            FormValidatorUI.setError('fieldPasswordWrapper', 'passwordError', passValidation.message);
+            hasError = true;
+            if (!firstErrorEl) firstErrorEl = passInput;
+          }
+
+          if (hasError) {
+            if (firstErrorEl) firstErrorEl.focus();
             return;
           }
 
+          const rawPhone = phoneInput.value.trim();
+          const cleanName = nameInput.value.trim();
+          const rawEmail = emailInput.value.trim().toLowerCase();
+          const selectedLevel = levelSelect.value;
+          const selectedMode = modeSelect.value;
+          const rawPassword = passInput.value.trim();
+
+          const allStudents = StorageRepository.getAllStudents();
+          const uniqueStudentCode = CredentialGenerator.generateUniqueStudentId(allStudents);
+          const normalizedPhone = ValidationService.normalizePhone(rawPhone);
+
           const newStudent = {
-            name,
-            phone,
-            mode,
-            amount: COURSE_PRICES[mode] || 0,
-            code: CredentialGenerator.generateStudentCode(),
-            password: CredentialGenerator.generateInitialPassword(),
+            name: cleanName,
+            phone: normalizedPhone,
+            rawPhone: rawPhone.replace(/[\s\-\(\)]/g, ''),
+            email: rawEmail,
+            level: selectedLevel,
+            mode: selectedMode,
+            amount: COURSE_PRICES[selectedMode] || 4000,
+            code: uniqueStudentCode,
+            password: rawPassword,
             status: 'A aguardar pagamento',
             proofName: '',
             createdAt: new Date().toISOString()
@@ -1313,20 +3022,30 @@
           StudentViewRenderer.showDashboard(newStudent);
 
           alert(
-            `Inscrição criada com sucesso!\n\nCódigo do Aluno: ${newStudent.code}\nSenha de Acesso: ${newStudent.password}\n\nGuarda estes dados para consultar o estado na Área do Aluno.`
+            `🎉 Parabéns, ${cleanName.split(' ')[0]}!\n\nA tua inscrição foi iniciada com sucesso.\n\n` +
+            `📌 ID do Estudante: ${newStudent.code}\n` +
+            `🔑 Senha de Acesso: ${newStudent.password}\n\n` +
+            `Guarda estes dados para voltar a consultar o estado a qualquer momento. Podes agora descarregar a tua Factura A4.`
           );
+
+          InvoicePrinter.print(newStudent, false);
         },
 
         handleLogin(event) {
           event.preventDefault();
 
-          const credential = getElement('loginUser').value;
+          const credential = getElement('loginUser').value.trim();
           const password = getElement('loginPass').value.trim();
+
+          if (!credential || !password) {
+            alert('Por favor, preenche o teu Código/Telefone e a senha.');
+            return;
+          }
 
           const student = StorageRepository.findStudentByCredentials(credential, password);
 
           if (!student) {
-            alert('Dados não encontrados neste dispositivo. Confirma o código/telefone e a senha digitada.');
+            alert('Inscrição não encontrada. Confirma o teu ID (ex: IA-C7UP8X) ou Telefone e a tua senha.');
             return;
           }
 
@@ -1337,7 +3056,7 @@
           event.preventDefault();
 
           if (!activeStudentSession) {
-            alert('Nenhuma sessão de aluno ativa.');
+            alert('Nenhuma sessão de estudante ativa.');
             return;
           }
 
@@ -1345,7 +3064,7 @@
           const file = fileInput.files[0];
 
           if (!file) {
-            alert('Por favor, selecciona um ficheiro de comprovativo.');
+            alert('Por favor, selecciona um ficheiro de comprovativo (PDF ou Imagem).');
             return;
           }
 
@@ -1359,17 +3078,69 @@
             return;
           }
 
-          const updatedStudent = StorageRepository.updateStudentProof(activeStudentSession.code, file.name);
+          const updatedStudent = StorageRepository.updateStudentProof(
+            activeStudentSession.code, 
+            file.name
+          );
 
           if (updatedStudent) {
             activeStudentSession = updatedStudent;
             StudentViewRenderer.render(updatedStudent);
-
-            const proofMsgEl = getElement('proofMsg');
-            proofMsgEl.textContent = `Comprovativo registado com sucesso (${file.name}). A equipa da Zedecks Training validará os dados.`;
-            proofMsgEl.classList.remove('hidden');
             fileInput.value = '';
+
+            alert(
+              `Comprovativo submetido com sucesso (${file.name})!\n\nA equipa da Zedecks Training validará a confirmação da tua vaga.`
+            );
           }
+        },
+
+        handleCopyCoordinate(event) {
+          const button = event.currentTarget;
+          const textToCopy = button.getAttribute('data-copy');
+          if (!textToCopy) return;
+
+          navigator.clipboard.writeText(textToCopy).then(() => {
+            const originalText = button.innerHTML;
+            button.innerHTML = '✓ Copiado!';
+            button.style.background = '#28d69a';
+            button.style.color = '#02261b';
+            setTimeout(() => {
+              button.innerHTML = originalText;
+              button.style.background = '';
+              button.style.color = '';
+            }, 2000);
+          }).catch(() => {
+            alert(`Copia manual: ${textToCopy}`);
+          });
+        },
+
+        handleToggleAdminValidation() {
+          if (!activeStudentSession) return;
+
+          const isCurrentlyConfirmed = activeStudentSession.status === 'Inscrição confirmada';
+          const newStatus = isCurrentlyConfirmed ? 'Comprovativo enviado' : 'Inscrição confirmada';
+
+          const updated = StorageRepository.updateStudentStatus(activeStudentSession.code, newStatus);
+          if (updated) {
+            activeStudentSession = updated;
+            StudentViewRenderer.render(updated);
+
+            if (newStatus === 'Inscrição confirmada') {
+              alert(
+                `Simulação Admin: Vaga de ${updated.name} confirmada!\n\nAgora a barra atingiu 100% e o botão de "Baixar Recibo de Quitação" está liberado.`
+              );
+            } else {
+              alert('Simulação Admin: Estado revertido para Comprovativo em Análise.');
+            }
+          }
+        },
+
+        handleGeneratePassword() {
+          const newPass = CredentialGenerator.generateSuggestedPassword();
+          const passInput = getElement('password');
+          passInput.value = newPass;
+          passInput.focus();
+          FormValidatorUI.clearError('fieldPasswordWrapper');
         },
 
         handleLogout() {
@@ -1378,13 +3149,18 @@
         }
       };
 
-      // 4.8 INICIALIZAÇÃO E BINDINGS DE EVENTOS
+      // 4.11 INICIALIZAÇÃO DA APLICAÇÃO & EVENT LISTENERS
       const initApp = () => {
-        // Abas
+        const passInput = getElement('password');
+        if (passInput && !passInput.value) {
+          passInput.value = CredentialGenerator.generateSuggestedPassword();
+        }
+
+        // Navegação de abas
         getElement('tabRegister').addEventListener('click', () => TabNavigator.switchTo('register'));
         getElement('tabPortal').addEventListener('click', () => TabNavigator.switchTo('portal'));
 
-        // Botões de CTA & Seleção de Modalidade
+        // CTA no Hero e cards de modalidade
         getElement('heroCtaBtn').addEventListener('click', () => TabNavigator.switchTo('register'));
 
         document.querySelectorAll('button[data-mode]').forEach((button) => {
@@ -1394,14 +3170,110 @@
           });
         });
 
-        // Formulários
+        // 1. CAMPO NOME: Auto-capitalização imediata e validação em tempo real a cada caractere
+        const nameInput = getElement('name');
+        nameInput.addEventListener('input', () => {
+          ValidationService.applyLiveTitleCase(nameInput);
+          const validation = ValidationService.validateName(nameInput.value, true);
+          if (validation.isValid) {
+            FormValidatorUI.clearError('fieldNameWrapper');
+          } else if (validation.message) {
+            FormValidatorUI.setError('fieldNameWrapper', 'nameError', validation.message);
+          } else {
+            FormValidatorUI.clearError('fieldNameWrapper');
+          }
+        });
+
+        // 2. CAMPO TELEFONE: Validação em tempo real a cada dígito digitado
+        const phoneInput = getElement('phone');
+        phoneInput.addEventListener('input', () => {
+          const validation = ValidationService.validateMozambiquePhone(phoneInput.value, true);
+          if (validation.isValid) {
+            FormValidatorUI.clearError('fieldPhoneWrapper');
+          } else if (validation.message) {
+            FormValidatorUI.setError('fieldPhoneWrapper', 'phoneError', validation.message);
+          } else {
+            FormValidatorUI.clearError('fieldPhoneWrapper');
+          }
+        });
+
+        // 3. CAMPO E-MAIL: Validação em tempo real (alerta imediato para provedores diferentes de @gmail.com)
+        const emailInput = getElement('email');
+        emailInput.addEventListener('input', () => {
+          const validation = ValidationService.validateGmail(emailInput.value, true);
+          if (validation.isValid) {
+            FormValidatorUI.clearError('fieldEmailWrapper');
+          } else if (validation.message) {
+            FormValidatorUI.setError('fieldEmailWrapper', 'emailError', validation.message);
+          } else {
+            FormValidatorUI.clearError('fieldEmailWrapper');
+          }
+        });
+
+        // 4. CAMPO NÍVEL
+        const levelSelect = getElement('level');
+        levelSelect.addEventListener('change', () => {
+          if (levelSelect.value) {
+            FormValidatorUI.clearError('fieldLevelWrapper');
+          } else {
+            FormValidatorUI.setError('fieldLevelWrapper', 'levelError', 'Por favor, selecciona o teu nível de entrada no curso.');
+          }
+        });
+
+        // 5. CAMPO MODALIDADE
+        const modeSelect = getElement('mode');
+        modeSelect.addEventListener('change', () => {
+          if (modeSelect.value) {
+            FormValidatorUI.clearError('fieldModeWrapper');
+          } else {
+            FormValidatorUI.setError('fieldModeWrapper', 'modeError', 'Por favor, selecciona a modalidade de ensino.');
+          }
+        });
+
+        // 6. CAMPO SENHA: Validação de 6 caracteres alfanuméricos em tempo real
+        passInput.addEventListener('input', () => {
+          const validation = ValidationService.validatePassword(passInput.value, true);
+          if (validation.isValid) {
+            FormValidatorUI.clearError('fieldPasswordWrapper');
+          } else if (validation.message) {
+            FormValidatorUI.setError('fieldPasswordWrapper', 'passwordError', validation.message);
+          } else {
+            FormValidatorUI.clearError('fieldPasswordWrapper');
+          }
+        });
+
+        // Botão para sugerir nova senha
+        getElement('generatePassBtn').addEventListener('click', FormHandlers.handleGeneratePassword);
+
+        // Submissão dos Formulários
         getElement('registerForm').addEventListener('submit', FormHandlers.handleRegistration);
         getElement('loginForm').addEventListener('submit', FormHandlers.handleLogin);
         getElement('proofForm').addEventListener('submit', FormHandlers.handleProofUpload);
         getElement('logoutBtn').addEventListener('click', FormHandlers.handleLogout);
+
+        // Botões de Download Direto da Factura e Recibo de Quitação (Impressão / PDF A4)
+        getElement('downloadInvoiceBtn').addEventListener('click', () => {
+          if (activeStudentSession) {
+            InvoicePrinter.print(activeStudentSession, false);
+          }
+        });
+
+        getElement('downloadReceiptBtn').addEventListener('click', () => {
+          if (activeStudentSession) {
+            InvoicePrinter.print(activeStudentSession, true);
+          }
+        });
+
+        // Botões de cópia de coordenadas de pagamento
+        document.querySelectorAll('.copy-chip[data-copy]').forEach((btn) => {
+          btn.addEventListener('click', FormHandlers.handleCopyCoordinate);
+        });
+
+        // Botão de simulação de aprovação admin
+        getElement('adminToggleValidationBtn').addEventListener('click', FormHandlers.handleToggleAdminValidation);
       };
 
-      // Execução no carregamento da DOM
+      // Inicialização na montagem do DOM
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initApp);
       } else {

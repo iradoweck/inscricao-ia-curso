@@ -47,19 +47,23 @@ flowchart TB
     end
 
     subgraph S4["[Seção 4] Lógica da Aplicação (Vanilla JS)"]
+        Validation["ValidationService (Regras de Nome, WhatsApp Moçambique, Gmail, Senha)"]
+        Creds["CredentialGenerator (ID Único IA-XXXXXX & Senha Sugerida)"]
         Repo["StorageRepository (LocalStorage Adapter)"]
-        Creds["CredentialGenerator (Código & Senha)"]
+        Printer["InvoicePrinter (Emissão de Factura Pró-forma & Recibo A4 em PDF)"]
         Navigator["TabNavigator (Gestão de Abas & Âncoras)"]
-        Renderer["StudentViewRenderer (Renderização da Área do Aluno)"]
-        Handlers["FormHandlers (Inscrição, Login, Upload, Logout)"]
+        Renderer["StudentViewRenderer (Progresso Stepper & Área do Aluno)"]
+        Handlers["FormHandlers (Inscrição, Login, Upload, Cópias de NIB/M-Pesa)"]
         AppInit["initApp (Event Listeners & Bootstrapping)"]
     end
 
     S1 --> S3
     S2 --> S3
     S4 -->|Manipula DOM & Eventos| S3
+    Handlers --> Validation
     Handlers --> Repo
     Handlers --> Creds
+    Handlers --> Printer
     Handlers --> Renderer
     Handlers --> Navigator
     AppInit --> Handlers
@@ -79,6 +83,23 @@ Para máxima legibilidade, manutenibilidade e adesão rigorosa ao **Clean Code**
 | **4** | `<!-- [SEÇÃO 4] LÓGICA (JS) -->` | Módulo encapsulado (IIFE) com separação clara de responsabilidades (*Storage*, *Generators*, *Views*, *Handlers*). |
 
 ---
+
+## ✨ Funcionalidades do Formulário & Portal do Aluno
+
+### 1. Validações Estritas de Moçambique & UX
+- **Nome Completo**: Auto-capitalização (Title Case), apenas caracteres alfabéticos latinos com acentos, sem números ou símbolos, espaço único entre palavras e até 52 caracteres.
+- **WhatsApp / Telefone**: Exatamente 9 dígitos locais ou 13 se iniciado por `+258`, validando rigorosamente as operadoras moçambicanas (`82, 83, 84, 85, 86, 87, 88`).
+- **E-mail**: Restrito exclusivamente a contas com domínio `@gmail.com`.
+- **Perfil de Entrada**: Seleção direcionada para quem começa do Zero Absoluto, Iniciante ou Programador Tradicional querendo aliar IA.
+- **Senha Híbrida**: O sistema sugere automaticamente uma senha alfanumérica segura (`0-9`, `a-z`, `A-Z`) com mínimo de 6 caracteres, permitindo edição livre pelo aluno.
+
+### 2. Resumo, Factura Pró-forma A4 & Quitação
+- **ID de Estudante Único**: Gerado na hora no padrão `IA-XXXXXX`, com verificação em tempo de execução para garantir não repetição.
+- **Barra de Progresso (Stepper)**: 4 etapas dinâmicas (Inscrição Efetuada, Factura & Pagamento Pendente, Comprovativo Submetido, Vaga Confirmada).
+- **Factura à Pagar Oficial**: Formatada em folha A4 com `@media print` para salvar direto como PDF de alta resolução pelo navegador (`window.print()`).
+- **Cards de Pagamento Oficiais**: Coordenadas para M-Pesa (`+258 84 770 3309` · Titular: `EDMILSON M********O`), E-Mola (`+258 87 770 3308` · Titular: `EDMILSON ADELINO MUACIGARRO`) e Millennium BIM (NIB: `0001 0000 0038 5397 39457` · Titular: `EDMILSON ADELINO MUACIGARRO`), com botão de cópia com 1 clique e instrução obrigatória de menção do ID do aluno no motivo do pagamento.
+- **Recibo de Quitação**: Disponível para download formal em A4 assim que a matrícula é validada.
+- **Canal Contínuo**: Acesso permanente por ID/Telefone e senha para consultar comunicados do início das aulas e canal de WhatsApp da turma.
 
 ## 🚀 Como Executar Localmente
 
