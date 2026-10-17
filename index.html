@@ -1504,6 +1504,93 @@
     }
 
     /* ------------------------------------------------------------------------
+       2.10 NAVEGAÇÃO DE PÁGINAS INDEPENDENTES (ROUTING VIEWS: SITE & PORTAL)
+    ------------------------------------------------------------------------ */
+    #landingView.hidden,
+    #portalView.hidden {
+      display: none !important;
+    }
+
+    .portal-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 15px;
+      background: rgba(0, 183, 255, 0.1);
+      border: 1px solid rgba(0, 183, 255, 0.4);
+      border-radius: var(--radius-pill);
+      color: var(--blue);
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      letter-spacing: 0.2px;
+    }
+
+    .portal-nav-btn:hover {
+      background: var(--blue);
+      color: #021727;
+      box-shadow: 0 0 16px rgba(0, 183, 255, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .portal-header {
+      padding: 24px 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-bottom: 1px solid rgba(24, 52, 78, 0.6);
+      margin-bottom: 28px;
+    }
+
+    .portal-header-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .portal-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: rgba(0, 183, 255, 0.12);
+      border: 1px solid rgba(0, 183, 255, 0.35);
+      border-radius: var(--radius-pill);
+      color: var(--blue);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+    }
+
+    .portal-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-back-site {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: #0c1b2d;
+      border: 1px solid #1a3955;
+      border-radius: var(--radius-md);
+      color: var(--text);
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-back-site:hover {
+      background: #142e47;
+      border-color: var(--blue);
+      color: #ffffff;
+    }
+
+    /* ------------------------------------------------------------------------
        2.10 RESPONSIVIDADE (MEDIA QUERIES)
     ------------------------------------------------------------------------ */
     @media (max-width: 880px) {
@@ -1568,298 +1655,349 @@
 ========================================================================== -->
 <body>
 
-  <!-- 3.1 Cabeçalho & Marca -->
-  <header class="wrap top">
-    <a href="#" class="brand-link" aria-label="Zedecks Training">
-      <img 
-        src="assets/img/ztrining-logo.png" 
-        alt="ZEDECKS TRAINING" 
-        class="logo-img" 
-        onerror="this.style.display='none'; document.getElementById('brandFallback').style.display='block';"
-      >
-      <div id="brandFallback" class="brand-fallback" style="display:none">
-        ZEDECKS <span>TRAINING</span>
-      </div>
-    </a>
-    <div class="tag">INSCRIÇÕES ABERTAS · 15/10 A 25/10</div>
-  </header>
-
-  <main class="wrap">
-
-    <!-- 3.2 Hero Principal com Impacto Humano -->
-    <section class="hero" aria-label="Apresentação do Curso">
-      <div>
-        <div class="eyebrow">Formação Prática · Online & Presencial</div>
-        <h1>PROGRAMAÇÃO<br>ASSISTIDA POR <em>IA</em></h1>
-        <p class="sub">
-          <strong>Do zero ao júnior em qualquer linguagem.</strong> Domina a programação tradicional com o poder da Inteligência Artificial — raciocínio lógico, engenharia de software e projectos reais, sem ficar dependente de simples Vibe Coding.
-        </p>
-        
-        <div class="chips">
-          <span class="chip">Agnóstico a Linguagens</span>
-          <span class="chip">Lógica & Fundamentos Sólidos</span>
-          <span class="chip">IA como Co-Piloto Técnico</span>
-          <span class="chip">Arquitectura & Clean Code</span>
-          <span class="chip">Projectos do Mundo Real</span>
+  <!-- ==========================================================================
+    3.A VISTA DA PÁGINA PRINCIPAL / LANDING PAGE (#, #inscricao, #planos)
+  ========================================================================== -->
+  <div id="landingView">
+    <!-- 3.1 Cabeçalho & Marca (Landing Page) -->
+    <header class="wrap top">
+      <a href="#" class="brand-link" aria-label="Zedecks Training">
+        <img 
+          src="assets/img/ztrining-logo.png" 
+          alt="ZEDECKS TRAINING" 
+          class="logo-img" 
+          onerror="this.style.display='none'; document.getElementById('brandFallback').style.display='block';"
+        >
+        <div id="brandFallback" class="brand-fallback" style="display:none">
+          ZEDECKS <span>TRAINING</span>
         </div>
-
-        <div class="hero-actions">
-          <a href="#inscricao" class="hero-cta" id="heroCtaBtn">GARANTIR MINHA VAGA →</a>
-          <a href="#planos" class="hero-subcta">Ver modalidades e preços ↓</a>
-        </div>
+      </a>
+      <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+        <div class="tag">INSCRIÇÕES ABERTAS · 15/10 A 25/10</div>
+        <a href="#portal" class="portal-nav-btn" id="openPortalNavBtn">🎓 Área do Aluno →</a>
       </div>
+    </header>
 
-      <div class="hero-media">
-        <div class="hero-img-container">
-          <img 
-            src="assets/img/hero-programmer.png" 
-            alt="Programador com código na tela do computador trabalhando com IA" 
-            class="hero-img"
-          >
-          <div class="floating-badge badge-top">
-            <span class="badge-dot"></span>
-            <span>Lógica & Arquitectura Real</span>
-          </div>
-          <div class="floating-badge badge-bottom">
-            <span class="badge-dot gold"></span>
-            <span>IA como Co-Piloto Técnico</span>
-          </div>
-        </div>
-      </div>
-    </section>
+    <main class="wrap">
 
-    <!-- 3.3 Tabela de Preços & Comparativo de Modalidades -->
-    <section class="pricing-section" id="planos" aria-label="Modalidades e Preços">
-      <div class="section-header">
-        <span class="story-pill">Investimento no Teu Futuro</span>
-        <h2>Escolhe a tua modalidade</h2>
-        <p>Ambas as modalidades incluem certificação, acesso directo aos instrutores e construção de projectos para o teu portfólio.</p>
-      </div>
-
-      <div class="pricing-grid">
-        <!-- Card: Online -->
-        <div class="price-card">
-          <div>
-            <div class="price-card-header">
-              <h3>Curso Online</h3>
-              <div class="desc">Ideal para quem quer aprender à distância com flexibilidade total.</div>
-            </div>
-            <div class="price-val">4.000 <span>MT</span></div>
-            <ul class="feature-list">
-              <li>Aulas práticas interactivas e gravadas</li>
-              <li>Acesso total à comunidade de alunos</li>
-              <li>Acompanhamento de dúvidas em tempo real</li>
-              <li>Feedback de código linha por linha</li>
-              <li>Certificado oficial Zedecks Training</li>
-            </ul>
-          </div>
-          <button class="btn-select" type="button" data-mode="online">SELECCIONAR ONLINE →</button>
-        </div>
-
-        <!-- Card: Presencial (Destaque) -->
-        <div class="price-card featured">
-          <div class="card-pill">Mais Recomendado</div>
-          <div>
-            <div class="price-card-header">
-              <h3>Curso Presencial</h3>
-              <div class="desc">Imersão completa com mentoria lado a lado em sala de aula.</div>
-            </div>
-            <div class="price-val gold">5.000 <span>MT</span></div>
-            <ul class="feature-list">
-              <li>Tudo do curso Online incluído</li>
-              <li>Aulas presenciais com mentoria directa</li>
-              <li>Networking exclusivo com desenvolvedores locais</li>
-              <li>Resolução prática de problemas na tua máquina</li>
-              <li>Vagas estritamente limitadas para garantir qualidade</li>
-            </ul>
-          </div>
-          <button class="btn-select" type="button" data-mode="presencial">SELECCIONAR PRESENCIAL →</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3.4 Metodologia & Para Quem É (Narrativa Humana) -->
-    <section class="story-section" aria-label="Metodologia e Público-Alvo">
-      <!-- Bloco 1: Metodologia -->
-      <div class="story-block">
-        <div class="story-text">
-          <span class="story-pill">O Nosso Método</span>
-          <h3>Aprende a pensar como um Engenheiro, não apenas a colar prompts</h3>
-          <p>
-            A inteligência artificial transformou o desenvolvimento, mas ferramentas de IA sem base sólida produzem código frágil e erros que tu não saberás resolver.
+      <!-- 3.2 Hero Principal com Impacto Humano -->
+      <section class="hero" aria-label="Apresentação do Curso">
+        <div>
+          <div class="eyebrow">Formação Prática · Online & Presencial</div>
+          <h1>PROGRAMAÇÃO<br>ASSISTIDA POR <em>IA</em></h1>
+          <p class="sub">
+            <strong>Do zero ao júnior em qualquer linguagem.</strong> Domina a programação tradicional com o poder da Inteligência Artificial — raciocínio lógico, engenharia de software e projectos reais, sem ficar dependente de simples Vibe Coding.
           </p>
-          <p>
-            No <strong>Zedecks Training</strong>, ensinamos-te os conceitos fundamentais: raciocínio algorítmico, modularidade, segurança e leitura de erros em qualquer linguagem. A IA torna-se o teu acelerador de produtividade, e tu manténs o controlo total do projecto.
-          </p>
-          <div class="story-badges">
-            <div class="story-badge-item">
-              <span class="icon">⚡</span>
-              <span>Aprende a arquitetar sistemas antes de pedir código à IA</span>
-            </div>
-            <div class="story-badge-item">
-              <span class="icon">🔍</span>
-              <span>Domina técnicas de debugging e auditoria de código gerado</span>
-            </div>
-          </div>
-        </div>
-        <div class="story-visual">
-          <img 
-            src="assets/img/methodology-focus.png" 
-            alt="Desenvolvedor focado em lógica e arquitectura de sistemas" 
-            class="story-img-organic"
-          >
-        </div>
-      </div>
-
-      <!-- Bloco 2: Para Quem É -->
-      <div class="story-block reversed">
-        <div class="story-text">
-          <span class="story-pill">Público-Alvo</span>
-          <h3>Do Zero Absoluto ao Júnior Preparado para o Mercado</h3>
-          <p>
-            Não precisas de formação em informática prévia. Construímos a tua curva de aprendizagem passo a passo, desde como um computador pensa até ao deploy de aplicações completas no mundo real.
-          </p>
-          <p>
-            Ao final do curso, terás projectos funcionais no teu repositório, domínio do terminal e ferramentas de IA (Copilot, ChatGPT, Claude, Cursor) aplicadas com rigor técnico.
-          </p>
-          <div class="story-badges">
-            <div class="story-badge-item">
-              <span class="icon">🚀</span>
-              <span>Iniciantes que querem a transição de carreira mais rápida</span>
-            </div>
-            <div class="story-badge-item">
-              <span class="icon">💼</span>
-              <span>Profissionais que precisam automatizar rotinas e criar produtos</span>
-            </div>
-          </div>
-        </div>
-        <div class="story-visual">
-          <img 
-            src="assets/img/audience-macbook.png" 
-            alt="Aluna utilizando portátil para construir aplicações funcionais" 
-            class="story-img-organic"
-          >
-        </div>
-      </div>
-    </section>
-
-    <!-- 3.5 Abas de Navegação (Inscrição vs Portal do Aluno) -->
-    <div id="inscricao">
-      <div class="tabs" role="tablist">
-        <button class="tab active" id="tabRegister" type="button" role="tab" aria-selected="true">Fazer inscrição</button>
-        <button class="tab" id="tabPortal" type="button" role="tab" aria-selected="false">Área do aluno</button>
-      </div>
-
-      <!-- 3.6 Painel de Inscrição -->
-      <section class="card" id="registerPanel" role="tabpanel" aria-labelledby="tabRegister">
-        <h2>Reserva a tua vaga</h2>
-        <p class="muted">Preenche os teus dados abaixo para gerar a tua factura pró-forma e o teu ID de estudante.</p>
-        
-        <form id="registerForm" novalidate>
-          <div class="grid">
-            <!-- Campo Nome Completo -->
-            <div class="field full" id="fieldNameWrapper">
-              <label for="name">Nome completo *</label>
-              <input 
-                id="name" 
-                name="name" 
-                autocomplete="name" 
-                required 
-                maxlength="52" 
-                placeholder="O teu nome e apelido"
-              >
-              <div class="field-error" id="nameError">Por favor, insere o nome sem números/símbolos e apenas um espaço entre os nomes.</div>
-            </div>
-
-            <!-- Campo Telefone / WhatsApp -->
-            <div class="field" id="fieldPhoneWrapper">
-              <label for="phone">WhatsApp / Telefone *</label>
-              <input 
-                id="phone" 
-                name="phone" 
-                type="tel" 
-                autocomplete="tel" 
-                required 
-                maxlength="17" 
-                placeholder="Ex.: +258 84 000 0000 ou 84 000 0000"
-              >
-              <div class="field-error" id="phoneError">Número inválido. Usa 9 dígitos ou +258 com operadores válidos (82, 83, 84, 85, 86, 87, 88).</div>
-            </div>
-
-            <!-- Campo E-mail -->
-            <div class="field" id="fieldEmailWrapper">
-              <label for="email">E-mail *</label>
-              <input 
-                id="email" 
-                name="email" 
-                type="email" 
-                autocomplete="email" 
-                required 
-                placeholder="exemplo@gmail.com"
-              >
-              <div class="field-error" id="emailError">Apenas aceitamos e-mails @gmail.com. Por favor introduz uma conta válida da Google (exemplo@gmail.com).</div>
-            </div>
-
-            <!-- Campo Nível / Perfil -->
-            <div class="field" id="fieldLevelWrapper">
-              <label for="level">Perfil de entrada *</label>
-              <select id="level" name="level" required>
-                <option value="">Selecciona o teu ponto de partida</option>
-                <option value="zero">Começar do Zero Absoluto (Sem conhecimento de código)</option>
-                <option value="iniciante">Iniciante (Já estou a dar os primeiros passos)</option>
-                <option value="conciliar">Programador Tradicional (Quero conciliar Tradição com IA)</option>
-              </select>
-              <div class="field-error" id="levelError">Por favor, selecciona o teu nível de entrada.</div>
-            </div>
-
-            <!-- Campo Modalidade -->
-            <div class="field" id="fieldModeWrapper">
-              <label for="mode">Modalidade de Ensino *</label>
-              <select id="mode" name="mode" required>
-                <option value="">Escolhe uma opção</option>
-                <option value="online">Online ao Vivo — 4.000 MT</option>
-                <option value="presencial">Presencial (Nampula) — 5.000 MT</option>
-              </select>
-              <div class="field-error" id="modeError">Por favor, escolhe a modalidade pretendida.</div>
-            </div>
-
-            <!-- Campo Senha de Acesso -->
-            <div class="field full" id="fieldPasswordWrapper">
-              <label for="password">Senha de Acesso à Área do Aluno *</label>
-              <div class="input-wrapper">
-                <input 
-                  id="password" 
-                  name="password" 
-                  type="text" 
-                  required 
-                  minlength="6" 
-                  placeholder="Senha para consultar a tua vaga"
-                >
-                <button type="button" class="input-action-btn" id="generatePassBtn" title="Gerar nova sugestão de senha">
-                  ⚡ Sugerir Senha
-                </button>
-              </div>
-              <div class="field-error" id="passwordError">A senha deve ter no mínimo 6 caracteres alfanuméricos (apenas letras e números).</div>
-            </div>
-          </div>
           
-          <div class="alert">
-            ℹ️ Ao clicares em Inscrever, o sistema gerará o teu <strong>ID de Estudante Único</strong> e a tua <strong>Factura à Pagar (A4)</strong> oficial para download imediato.
+          <div class="chips">
+            <span class="chip">Agnóstico a Linguagens</span>
+            <span class="chip">Lógica & Fundamentos Sólidos</span>
+            <span class="chip">IA como Co-Piloto Técnico</span>
+            <span class="chip">Arquitectura & Clean Code</span>
+            <span class="chip">Projectos do Mundo Real</span>
           </div>
-          
-          <button class="btn" type="submit" id="submitRegisterBtn">
-            <span>CONCLUIR INSCRIÇÃO & EMITIR FACTURA</span>
-            <span>→</span>
-          </button>
-        </form>
+
+          <div class="hero-actions">
+            <a href="#inscricao" class="hero-cta" id="heroCtaBtn">GARANTIR MINHA VAGA →</a>
+            <a href="#planos" class="hero-subcta">Ver modalidades e preços ↓</a>
+          </div>
+        </div>
+
+        <div class="hero-media">
+          <div class="hero-img-container">
+            <img 
+              src="assets/img/hero-programmer.png" 
+              alt="Programador com código na tela do computador trabalhando com IA" 
+              class="hero-img"
+            >
+            <div class="floating-badge badge-top">
+              <span class="badge-dot"></span>
+              <span>Lógica & Arquitectura Real</span>
+            </div>
+            <div class="floating-badge badge-bottom">
+              <span class="badge-dot gold"></span>
+              <span>IA como Co-Piloto Técnico</span>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <!-- 3.7 Painel da Área do Aluno -->
-      <section class="card hidden" id="portalPanel" role="tabpanel" aria-labelledby="tabPortal">
+      <!-- 3.3 Tabela de Preços & Comparativo de Modalidades -->
+      <section class="pricing-section" id="planos" aria-label="Modalidades e Preços">
+        <div class="section-header">
+          <span class="story-pill">Investimento no Teu Futuro</span>
+          <h2>Escolhe a tua modalidade</h2>
+          <p>Ambas as modalidades incluem certificação, acesso directo aos instrutores e construção de projectos para o teu portfólio.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Card: Online -->
+          <div class="price-card">
+            <div>
+              <div class="price-card-header">
+                <h3>Curso Online</h3>
+                <div class="desc">Ideal para quem quer aprender à distância com flexibilidade total.</div>
+              </div>
+              <div class="price-val">4.000 <span>MT</span></div>
+              <ul class="feature-list">
+                <li>Aulas práticas interactivas e gravadas</li>
+                <li>Acesso total à comunidade de alunos</li>
+                <li>Acompanhamento de dúvidas em tempo real</li>
+                <li>Feedback de código linha por linha</li>
+                <li>Certificado oficial Zedecks Training</li>
+              </ul>
+            </div>
+            <button class="btn-select" type="button" data-mode="online">SELECCIONAR ONLINE →</button>
+          </div>
+
+          <!-- Card: Presencial (Destaque) -->
+          <div class="price-card featured">
+            <div class="card-pill">Mais Recomendado</div>
+            <div>
+              <div class="price-card-header">
+                <h3>Curso Presencial</h3>
+                <div class="desc">Imersão completa com mentoria lado a lado em sala de aula.</div>
+              </div>
+              <div class="price-val gold">5.000 <span>MT</span></div>
+              <ul class="feature-list">
+                <li>Tudo do curso Online incluído</li>
+                <li>Aulas presenciais com mentoria directa</li>
+                <li>Networking exclusivo com desenvolvedores locais</li>
+                <li>Resolução prática de problemas na tua máquina</li>
+                <li>Vagas estritamente limitadas para garantir qualidade</li>
+              </ul>
+            </div>
+            <button class="btn-select" type="button" data-mode="presencial">SELECCIONAR PRESENCIAL →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3.4 Metodologia & Para Quem É (Narrativa Humana) -->
+      <section class="story-section" aria-label="Metodologia e Público-Alvo">
+        <!-- Bloco 1: Metodologia -->
+        <div class="story-block">
+          <div class="story-text">
+            <span class="story-pill">O Nosso Método</span>
+            <h3>Aprende a pensar como um Engenheiro, não apenas a colar prompts</h3>
+            <p>
+              A inteligência artificial transformou o desenvolvimento, mas ferramentas de IA sem base sólida produzem código frágil e erros que tu não saberás resolver.
+            </p>
+            <p>
+              No <strong>Zedecks Training</strong>, ensinamos-te os conceitos fundamentais: raciocínio algorítmico, modularidade, segurança e leitura de erros em qualquer linguagem. A IA torna-se o teu acelerador de produtividade, e tu manténs o controlo total do projecto.
+            </p>
+            <div class="story-badges">
+              <div class="story-badge-item">
+                <span class="icon">⚡</span>
+                <span>Aprende a arquitetar sistemas antes de pedir código à IA</span>
+              </div>
+              <div class="story-badge-item">
+                <span class="icon">🔍</span>
+                <span>Domina técnicas de debugging e auditoria de código gerado</span>
+              </div>
+            </div>
+          </div>
+          <div class="story-visual">
+            <img 
+              src="assets/img/methodology-focus.png" 
+              alt="Desenvolvedor focado em lógica e arquitectura de sistemas" 
+              class="story-img-organic"
+            >
+          </div>
+        </div>
+
+        <!-- Bloco 2: Para Quem É -->
+        <div class="story-block reversed">
+          <div class="story-text">
+            <span class="story-pill">Público-Alvo</span>
+            <h3>Do Zero Absoluto ao Júnior Preparado para o Mercado</h3>
+            <p>
+              Não precisas de formação em informática prévia. Construímos a tua curva de aprendizagem passo a passo, desde como um computador pensa até ao deploy de aplicações completas no mundo real.
+            </p>
+            <p>
+              Ao final do curso, terás projectos funcionais no teu repositório, domínio do terminal e ferramentas de IA (Copilot, ChatGPT, Claude, Cursor) aplicadas com rigor técnico.
+            </p>
+            <div class="story-badges">
+              <div class="story-badge-item">
+                <span class="icon">🚀</span>
+                <span>Iniciantes que querem a transição de carreira mais rápida</span>
+              </div>
+              <div class="story-badge-item">
+                <span class="icon">💼</span>
+                <span>Profissionais que precisam automatizar rotinas e criar produtos</span>
+              </div>
+            </div>
+          </div>
+          <div class="story-visual">
+            <img 
+              src="assets/img/audience-macbook.png" 
+              alt="Aluna utilizando portátil para construir aplicações funcionais" 
+              class="story-img-organic"
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- 3.5 Seção de Inscrição da Landing Page -->
+      <div id="inscricao">
+        <section class="card" id="registerPanel" aria-label="Formulário de Inscrição">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
+            <div>
+              <h2 style="margin-bottom:6px">Reserva a tua vaga</h2>
+              <p class="muted" style="margin:0">Preenche os teus dados abaixo para gerar a tua factura pró-forma e o teu ID de estudante.</p>
+            </div>
+            <a href="#portal" class="portal-nav-btn">
+              Já tens inscrição? Acede à tua Área do Aluno →
+            </a>
+          </div>
+          
+          <form id="registerForm" novalidate>
+            <div class="grid">
+              <!-- Campo Nome Completo -->
+              <div class="field full" id="fieldNameWrapper">
+                <label for="name">Nome completo *</label>
+                <input 
+                  id="name" 
+                  name="name" 
+                  autocomplete="name" 
+                  required 
+                  maxlength="52" 
+                  placeholder="O teu nome e apelido"
+                >
+                <div class="field-error" id="nameError">Por favor, insere o nome sem números/símbolos e apenas um espaço entre os nomes.</div>
+              </div>
+
+              <!-- Campo Telefone / WhatsApp -->
+              <div class="field" id="fieldPhoneWrapper">
+                <label for="phone">WhatsApp / Telefone *</label>
+                <input 
+                  id="phone" 
+                  name="phone" 
+                  type="tel" 
+                  autocomplete="tel" 
+                  required 
+                  maxlength="17" 
+                  placeholder="Ex.: +258 84 000 0000 ou 84 000 0000"
+                >
+                <div class="field-error" id="phoneError">Número inválido. Usa 9 dígitos ou +258 com operadores válidos (82, 83, 84, 85, 86, 87, 88).</div>
+              </div>
+
+              <!-- Campo E-mail -->
+              <div class="field" id="fieldEmailWrapper">
+                <label for="email">E-mail *</label>
+                <input 
+                  id="email" 
+                  name="email" 
+                  type="email" 
+                  autocomplete="email" 
+                  required 
+                  placeholder="exemplo@gmail.com"
+                >
+                <div class="field-error" id="emailError">Apenas aceitamos e-mails @gmail.com. Por favor introduz uma conta válida da Google (exemplo@gmail.com).</div>
+              </div>
+
+              <!-- Campo Nível / Perfil -->
+              <div class="field" id="fieldLevelWrapper">
+                <label for="level">Perfil de entrada *</label>
+                <select id="level" name="level" required>
+                  <option value="">Selecciona o teu ponto de partida</option>
+                  <option value="zero">Começar do Zero Absoluto (Sem conhecimento de código)</option>
+                  <option value="iniciante">Iniciante (Já estou a dar os primeiros passos)</option>
+                  <option value="conciliar">Programador Tradicional (Quero conciliar Tradição com IA)</option>
+                </select>
+                <div class="field-error" id="levelError">Por favor, selecciona o teu nível de entrada.</div>
+              </div>
+
+              <!-- Campo Modalidade -->
+              <div class="field" id="fieldModeWrapper">
+                <label for="mode">Modalidade de Ensino *</label>
+                <select id="mode" name="mode" required>
+                  <option value="">Escolhe uma opção</option>
+                  <option value="online">Online ao Vivo — 4.000 MT</option>
+                  <option value="presencial">Presencial (Nampula) — 5.000 MT</option>
+                </select>
+                <div class="field-error" id="modeError">Por favor, escolhe a modalidade pretendida.</div>
+              </div>
+
+              <!-- Campo Senha de Acesso -->
+              <div class="field full" id="fieldPasswordWrapper">
+                <label for="password">Senha de Acesso à Área do Aluno *</label>
+                <div class="input-wrapper">
+                  <input 
+                    id="password" 
+                    name="password" 
+                    type="text" 
+                    required 
+                    minlength="6" 
+                    placeholder="Senha para consultar a tua vaga"
+                  >
+                  <button type="button" class="input-action-btn" id="generatePassBtn" title="Gerar nova sugestão de senha">
+                    ⚡ Sugerir Senha
+                  </button>
+                </div>
+                <div class="field-error" id="passwordError">A senha deve ter no mínimo 6 caracteres alfanuméricos (apenas letras e números).</div>
+              </div>
+            </div>
+            
+            <div class="alert">
+              ℹ️ Ao clicares em Inscrever, o sistema gerará o teu <strong>ID de Estudante Único</strong> e a tua <strong>Factura à Pagar (A4)</strong> oficial para download imediato.
+            </div>
+            
+            <button class="btn" type="submit" id="submitRegisterBtn">
+              <span>CONCLUIR INSCRIÇÃO & EMITIR FACTURA</span>
+              <span>→</span>
+            </button>
+
+            <div style="text-align:center; margin-top:16px;">
+              <span class="muted" style="font-size:0.88rem;">Já efectuaste a tua inscrição anteriormente? </span>
+              <a href="#portal" class="contact" style="font-size:0.88rem; font-weight:600;">Entrar na Área do Aluno →</a>
+            </div>
+          </form>
+        </section>
+      </div>
+
+      <!-- 3.6 Rodapé Oficial da Landing Page -->
+      <footer class="footer">
+        Dúvidas e suporte oficial: <a class="contact" href="https://wa.me/258847703309" target="_blank" rel="noopener">WhatsApp +258 84 770 3309</a><br>
+        <strong>ZEDECKS TRAINING</strong> · Programação Assistida por IA · Do Zero ao Júnior
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- ==========================================================================
+    3.B VISTA DEDICADA DA ÁREA DO ALUNO (PAGE #portal, #aluno, #estudante)
+  ========================================================================== -->
+  <div id="portalView" class="hidden">
+    <div class="wrap">
+      <!-- Cabeçalho Oficial do Portal -->
+      <header class="portal-header">
+        <div class="portal-header-brand">
+          <a href="#" class="brand-link" id="portalBrandLink" aria-label="Página Inicial Zedecks Training">
+            <img 
+              src="assets/img/ztrining-logo.png" 
+              alt="ZEDECKS TRAINING" 
+              class="logo-img" 
+              onerror="this.style.display='none'; document.getElementById('portalBrandFallback').style.display='block';"
+            >
+            <div id="portalBrandFallback" class="brand-fallback" style="display:none">
+              ZEDECKS <span>TRAINING</span>
+            </div>
+          </a>
+          <span class="portal-badge">PORTAL DO ALUNO</span>
+        </div>
+        <div class="portal-header-actions">
+          <a href="#" class="btn-back-site" id="backToSiteBtn">
+            ← Voltar à Página Inicial
+          </a>
+        </div>
+      </header>
+
+      <!-- 3.7 Painel Central da Área do Aluno -->
+      <section class="card" id="portalPanel" aria-label="Painel do Aluno">
         <!-- Vista de Login -->
         <div id="loginView">
           <h2>Acesso à Área do Aluno</h2>
-          <p class="muted">Acompanha a tua candidatura, descarrega a factura pró-forma ou submete o comprovativo.</p>
+          <p class="muted">Acompanha a tua candidatura, descarrega a factura pró-forma ou submete o comprovativo de pagamento.</p>
           <form id="loginForm" novalidate>
             <div class="grid">
               <div class="field">
@@ -1873,10 +2011,13 @@
             </div>
             <button class="btn" type="submit">ENTRAR NA ÁREA DO ALUNO</button>
           </form>
-          <p class="muted" style="margin-top:16px">
-            Esqueceste a senha ou precisas de apoio directo? Fala connosco via WhatsApp: 
-            <a class="contact" href="https://wa.me/258847703309" target="_blank" rel="noopener">84 770 3309</a>.
-          </p>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:24px; padding-top:16px; border-top:1px solid #18344e;">
+            <a href="#" class="contact" style="font-size:0.9rem;">← Não tens inscrição? Reserva a tua vaga no curso</a>
+            <p class="muted" style="margin:0; font-size:0.88rem;">
+              Dúvidas ou apoio: <a class="contact" href="https://wa.me/258847703309" target="_blank" rel="noopener">WhatsApp +258 84 770 3309</a>
+            </p>
+          </div>
         </div>
 
         <!-- Vista do Aluno Logado -->
@@ -2061,15 +2202,14 @@
           </div>
         </div>
       </section>
+
+      <!-- Rodapé Oficial do Portal -->
+      <footer class="footer">
+        Dúvidas e suporte oficial: <a class="contact" href="https://wa.me/258847703309" target="_blank" rel="noopener">WhatsApp +258 84 770 3309</a><br>
+        <strong>ZEDECKS TRAINING</strong> · Portal Oficial do Aluno · Engenharia & IA
+      </footer>
     </div>
-
-    <!-- 3.8 Rodapé Oficial -->
-    <footer class="footer">
-      Dúvidas e suporte oficial: <a class="contact" href="https://wa.me/258847703309" target="_blank" rel="noopener">WhatsApp +258 84 770 3309</a><br>
-      <strong>ZEDECKS TRAINING</strong> · Programação Assistida por IA · Do Zero ao Júnior
-    </footer>
-
-  </main>
+  </div>
 
   <!-- 3.9 Template Executivo Oficial da Factura / Recibo A4 (Utilizado para Impressão e PDF) -->
   <div id="invoicePrintContainer" aria-hidden="true">
@@ -2779,25 +2919,70 @@
         }
       };
 
-      // 4.7 CONTROLADOR DE NAVEGAÇÃO E ABAS
-      const TabNavigator = {
-        switchTo(tabName) {
-          const isRegisterTab = tabName === 'register';
+      // 4.7 ROTEADOR DE PÁGINAS INDEPENDENTES (HASH ROUTER: #portal, #aluno, #estudante)
+      const AppRouter = {
+        isPortalRoute() {
+          const hash = (window.location.hash || '').toLowerCase();
+          return hash === '#portal' || hash === '#aluno' || hash === '#estudante';
+        },
 
-          getElement('registerPanel').classList.toggle('hidden', !isRegisterTab);
-          getElement('portalPanel').classList.toggle('hidden', isRegisterTab);
+        navigateToSite(targetAnchor = '') {
+          if (targetAnchor) {
+            window.location.hash = targetAnchor.startsWith('#') ? targetAnchor : `#${targetAnchor}`;
+          } else {
+            if (window.location.hash) {
+              try {
+                history.pushState(null, '', window.location.pathname + window.location.search);
+              } catch (_) {
+                window.location.hash = '';
+              }
+            }
+            this.syncView();
+          }
+        },
 
-          getElement('tabRegister').classList.toggle('active', isRegisterTab);
-          getElement('tabRegister').setAttribute('aria-selected', isRegisterTab ? 'true' : 'false');
-          getElement('tabPortal').classList.toggle('active', !isRegisterTab);
-          getElement('tabPortal').setAttribute('aria-selected', !isRegisterTab ? 'true' : 'false');
+        navigateToPortal() {
+          window.location.hash = '#portal';
+        },
+
+        syncView() {
+          const isPortal = this.isPortalRoute();
+          const landingView = getElement('landingView');
+          const portalView = getElement('portalView');
+
+          if (isPortal) {
+            if (landingView) landingView.classList.add('hidden');
+            if (portalView) portalView.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'instant' });
+
+            if (activeStudentSession) {
+              StudentViewRenderer.showDashboard(activeStudentSession);
+            } else {
+              StudentViewRenderer.showLogin();
+            }
+          } else {
+            if (portalView) portalView.classList.add('hidden');
+            if (landingView) landingView.classList.remove('hidden');
+
+            const hash = window.location.hash;
+            if (hash && hash !== '#') {
+              const target = document.querySelector(hash);
+              if (target) {
+                setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 60);
+              }
+            }
+          }
         },
 
         selectModeAndScroll(mode) {
-          this.switchTo('register');
-          getElement('mode').value = mode;
+          if (this.isPortalRoute()) {
+            this.navigateToSite('inscricao');
+          }
+          const modeSelect = getElement('mode');
+          if (modeSelect) modeSelect.value = mode;
           FormValidatorUI.clearError('fieldModeWrapper');
-          getElement('name').focus();
+          const nameInput = getElement('name');
+          if (nameInput) nameInput.focus();
 
           const targetSection = getElement('inscricao');
           if (targetSection) {
@@ -2900,7 +3085,8 @@
           activeStudentSession = null;
           getElement('studentView').classList.add('hidden');
           getElement('loginView').classList.remove('hidden');
-          getElement('loginForm').reset();
+          const loginForm = getElement('loginForm');
+          if (loginForm) loginForm.reset();
         }
       };
 
@@ -3018,7 +3204,7 @@
           };
 
           StorageRepository.addStudent(newStudent);
-          TabNavigator.switchTo('portal');
+          AppRouter.navigateToPortal();
           StudentViewRenderer.showDashboard(newStudent);
 
           alert(
@@ -3145,7 +3331,7 @@
 
         handleLogout() {
           StudentViewRenderer.showLogin();
-          TabNavigator.switchTo('portal');
+          AppRouter.navigateToPortal();
         }
       };
 
@@ -3156,17 +3342,39 @@
           passInput.value = CredentialGenerator.generateSuggestedPassword();
         }
 
-        // Navegação de abas
-        getElement('tabRegister').addEventListener('click', () => TabNavigator.switchTo('register'));
-        getElement('tabPortal').addEventListener('click', () => TabNavigator.switchTo('portal'));
+        // Navegação de Rotas e Hash
+        window.addEventListener('hashchange', () => AppRouter.syncView());
+        AppRouter.syncView();
+
+        // Botões de voltar à Landing Page
+        const backToSiteBtn = getElement('backToSiteBtn');
+        if (backToSiteBtn) {
+          backToSiteBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            AppRouter.navigateToSite();
+          });
+        }
+
+        const portalBrandLink = getElement('portalBrandLink');
+        if (portalBrandLink) {
+          portalBrandLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            AppRouter.navigateToSite();
+          });
+        }
 
         // CTA no Hero e cards de modalidade
-        getElement('heroCtaBtn').addEventListener('click', () => TabNavigator.switchTo('register'));
+        const heroCtaBtn = getElement('heroCtaBtn');
+        if (heroCtaBtn) {
+          heroCtaBtn.addEventListener('click', () => {
+            AppRouter.navigateToSite('inscricao');
+          });
+        }
 
         document.querySelectorAll('button[data-mode]').forEach((button) => {
           button.addEventListener('click', (e) => {
             const selectedMode = e.currentTarget.getAttribute('data-mode');
-            TabNavigator.selectModeAndScroll(selectedMode);
+            AppRouter.selectModeAndScroll(selectedMode);
           });
         });
 

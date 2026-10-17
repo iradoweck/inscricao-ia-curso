@@ -4,34 +4,23 @@ Todas as alterações notáveis neste projeto serão documentadas neste ficheiro
 
 O formato baseia-se no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e adere ao [Semantic Versioning (SemVer)](https://semver.org/).
 
----
+## [0.6.0] - 2026-10-17
 
-## [0.5.4] - 2026-10-17
+### Add
+- Arquitetura SPA com roteamento hash (`#portal`, `#aluno`, `#estudante`): separação da Landing Page e da Área do Aluno em duas visualizações mestras independentes (`#landingView` e `#portalView`) mantendo arquivo único `index.html`.
+- Cabeçalho dedicado do Portal com identificação visual corporativa, badge oficial e botão de retorno `← Voltar à Página Inicial`.
+- Botão direto de acesso à Área do Aluno no cabeçalho público e no formulário de reserva de vaga.
 
 ### Modify
-- Remoção do modal flutuante na tela e implementação de layout corporativo executivo na Factura e Recibo A4.
-
----
-
-## [0.5.3] - 2026-10-17
-
-### Update
-- Ajustado titular oficial dos pagamentos: máscara restrita apenas ao M-Pesa e exibição nominal completa no E-Mola e BIM.
-
----
-
-## [0.5.2] - 2026-10-17
-
-### Fix
-- Corrigida a pré-visualização e impressão da Factura A4 em modal dedicado para evitar documento em branco.
+- Substituição do `TabNavigator` pelo `AppRouter` com sincronização nativa de rotas via `hashchange` e compatibilidade com histórico de navegação.
 
 ---
 
 ## [0.5.1] - 2026-10-17
 
-### Modify
-- Validação instantânea na digitação com auto-capitalização contínua e feedback imediato (@gmail.com, prefixos 82-88).
-- Ajuste das coordenadas para Nampula, titular oficial protegido (`EDMILSON M********O`) e fatura estrita em 1 folha A4.
+### Update
+- Validação em tempo real (Title Case, @gmail.com, prefixos 82-88) e coordenadas oficiais de pagamento (Nampula).
+- Emissão direta de Factura e Recibo A4 com layout executivo e titulares ajustados (M-Pesa mascarado e E-Mola/BIM nominais).
 
 ---
 

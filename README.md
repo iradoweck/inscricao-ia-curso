@@ -41,9 +41,9 @@ flowchart TB
         HeroHTML["Hero (Apresentação & assets/img/hero-programmer.png)"]
         PricingHTML["Modalidades: Online (4.000 MT) & Presencial (5.000 MT)"]
         StoryHTML["Metodologia (assets/img/methodology-focus.png) & Público (assets/img/audience-macbook.png)"]
-        TabsHTML["Abas: Inscrição / Área do Aluno"]
+        ViewsHTML["Vistas SPA: Landing Page (#landingView) & Área do Aluno (#portalView)"]
         FormsHTML["Formulários (Inscrição, Login, Comprovativo)"]
-        Footer["Rodapé Oficial & Suporte WhatsApp"]
+        Footer["Rodapés Oficiais & Suporte WhatsApp"]
     end
 
     subgraph S4["[Seção 4] Lógica da Aplicação (Vanilla JS)"]
@@ -51,7 +51,7 @@ flowchart TB
         Creds["CredentialGenerator (ID Único IA-XXXXXX & Senha Sugerida)"]
         Repo["StorageRepository (LocalStorage Adapter)"]
         Printer["InvoicePrinter (Emissão de Factura Pró-forma & Recibo A4 em PDF)"]
-        Navigator["TabNavigator (Gestão de Abas & Âncoras)"]
+        Router["AppRouter (Hash Routing SPA: #portal, #aluno, #estudante)"]
         Renderer["StudentViewRenderer (Progresso Stepper & Área do Aluno)"]
         Handlers["FormHandlers (Inscrição, Login, Upload, Cópias de NIB/M-Pesa)"]
         AppInit["initApp (Event Listeners & Bootstrapping)"]
@@ -65,7 +65,7 @@ flowchart TB
     Handlers --> Creds
     Handlers --> Printer
     Handlers --> Renderer
-    Handlers --> Navigator
+    Handlers --> Router
     AppInit --> Handlers
 ```
 
