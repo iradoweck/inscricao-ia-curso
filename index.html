@@ -3409,15 +3409,23 @@
         }
       };
 
-      // 4.5 REPOSITÓRIO DE DADOS (LOCALSTORAGE + FIRESTORE SYNC)
+      // 4.5 REPOSITÓRIO DE DADOS (LOCALSTORAGE + FIRESTORE SYNC - 100% AO VIVO)
       const StorageRepository = {
         getAllStudents() {
           try {
-            return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return [];
+            const parsed = JSON.parse(raw);
+            return Array.isArray(parsed) ? parsed : [];
           } catch (error) {
             console.error('Falha ao aceder ao LocalStorage:', error);
             return [];
           }
+        },
+
+        clearAllStudents() {
+          this.saveAllStudents([]);
+          return [];
         },
 
         saveAllStudents(studentsList) {
@@ -3698,31 +3706,41 @@
           const all = StorageRepository.getAllStudents();
           const filtered = this.getFilteredStudents();
 
-          // 1. Métricas KPI
+          // 1. Métricas KPI Reais
           const totalEnrollments = all.length;
-          const totalRevenue = all.reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
-          const pendingCount = all.filter(s => s.status === 'A aguardar pagamento' || s.status === 'Comprovativo enviado').length;
-          const confirmedCount = all.filter(s => s.status === 'Inscrição confirmada').length;
+          const onlineCount = all.filter(s => s.mode === 'online').length;
+          const presencialCount = all.filter(s => s.mode === 'presencial').length;
+          const confirmedList = all.filter(s => s.status === 'Inscrição confirmada');
+          const confirmedCount = confirmedList.length;
+          const confirmedPercent = totalEnrollments > 0 ? Math.round((confirmedCount / totalEnrollments) * 100) : 0;
+          const pendingProofCount = all.filter(s => s.status === 'Comprovativo enviado').length;
+          const confirmedRevenue = confirmedList.reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
+          const totalPotentialRevenue = all.reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
 
-          if (getElement('adminTotalCount')) getElement('adminTotalCount').textContent = totalEnrollments;
-          if (getElement('adminTotalRevenue')) getElement('adminTotalRevenue').textContent = formatCurrency(totalRevenue);
-          if (getElement('adminPendingCount')) getElement('adminPendingCount').textContent = pendingCount;
-          if (getElement('adminConfirmedCount')) getElement('adminConfirmedCount').textContent = confirmedCount;
-
-          // 2. Renderização da Tabela
-          const tbody = getElement('adminTableBody');
-          const countInfo = getElement('adminFilteredCount');
-          if (countInfo) {
-            countInfo.textContent = `A exibir ${filtered.length} de ${all.length} inscrições`;
+          if (getElement('kpiTotal')) getElement('kpiTotal').textContent = totalEnrollments;
+          if (getElement('kpiOnlineVsPresencial')) {
+            getElement('kpiOnlineVsPresencial').textContent = `${onlineCount} Online · ${presencialCount} Presencial`;
+          }
+          if (getElement('kpiConfirmed')) getElement('kpiConfirmed').textContent = confirmedCount;
+          if (getElement('kpiConfirmedPercent')) {
+            getElement('kpiConfirmedPercent').textContent = `${confirmedPercent}% do total`;
+          }
+          if (getElement('kpiPendingProof')) getElement('kpiPendingProof').textContent = pendingProofCount;
+          if (getElement('kpiRevenue')) getElement('kpiRevenue').textContent = formatCurrency(confirmedRevenue);
+          if (getElement('kpiExpectedRevenue')) {
+            getElement('kpiExpectedRevenue').textContent = `Potencial: ${formatCurrency(totalPotentialRevenue)}`;
           }
 
+          // 2. Renderização da Tabela de Estudantes (8 Colunas Reais)
+          const tbody = getElement('adminStudentsTbody') || getElement('adminTableBody');
           if (!tbody) return;
 
           if (filtered.length === 0) {
             tbody.innerHTML = `
               <tr>
-                <td colspan="7" style="text-align:center; padding:36px; color:#8ba3c7;">
-                  Nenhuma inscrição encontrada com os filtros actuais.
+                <td colspan="8" style="text-align:center; padding:48px 20px; color:#8ba3c7; font-size:14px;">
+                  <div style="font-size:16px; font-weight:600; color:#fff; margin-bottom:6px;">Nenhuma inscrição registada até ao momento</div>
+                  <div style="font-size:13px; color:#5b7396;">As novas inscrições submetidas no formulário do site aparecerão aqui em tempo real.</div>
                 </td>
               </tr>
             `;
@@ -3744,8 +3762,10 @@
                 </td>
                 <td>
                   <div style="font-weight:600; color:#fff;">${s.name}</div>
-                  <div style="font-size:12px; color:#8ba3c7;">${s.phone}</div>
-                  <div style="font-size:11px; color:#5b7396;">${s.email || '-'}</div>
+                  <div style="font-size:12px; color:#8ba3c7;">${s.email || '-'}</div>
+                </td>
+                <td>
+                  <span style="font-family:monospace; font-size:13px; color:#cbd5e1;">${s.phone}</span>
                 </td>
                 <td>
                   <span class="admin-badge-mode">${modeText}</span>
@@ -3755,15 +3775,15 @@
                   <strong style="color:#28d69a;">${formatCurrency(s.amount)}</strong>
                 </td>
                 <td>
-                  <span class="admin-status-pill ${statusClass}">${s.status}</span>
-                </td>
-                <td>
                   ${hasProof 
                     ? `<button type="button" class="admin-btn-action view-proof" data-code="${s.code}">
                          👁️ Ver Comprovativo
                        </button>`
                     : `<span style="font-size:12px; color:#5b7396;">Sem anexo</span>`
                   }
+                </td>
+                <td>
+                  <span class="admin-status-pill ${statusClass}">${s.status}</span>
                 </td>
                 <td>
                   <div class="admin-actions-cell">
@@ -3842,44 +3862,51 @@
           if (!student) return;
 
           const modal = getElement('adminProofModal');
-          const titleEl = getElement('adminProofStudentTitle');
-          const metaEl = getElement('adminProofMeta');
-          const previewContainer = getElement('adminProofPreviewContainer');
+          const titleEl = getElement('modalProofTitle');
+          const bodyEl = getElement('modalProofBody');
 
-          if (!modal || !previewContainer) return;
+          if (!modal || !bodyEl) return;
 
           if (titleEl) titleEl.textContent = `Comprovativo: ${student.name} (${student.code})`;
-          if (metaEl) {
-            const uploadedAt = student.proofUploadedAt ? formatDatePt(new Date(student.proofUploadedAt)) : '-';
-            metaEl.textContent = `Ficheiro: ${student.proofName || 'Anexo'} · Submetido em: ${uploadedAt} · Valor: ${formatCurrency(student.amount)}`;
-          }
+
+          const uploadedAt = student.proofUploadedAt ? formatDatePt(new Date(student.proofUploadedAt)) : '-';
+          const metaHtml = `
+            <div style="font-size:12px; color:#8ba3c7; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid #1a3c5e;">
+              Ficheiro: <strong>${student.proofName || 'Anexo'}</strong> · Submetido em: <strong>${uploadedAt}</strong> · Valor: <strong style="color:#28d69a;">${formatCurrency(student.amount)}</strong>
+            </div>
+          `;
 
           if (student.proofData) {
             const isPdf = student.proofData.startsWith('data:application/pdf') || (student.proofName || '').toLowerCase().endsWith('.pdf');
             if (isPdf) {
-              previewContainer.innerHTML = `
+              bodyEl.innerHTML = `
+                ${metaHtml}
                 <iframe 
                   src="${student.proofData}" 
                   class="admin-proof-frame" 
+                  style="width:100%; height:450px; border:none; border-radius:6px;"
                   title="Pré-visualização do Comprovativo PDF"
                 ></iframe>
               `;
             } else {
-              previewContainer.innerHTML = `
-                <div style="text-align:center; padding:12px;">
+              bodyEl.innerHTML = `
+                ${metaHtml}
+                <div style="text-align:center; padding:12px; max-height:70vh; overflow-y:auto;">
                   <img 
                     src="${student.proofData}" 
                     alt="Comprovativo de Pagamento" 
                     class="admin-proof-img" 
+                    style="max-width:100%; max-height:65vh; border-radius:6px; box-shadow:0 4px 14px rgba(0,0,0,0.4);"
                   />
                 </div>
               `;
             }
           } else {
-            previewContainer.innerHTML = `
+            bodyEl.innerHTML = `
+              ${metaHtml}
               <div style="text-align:center; padding:36px; color:#8ba3c7;">
                 <p style="font-size:16px; margin-bottom:8px;">📄 Ficheiro registado: <strong>${student.proofName || 'Comprovativo'}</strong></p>
-                <p style="font-size:13px; color:#5b7396;">Este anexo foi submetido em modo somente-nome antes da activação de pré-visualização em Base64.</p>
+                <p style="font-size:13px; color:#5b7396;">O candidato informou o envio do comprovativo. Contacte-o directamente via WhatsApp (${student.phone}) se necessário.</p>
               </div>
             `;
           }
@@ -3932,30 +3959,32 @@
           }
 
           const printContainer = getElement('adminReportPrintContainer');
-          const printTbody = getElement('adminReportPrintTbody');
-          const printDate = getElement('adminReportPrintDate');
-          const printTotalCount = getElement('adminReportTotalCount');
-          const printTotalRevenue = getElement('adminReportTotalRevenue');
-          const printConfirmedCount = getElement('adminReportConfirmedCount');
+          const printTbody = getElement('reportPrintTbody') || getElement('adminReportPrintTbody');
+          const printDate = getElement('reportPrintDate');
+          const repKpiTotal = getElement('repKpiTotal');
+          const repKpiConfirmed = getElement('repKpiConfirmed');
+          const repKpiPending = getElement('repKpiPending');
+          const repKpiRevenue = getElement('repKpiRevenue');
 
           if (!printContainer || !printTbody) return;
 
           const now = new Date();
           if (printDate) printDate.textContent = `${formatDatePt(now)} às ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
-          const totalRevenue = students.reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
-          const confirmedCount = students.filter(s => s.status === 'Inscrição confirmada').length;
+          const confirmedList = students.filter(s => s.status === 'Inscrição confirmada');
+          const pendingCount = students.filter(s => s.status === 'Comprovativo enviado' || s.status === 'A aguardar pagamento').length;
+          const confirmedRevenue = confirmedList.reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
 
-          if (printTotalCount) printTotalCount.textContent = students.length;
-          if (printTotalRevenue) printTotalRevenue.textContent = formatCurrency(totalRevenue);
-          if (printConfirmedCount) printConfirmedCount.textContent = confirmedCount;
+          if (repKpiTotal) repKpiTotal.textContent = students.length;
+          if (repKpiConfirmed) repKpiConfirmed.textContent = confirmedList.length;
+          if (repKpiPending) repKpiPending.textContent = pendingCount;
+          if (repKpiRevenue) repKpiRevenue.textContent = formatCurrency(confirmedRevenue);
 
-          printTbody.innerHTML = students.map((s, idx) => {
+          printTbody.innerHTML = students.map((s) => {
             const isConfirmed = s.status === 'Inscrição confirmada';
             const statusLabel = isConfirmed ? 'CONFIRMADO' : (s.status === 'Comprovativo enviado' ? 'EM ANÁLISE' : 'PENDENTE');
             return `
               <tr>
-                <td style="text-align:center;">${idx + 1}</td>
                 <td style="font-family:monospace; font-weight:bold;">${s.code}</td>
                 <td><strong>${s.name}</strong></td>
                 <td>${s.phone}</td>
