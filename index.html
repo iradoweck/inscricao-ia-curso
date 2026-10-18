@@ -21,8 +21,8 @@
   <link rel="icon" type="image/png" href="assets/icone.png">
 
   <!-- Firebase SDK v10 (Compat - Vanilla JavaScript sem bundler) -->
-  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
   <!-- ==========================================================================
     [SEÇÃO 2] ESTILOS VISUAIS (CSS)
@@ -3324,26 +3324,40 @@
       // Sessão em memória do estudante ativo na Área do Aluno
       let activeStudentSession = null;
 
-      // 4.1.B ADAPTADOR HÍBRIDO CLOUD FIRESTORE / LOCALSTORAGE
+      // 4.1.B ADAPTADOR HÍBRIDO CLOUD FIRESTORE / LOCALSTORAGE (COM AUTO-RECUPERAÇÃO E REST FALLBACK)
       const FirebaseDataAdapter = {
         firestoreDb: null,
         isConfigured() {
           return Boolean(FIREBASE_CONFIG.apiKey && FIREBASE_CONFIG.projectId);
         },
 
+        ensureFirebaseReady() {
+          if (!this.isConfigured()) return false;
+          if (this.firestoreDb) return true;
+          if (window.firebase) {
+            try {
+              if (!window.firebase.apps.length) {
+                window.firebase.initializeApp(FIREBASE_CONFIG);
+              }
+              this.firestoreDb = window.firebase.firestore();
+              return true;
+            } catch (e) {
+              console.warn('Erro ao inicializar Firebase Firestore:', e);
+            }
+          }
+          return false;
+        },
+
         init(onSyncCallback) {
           if (!this.isConfigured()) {
-            console.info('ℹ️ Firebase não configurado (chaves vazias). O sistema está a operar localmente com persistência em LocalStorage.');
+            console.info('Firebase não configurado. A operar localmente.');
             return;
           }
 
-          try {
-            if (window.firebase && !window.firebase.apps.length) {
-              window.firebase.initializeApp(FIREBASE_CONFIG);
-              this.firestoreDb = window.firebase.firestore();
+          const setupListener = () => {
+            if (!this.ensureFirebaseReady()) return;
+            try {
               console.log('[Firebase] Firestore conectado com sucesso.');
-
-              // Escuta alterações em tempo real da coleção 'enrollments'
               this.firestoreDb.collection('enrollments').onSnapshot((snapshot) => {
                 const cloudStudents = [];
                 snapshot.forEach((doc) => {
@@ -3359,29 +3373,177 @@
               }, (err) => {
                 console.warn('Aviso de conexão Firestore:', err);
               });
+            } catch (e) {
+              console.warn('Erro ao subscrever coleção no Firestore:', e);
             }
-          } catch (e) {
-            console.warn('Erro ao inicializar Firebase SDK:', e);
+          };
+
+          if (window.firebase) {
+            setupListener();
+          } else {
+            window.addEventListener('DOMContentLoaded', () => {
+              setTimeout(setupListener, 300);
+            });
           }
         },
 
-        async saveStudent(student) {
-          if (!this.isConfigured() || !this.firestoreDb) return;
+        parseRestDocument(doc) {
+          if (!doc || !doc.fields) return null;
+          const res = {};
+          for (const [k, v] of Object.entries(doc.fields)) {
+            if (v.stringValue !== undefined) res[k] = v.stringValue;
+            else if (v.integerValue !== undefined) res[k] = Number(v.integerValue);
+            else if (v.doubleValue !== undefined) res[k] = Number(v.doubleValue);
+            else if (v.booleanValue !== undefined) res[k] = v.booleanValue;
+            else if (v.timestampValue !== undefined) res[k] = v.timestampValue;
+            else res[k] = v;
+          }
+          return res;
+        },
+
+        async fetchStudent(credential) {
+          if (!this.isConfigured() || !credential) return null;
+          const clean = credential.trim();
+          const cleanUpper = clean.toUpperCase();
+          const cleanPhone = clean.replace(/[\s\-\(\)\+]/g, '');
+          const localDigits = cleanPhone.slice(-9);
+
+          // 1. Tenta consulta primária via Firebase JS SDK
+          if (this.ensureFirebaseReady()) {
+            try {
+              let docSnap = await this.firestoreDb.collection('enrollments').doc(cleanUpper).get();
+              if (docSnap.exists) {
+                return docSnap.data();
+              }
+
+              if (!cleanUpper.startsWith('IA-')) {
+                docSnap = await this.firestoreDb.collection('enrollments').doc(`IA-${cleanUpper}`).get();
+                if (docSnap.exists) {
+                  return docSnap.data();
+                }
+              }
+
+              const codeQuery = await this.firestoreDb.collection('enrollments')
+                .where('code', '==', cleanUpper)
+                .limit(1)
+                .get();
+              if (!codeQuery.empty) {
+                return codeQuery.docs[0].data();
+              }
+
+              if (localDigits.length === 9) {
+                const phoneQuery = await this.firestoreDb.collection('enrollments')
+                  .where('rawPhone', '==', localDigits)
+                  .limit(1)
+                  .get();
+                if (!phoneQuery.empty) {
+                  return phoneQuery.docs[0].data();
+                }
+              }
+
+              const formattedQuery = await this.firestoreDb.collection('enrollments')
+                .where('phone', '==', clean)
+                .limit(1)
+                .get();
+              if (!formattedQuery.empty) {
+                return formattedQuery.docs[0].data();
+              }
+            } catch (sdkErr) {
+              console.warn('[Firebase SDK] Consulta falhou, a tentar REST fallback:', sdkErr);
+            }
+          }
+
+          // 2. Fallback direto via REST API oficial do Firestore (imune a bloqueios de SDK/WebSocket)
           try {
-            await this.firestoreDb.collection('enrollments').doc(student.code).set(student, { merge: true });
-            console.log(`[Firebase] Aluno ${student.code} sincronizado na nuvem Firestore.`);
-          } catch (err) {
-            console.warn('Erro ao sincronizar documento no Firestore:', err);
+            const baseUrl = `https://firestore.googleapis.com/v1/projects/${FIREBASE_CONFIG.projectId}/databases/(default)/documents`;
+            const targetIds = [cleanUpper];
+            if (!cleanUpper.startsWith('IA-')) {
+              targetIds.push(`IA-${cleanUpper}`);
+            }
+
+            for (const docId of targetIds) {
+              const res = await fetch(`${baseUrl}/enrollments/${encodeURIComponent(docId)}?key=${FIREBASE_CONFIG.apiKey}`);
+              if (res.ok) {
+                const json = await res.json();
+                const student = this.parseRestDocument(json);
+                if (student) return student;
+              }
+            }
+
+            if (localDigits.length === 9) {
+              const queryRes = await fetch(`${baseUrl}:runQuery?key=${FIREBASE_CONFIG.apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  structuredQuery: {
+                    from: [{ collectionId: 'enrollments' }],
+                    where: {
+                      fieldFilter: {
+                        field: { fieldPath: 'rawPhone' },
+                        op: 'EQUAL',
+                        value: { stringValue: localDigits }
+                      }
+                    },
+                    limit: 1
+                  }
+                })
+              });
+
+              if (queryRes.ok) {
+                const queryData = await queryRes.json();
+                if (Array.isArray(queryData) && queryData[0] && queryData[0].document) {
+                  const student = this.parseRestDocument(queryData[0].document);
+                  if (student) return student;
+                }
+              }
+            }
+          } catch (restErr) {
+            console.warn('[Firebase REST] Fallback falhou:', restErr);
+          }
+
+          return null;
+        },
+
+        async saveStudent(student) {
+          if (!this.isConfigured() || !student || !student.code) return;
+          if (this.ensureFirebaseReady()) {
+            try {
+              await this.firestoreDb.collection('enrollments').doc(student.code).set(student, { merge: true });
+              console.log(`[Firebase] Aluno ${student.code} sincronizado na nuvem Firestore.`);
+              return;
+            } catch (err) {
+              console.warn('Erro ao sincronizar documento via SDK, a tentar REST:', err);
+            }
+          }
+
+          try {
+            const baseUrl = `https://firestore.googleapis.com/v1/projects/${FIREBASE_CONFIG.projectId}/databases/(default)/documents`;
+            const fields = {};
+            for (const [k, v] of Object.entries(student)) {
+              if (typeof v === 'number') fields[k] = { integerValue: String(v) };
+              else if (typeof v === 'boolean') fields[k] = { booleanValue: v };
+              else fields[k] = { stringValue: String(v || '') };
+            }
+            await fetch(`${baseUrl}/enrollments/${encodeURIComponent(student.code)}?key=${FIREBASE_CONFIG.apiKey}`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ fields })
+            });
+          } catch (e) {
+            console.warn('[Firebase REST] Falha ao gravar via REST:', e);
           }
         },
 
         async deleteStudent(code) {
-          if (!this.isConfigured() || !this.firestoreDb || !code) return;
-          try {
-            await this.firestoreDb.collection('enrollments').doc(code).delete();
-            console.log(`[Firebase] Aluno ${code} removido da nuvem Firestore.`);
-          } catch (err) {
-            console.warn('Erro ao remover documento no Firestore:', err);
+          if (!this.isConfigured() || !code) return;
+          if (this.ensureFirebaseReady()) {
+            try {
+              await this.firestoreDb.collection('enrollments').doc(code).delete();
+              console.log(`[Firebase] Aluno ${code} removido da nuvem Firestore.`);
+              return;
+            } catch (err) {
+              console.warn('Erro ao remover documento no Firestore:', err);
+            }
           }
         }
       };
@@ -3815,13 +3977,7 @@
 
         saveAllStudents(studentsList) {
           try {
-            // Remove qualquer senha em texto claro antes da persistência local
-            const sanitizedList = (studentsList || []).map((s) => {
-              const copy = { ...s };
-              delete copy.password;
-              return copy;
-            });
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizedList));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(studentsList || []));
           } catch (error) {
             console.error('Falha ao salvar no LocalStorage:', error);
           }
@@ -3875,21 +4031,33 @@
           return null;
         },
 
-        findStudentByCredentials(credential, password) {
-          if (!credential || !password) return null;
+        findStudentByCredentials(credential, password, passHash = '') {
+          if (!credential || (!password && !passHash)) return null;
           const cleanCred = credential.trim().replace(/[\s\-\(\)]/g, '').toUpperCase();
+          const cleanPhoneInput = credential.trim().replace(/[\s\-\(\)\+]/g, '');
           const students = this.getAllStudents();
 
           return students.find((student) => {
             const studentCode = (student.code || '').replace(/[\s\-]/g, '').toUpperCase();
             const studentPhone = (student.phone || '').replace(/[\s\-\(\)\+]/g, '');
-            const credPhone = cleanCred.replace(/^\+/, '');
+            const studentRawPhone = (student.rawPhone || '').replace(/\D/g, '');
 
-            const matchesCode = studentCode === cleanCred;
-            const matchesPhone = studentPhone.endsWith(credPhone) || credPhone.endsWith(studentPhone);
-            const matchesPass = student.password === password.trim();
+            const matchesCode = (studentCode === cleanCred) || 
+                                (studentCode.replace(/^IA/, '') === cleanCred.replace(/^IA/, ''));
 
-            return (matchesCode || matchesPhone) && matchesPass;
+            const matchesPhone = Boolean(cleanPhoneInput && (
+              studentPhone === cleanPhoneInput ||
+              studentPhone.endsWith(cleanPhoneInput) ||
+              cleanPhoneInput.endsWith(studentPhone) ||
+              (studentRawPhone && studentRawPhone === cleanPhoneInput.slice(-9))
+            ));
+            
+            if (!matchesCode && !matchesPhone) return false;
+
+            const matchesPlain = Boolean(student.password && password && student.password.trim() === password.trim());
+            const matchesHash = Boolean(student.passHash && passHash && student.passHash === passHash);
+
+            return matchesPlain || matchesHash;
           }) || null;
         }
       };
@@ -4753,7 +4921,7 @@
 
       // 4.10 HANDLERS DE FORMULÁRIO E EVENTOS DO SISTEMA
       const FormHandlers = {
-        handleRegistration(event) {
+        async handleRegistration(event) {
           event.preventDefault();
           FormValidatorUI.clearAllErrors();
 
@@ -4828,6 +4996,7 @@
           const uniqueStudentCode = CredentialGenerator.generateUniqueStudentId(allStudents);
           const normalizedPhone = ValidationService.normalizePhone(rawPhone);
 
+          const passHash = await CryptoSecurity.hashSecret(rawPassword);
           const newStudent = {
             name: cleanName,
             phone: normalizedPhone,
@@ -4838,6 +5007,7 @@
             amount: COURSE_PRICES[selectedMode] || 4000,
             code: uniqueStudentCode,
             password: rawPassword,
+            passHash: passHash,
             status: 'A aguardar pagamento',
             proofName: '',
             createdAt: new Date().toISOString()
@@ -4868,15 +5038,59 @@
             return;
           }
 
-          const passHash = await CryptoSecurity.hashSecret(password);
-          const student = StorageRepository.findStudentByCredentials(credential, password, passHash);
-
-          if (!student) {
-            alert('Inscrição não encontrada. Confirma o teu ID (ex: IA-C7UP8X) ou Telefone e a tua senha.');
-            return;
+          const loginForm = getElement('loginForm');
+          const loginBtn = loginForm ? loginForm.querySelector('button[type="submit"]') : null;
+          const originalBtnHtml = loginBtn ? loginBtn.innerHTML : '';
+          if (loginBtn) {
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = 'A verificar credenciais...';
           }
 
-          StudentViewRenderer.showDashboard(student);
+          try {
+            const passHash = await CryptoSecurity.hashSecret(password);
+
+            // 1. Procura primeiro no armazenamento local (imediato / offline)
+            let student = StorageRepository.findStudentByCredentials(credential, password, passHash);
+
+            // 2. Se não encontrou localmente e o Firebase está ativo, consulta diretamente a Cloud Firestore
+            if (!student && FirebaseDataAdapter.isConfigured()) {
+              const cloudStudent = await FirebaseDataAdapter.fetchStudent(credential);
+              if (cloudStudent) {
+                const cloudPass = (cloudStudent.password || '').trim();
+                const matchesPlain = Boolean(cloudPass && cloudPass === password);
+                const matchesHash = Boolean(cloudStudent.passHash && cloudStudent.passHash === passHash);
+
+                if (matchesPlain || matchesHash) {
+                  student = cloudStudent;
+                  // Persiste localmente para acessos futuros instantâneos
+                  const all = StorageRepository.getAllStudents();
+                  const cleanTargetCode = (cloudStudent.code || '').trim().toUpperCase();
+                  const existsIdx = all.findIndex(s => (s.code || '').trim().toUpperCase() === cleanTargetCode);
+                  if (existsIdx >= 0) {
+                    all[existsIdx] = cloudStudent;
+                  } else {
+                    all.push(cloudStudent);
+                  }
+                  StorageRepository.saveAllStudents(all);
+                }
+              }
+            }
+
+            if (!student) {
+              alert('Inscrição não encontrada. Confirma o teu ID (ex: IA-KXFN2W) ou Telefone e a tua senha de acesso.');
+              return;
+            }
+
+            StudentViewRenderer.showDashboard(student);
+          } catch (err) {
+            console.error('Erro ao efetuar login do aluno:', err);
+            alert('Ocorreu um erro ao verificar os teus dados de acesso. Por favor, tenta novamente.');
+          } finally {
+            if (loginBtn) {
+              loginBtn.disabled = false;
+              loginBtn.innerHTML = originalBtnHtml;
+            }
+          }
         },
 
         handleProofUpload(event) {
@@ -4975,6 +5189,12 @@
         FirebaseDataAdapter.init((cloudStudents) => {
           if (AppRouter.isAdminRoute()) {
             AdminController.renderDashboard();
+          } else if (activeStudentSession) {
+            const fresh = cloudStudents.find(s => (s.code || '').toUpperCase() === (activeStudentSession.code || '').toUpperCase());
+            if (fresh) {
+              activeStudentSession = fresh;
+              StudentViewRenderer.render(fresh);
+            }
           }
         });
 
