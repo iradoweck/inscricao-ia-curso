@@ -1,0 +1,32 @@
+{
+  "name": "inscricao-ia-curso",
+  "version": "1.2.0",
+  "description": "Landing page e Portal do Aluno com faturação pró-forma A4 em PDF e painel administrativo para o curso de Programação Assistida por IA da Zedecks Training.",
+  "main": "index.html",
+  "homepage": "https://iradoweck.github.io/inscricao-ia-curso/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iradoweck/inscricao-ia-curso.git"
+  },
+  "keywords": [
+    "landing-page",
+    "student-portal",
+    "clean-code",
+    "vanilla-javascript",
+    "ai-coding",
+    "invoice-generator",
+    "admin-dashboard",
+    "github-pages",
+    "mozambique"
+  ],
+  "author": "Edmilson Adelino Muacigarro (Zedecks)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iradoweck/inscricao-ia-curso/issues"
+  },
+  "scripts": {
+    "dev": "python -m http.server 2025",
+    "start": "python -m http.server 2025",
+    "lint": "node -e \"const fs = require('fs'); const html = fs.readFileSync('index.html', 'utf8'); new Function(html.match(/<script\\b[^>]*>([\\s\\S]*?)<\\/script>/i)[1]); console.log('Syntax OK!');\""
+  }
+}
