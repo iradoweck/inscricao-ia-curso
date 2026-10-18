@@ -1597,6 +1597,10 @@
       display: none !important;
     }
 
+    #adminView .wrap {
+      width: min(1480px, 95%);
+    }
+
     .admin-header {
       padding: 24px 0 20px;
       display: flex;
@@ -1764,11 +1768,19 @@
 
     .admin-table-wrap {
       overflow-x: auto;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE e Edge legado */
       background: #081728;
       border: 1px solid #163756;
       border-radius: var(--radius-md);
       margin-bottom: 24px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .admin-table-wrap::-webkit-scrollbar {
+      display: none !important; /* Chrome, Safari, Edge Chromium */
+      width: 0 !important;
+      height: 0 !important;
     }
 
     .admin-table {
@@ -1780,11 +1792,12 @@
 
     .admin-table th {
       background: #0d2238;
-      color: #b3c9de;
-      padding: 12px 14px;
-      font-size: 0.78rem;
+      color: #9ec8ef;
+      padding: 13px 14px;
+      font-size: 0.76rem;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.7px;
       border-bottom: 1px solid #1c456c;
       white-space: nowrap;
     }
@@ -1801,52 +1814,177 @@
       background: rgba(0, 183, 255, 0.04);
     }
 
-    .btn-action-sm {
-      padding: 6px 11px;
-      border-radius: var(--radius-sm);
-      font-size: 0.78rem;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      transition: all var(--transition-fast);
+    /* Célula de Ações */
+    .admin-actions-cell {
       display: inline-flex;
       align-items: center;
+      gap: 7px;
+      flex-wrap: nowrap;
+    }
+
+    /* Botões Modernos e Vivos da Tabela Admin */
+    .admin-btn-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       gap: 5px;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
       font-family: inherit;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.18s ease-in-out;
+      white-space: nowrap;
+      line-height: 1.2;
+      text-decoration: none;
+      box-sizing: border-box;
     }
 
-    .btn-action-sm.approve {
-      background: #14532d;
-      color: #86efac;
-      border: 1px solid #22c55e;
+    /* 1. Botão Aprovar Vaga (Verde Esmeralda Vivo) */
+    .admin-btn-action.approve {
+      background: rgba(16, 185, 129, 0.16) !important;
+      color: #34d399 !important;
+      border: 1px solid rgba(16, 185, 129, 0.5) !important;
+      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.12);
+    }
+    .admin-btn-action.approve:hover {
+      background: #10b981 !important;
+      color: #02261b !important;
+      border-color: #34d399 !important;
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.45);
+    }
+    .admin-btn-action.approve:active {
+      transform: translateY(0);
     }
 
-    .btn-action-sm.approve:hover {
-      background: #166534;
-      color: #ffffff;
-      box-shadow: 0 0 10px rgba(34, 197, 94, 0.35);
+    /* 2. Botão Reverter (Âmbar / Laranja Suave) */
+    .admin-btn-action.revert {
+      background: rgba(245, 158, 11, 0.14) !important;
+      color: #fbbf24 !important;
+      border: 1px solid rgba(245, 158, 11, 0.45) !important;
+      box-shadow: 0 2px 6px rgba(245, 158, 11, 0.1);
+    }
+    .admin-btn-action.revert:hover {
+      background: #f59e0b !important;
+      color: #1e1200 !important;
+      border-color: #fde68a !important;
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+    }
+    .admin-btn-action.revert:active {
+      transform: translateY(0);
     }
 
-    .btn-action-sm.revert {
-      background: #451a03;
-      color: #fdba74;
-      border: 1px solid #f97316;
+    /* 3. Botão Ver Comprovativo (Ciano Elétrico) */
+    .admin-btn-action.view-proof {
+      background: rgba(14, 165, 233, 0.16) !important;
+      color: #38bdf8 !important;
+      border: 1px solid rgba(14, 165, 233, 0.45) !important;
+      box-shadow: 0 2px 6px rgba(14, 165, 233, 0.12);
+    }
+    .admin-btn-action.view-proof:hover {
+      background: #0ea5e9 !important;
+      color: #021727 !important;
+      border-color: #7dd3fc !important;
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 14px rgba(14, 165, 233, 0.45);
+    }
+    .admin-btn-action.view-proof:active {
+      transform: translateY(0);
     }
 
-    .btn-action-sm.revert:hover {
-      background: #7c2d12;
-      color: #ffffff;
+    /* 4. Botão Factura / Recibo (Índigo VIP) */
+    .admin-btn-action.invoice {
+      background: rgba(99, 102, 241, 0.16) !important;
+      color: #a5b4fc !important;
+      border: 1px solid rgba(99, 102, 241, 0.45) !important;
+      box-shadow: 0 2px 6px rgba(99, 102, 241, 0.1);
+    }
+    .admin-btn-action.invoice:hover {
+      background: #6366f1 !important;
+      color: #ffffff !important;
+      border-color: #c7d2fe !important;
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.45);
+    }
+    .admin-btn-action.invoice:active {
+      transform: translateY(0);
     }
 
-    .btn-action-sm.view-proof {
-      background: #0f3050;
-      color: #67e8f9;
-      border: 1px solid #0891b2;
+    /* Badges de Estado com Ponto Indicador */
+    .admin-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    .admin-status-pill::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
     }
 
-    .btn-action-sm.view-proof:hover {
-      background: #155e75;
-      color: #ffffff;
+    .status-pill-ok {
+      background: rgba(16, 185, 129, 0.12);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    .status-pill-ok::before {
+      background: #34d399;
+      box-shadow: 0 0 8px #34d399;
+    }
+
+    .status-pill-review {
+      background: rgba(235, 179, 56, 0.12);
+      color: #fbbf24;
+      border: 1px solid rgba(235, 179, 56, 0.4);
+    }
+    .status-pill-review::before {
+      background: #fbbf24;
+      box-shadow: 0 0 8px #fbbf24;
+    }
+
+    .status-pill-pending {
+      background: rgba(148, 163, 184, 0.1);
+      color: #cbd5e1;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+    .status-pill-pending::before {
+      background: #94a3b8;
+    }
+
+    /* Badge de Modalidade */
+    .admin-badge-mode {
+      display: inline-block;
+      padding: 3px 8px;
+      background: rgba(0, 183, 255, 0.12);
+      border: 1px solid rgba(0, 183, 255, 0.35);
+      border-radius: 4px;
+      color: #38bdf8;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .admin-no-proof {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.74rem;
+      color: #64748b;
+      padding: 3px 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed rgba(255, 255, 255, 0.14);
+      border-radius: 4px;
     }
 
     /* Modal do Comprovativo */
@@ -3779,7 +3917,7 @@
                     ? `<button type="button" class="admin-btn-action view-proof" data-code="${s.code}">
                          👁️ Ver Comprovativo
                        </button>`
-                    : `<span style="font-size:12px; color:#5b7396;">Sem anexo</span>`
+                    : `<span class="admin-no-proof">Sem anexo</span>`
                   }
                 </td>
                 <td>
