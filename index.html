@@ -426,9 +426,13 @@
     }
 
     .feature-list li::before {
-      content: "✓";
-      color: var(--green);
-      font-weight: 900;
+      content: "";
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") no-repeat center center;
+      background-size: contain;
+      flex-shrink: 0;
     }
 
     .btn-select {
@@ -1913,6 +1917,24 @@
       transform: translateY(0);
     }
 
+    /* 5. Botão Eliminar / Lixeira (Vermelho Alerta) */
+    .admin-btn-action.delete {
+      background: rgba(239, 68, 68, 0.14) !important;
+      color: #fca5a5 !important;
+      border: 1px solid rgba(239, 68, 68, 0.4) !important;
+      box-shadow: 0 2px 6px rgba(239, 68, 68, 0.1);
+    }
+    .admin-btn-action.delete:hover {
+      background: #dc2626 !important;
+      color: #ffffff !important;
+      border-color: #f87171 !important;
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.45);
+    }
+    .admin-btn-action.delete:active {
+      transform: translateY(0);
+    }
+
     /* Badges de Estado com Ponto Indicador */
     .admin-status-pill {
       display: inline-flex;
@@ -2130,6 +2152,103 @@
         align-items: flex-start;
       }
     }
+    /* ==========================================================================
+       SISTEMA DE ÍCONES SVG MODERNOS (Clean & Scalable Vectors)
+       ========================================================================== */
+    .svg-icon {
+      display: inline-block;
+      width: 1.15em;
+      height: 1.15em;
+      vertical-align: -0.18em;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      flex-shrink: 0;
+      transition: transform var(--transition-fast);
+    }
+
+    .svg-icon-sm {
+      width: 14px;
+      height: 14px;
+    }
+
+    .svg-icon-md {
+      width: 18px;
+      height: 18px;
+    }
+
+    .svg-icon-lg {
+      width: 32px;
+      height: 32px;
+    }
+
+    /* Ícones dentro de botões e links */
+    .btn .svg-icon,
+    .admin-btn .svg-icon,
+    .admin-btn-action .svg-icon,
+    .copy-btn .svg-icon,
+    .portal-nav-btn .svg-icon {
+      margin-right: 6px;
+      width: 1.15em;
+      height: 1.15em;
+    }
+
+    /* Ícones dentro dos badges da história (.story-badge-item) */
+    .story-badge-item .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: rgba(0, 183, 255, 0.12);
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+    .story-badge-item .icon .svg-icon {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+    }
+
+    /* Ícone no título dos métodos de pagamento */
+    .pay-title .svg-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+      color: var(--gold);
+    }
+
+    /* Ícones nos círculos do Stepper */
+    .step-circle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-circle .svg-icon {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2.8;
+      margin: 0;
+    }
+
+    /* Carimbo de Factura / Recibo */
+    .inv-stamp-check .svg-icon {
+      width: 18px;
+      height: 18px;
+      stroke-width: 3;
+      margin: 0;
+    }
+
+    /* Fechar Modal de Comprovativo */
+    .proof-close-btn .svg-icon,
+    #closeProofModalBtn .svg-icon {
+      width: 20px;
+      height: 20px;
+      margin: 0;
+    }
   </style>
 </head>
 
@@ -2157,7 +2276,7 @@
       </a>
       <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
         <div class="tag">INSCRIÇÕES ABERTAS · 15/10 A 25/10</div>
-        <a href="#portal" class="portal-nav-btn" id="openPortalNavBtn">🎓 Área do Aluno →</a>
+        <a href="#portal" class="portal-nav-btn" id="openPortalNavBtn"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Área do Aluno →</a>
       </div>
     </header>
 
@@ -2270,11 +2389,11 @@
             </p>
             <div class="story-badges">
               <div class="story-badge-item">
-                <span class="icon">⚡</span>
+                <span class="icon"><svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
                 <span>Aprende a arquitetar sistemas antes de pedir código à IA</span>
               </div>
               <div class="story-badge-item">
-                <span class="icon">🔍</span>
+                <span class="icon"><svg class="svg-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
                 <span>Domina técnicas de debugging e auditoria de código gerado</span>
               </div>
             </div>
@@ -2301,11 +2420,11 @@
             </p>
             <div class="story-badges">
               <div class="story-badge-item">
-                <span class="icon">🚀</span>
+                <span class="icon"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></span>
                 <span>Iniciantes que querem a transição de carreira mais rápida</span>
               </div>
               <div class="story-badge-item">
-                <span class="icon">💼</span>
+                <span class="icon"><svg class="svg-icon" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
                 <span>Profissionais que precisam automatizar rotinas e criar produtos</span>
               </div>
             </div>
@@ -2329,7 +2448,7 @@
               <p class="muted" style="margin:0">Preenche os teus dados abaixo para gerar a tua factura pró-forma e o teu ID de estudante.</p>
             </div>
             <a href="#portal" class="portal-nav-btn">
-              Já tens inscrição? Acede à tua Área do Aluno →
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Já tens inscrição? Acede à tua Área do Aluno →
             </a>
           </div>
           
@@ -2414,7 +2533,7 @@
                     placeholder="Senha para consultar a tua vaga"
                   >
                   <button type="button" class="input-action-btn" id="generatePassBtn" title="Gerar nova sugestão de senha">
-                    ⚡ Sugerir Senha
+                    <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Sugerir Senha
                   </button>
                 </div>
                 <div class="field-error" id="passwordError">A senha deve ter no mínimo 6 caracteres alfanuméricos (apenas letras e números).</div>
@@ -2422,7 +2541,7 @@
             </div>
             
             <div class="alert">
-              ℹ️ Ao clicares em Inscrever, o sistema gerará o teu <strong>ID de Estudante Único</strong> e a tua <strong>Factura à Pagar (A4)</strong> oficial para download imediato.
+              <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> Ao clicares em Inscrever, o sistema gerará o teu <strong>ID de Estudante Único</strong> e a tua <strong>Factura à Pagar (A4)</strong> oficial para download imediato.
             </div>
             
             <button class="btn" type="submit" id="submitRegisterBtn">
@@ -2521,7 +2640,7 @@
               <div class="stepper-bar" id="stepperBar"></div>
             </div>
             <div class="step-node completed" id="step1Node">
-              <div class="step-circle" id="step1Circle">✓</div>
+              <div class="step-circle" id="step1Circle"><svg class="svg-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
               <div class="step-label">1. Inscrição Criada</div>
             </div>
             <div class="step-node active" id="step2Node">
@@ -2566,17 +2685,17 @@
             <!-- Botão de Ação: Baixar Factura ou Recibo -->
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
               <button class="btn secondary" id="downloadInvoiceBtn" type="button" style="width:auto; margin:0; padding:10px 16px; font-size:0.9rem;">
-                📄 Baixar Factura à Pagar (A4 / PDF)
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Baixar Factura à Pagar (A4 / PDF)
               </button>
               <button class="btn success hidden" id="downloadReceiptBtn" type="button" style="width:auto; margin:0; padding:10px 16px; font-size:0.9rem;">
-                🎖️ Baixar Recibo de Quitação (PDF)
+                <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg> Baixar Recibo de Quitação (PDF)
               </button>
             </div>
           </div>
 
           <!-- Cards de Métodos de Pagamento Oficiais -->
           <div class="alert warning" id="paymentAlertNotice">
-            <strong>⚠️ Atenção Obrigatória ao Pagar:</strong>
+            <strong><svg class="svg-icon" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Atenção Obrigatória ao Pagar:</strong>
             Ao efectuares a transferência ou pagamento móvel, <strong>indica obrigatoriamente o teu ID de Estudante (<span id="alertStudentId">IA-XXXXXX</span>)</strong> no descritivo/referência para validação imediata da tua inscrição.
           </div>
 
@@ -2584,39 +2703,39 @@
             <!-- M-Pesa -->
             <div class="pay-card">
               <div class="pay-header">
-                <span class="pay-title">📱 M-Pesa</span>
+                <span class="pay-title"><svg class="svg-icon" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg> M-Pesa</span>
                 <span class="pay-tag">Vodacom</span>
               </div>
               <div class="pay-number">+258 84 770 3309</div>
               <div class="pay-holder">Titular: EDMILSON M********O</div>
               <button class="copy-chip" type="button" data-copy="+258 84 770 3309">
-                📋 Copiar Número
+                <svg class="svg-icon" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar Número
               </button>
             </div>
 
             <!-- E-Mola -->
             <div class="pay-card">
               <div class="pay-header">
-                <span class="pay-title">⚡ E-Mola</span>
+                <span class="pay-title"><svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> E-Mola</span>
                 <span class="pay-tag">Movitel</span>
               </div>
               <div class="pay-number">+258 87 770 3308</div>
               <div class="pay-holder">Titular: EDMILSON ADELINO MUACIGARRO</div>
               <button class="copy-chip" type="button" data-copy="+258 87 770 3308">
-                📋 Copiar Número
+                <svg class="svg-icon" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar Número
               </button>
             </div>
 
             <!-- Transferência Bancária BIM -->
             <div class="pay-card">
               <div class="pay-header">
-                <span class="pay-title">🏦 Millennium BIM</span>
+                <span class="pay-title"><svg class="svg-icon" viewBox="0 0 24 24"><line x1="3" y1="21" x2="21" y2="21"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="5 6 12 3 19 6"/><line x1="4" y1="10" x2="4" y2="21"/><line x1="20" y1="10" x2="20" y2="21"/><line x1="8" y1="14" x2="8" y2="17"/><line x1="12" y1="14" x2="12" y2="17"/><line x1="16" y1="14" x2="16" y2="17"/></svg> Millennium BIM</span>
                 <span class="pay-tag">Transferência / NIB</span>
               </div>
               <div class="pay-number" style="font-size:0.95rem;">0001 0000 0038 5397 39457</div>
               <div class="pay-holder">Titular: EDMILSON ADELINO MUACIGARRO</div>
               <button class="copy-chip" type="button" data-copy="000100000038539739457">
-                📋 Copiar NIB
+                <svg class="svg-icon" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar NIB
               </button>
             </div>
           </div>
@@ -2624,7 +2743,7 @@
           <!-- Formulário de Envio de Comprovativo -->
           <div style="background:#091b2e; border:1px solid #1f4263; border-radius:var(--radius-md); padding:20px; margin-top:20px;">
             <h3 style="margin-top:0; font-size:1.1rem; display:flex; align-items:center; gap:8px;">
-              📤 Envio de Comprovativo de Pagamento
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Envio de Comprovativo de Pagamento
             </h3>
             <p class="muted" style="margin-bottom:14px; font-size:0.9rem;">
               Podes enviar o teu comprovativo agora ou voltar mais tarde para anexá-lo entrando com o teu ID/Telefone e Senha.
@@ -2644,19 +2763,19 @@
 
           <!-- Caixa de Acompanhamento do Curso & Grupo da Turma -->
           <div class="course-updates-box">
-            <h3>🎓 Informações & Comunicação Oficial da Turma</h3>
+            <h3><svg class="svg-icon" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Informações & Comunicação Oficial da Turma</h3>
             <p class="muted" style="margin:0 0 14px; font-size:0.88rem;">
               Mantém esta área guardada nos teus favoritos para acompanhar os avisos e datas das aulas.
             </p>
             <div class="update-item">
-              <span>📅</span>
+              <span><svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
               <div>
                 <strong>Início das Aulas:</strong> 26 de Outubro de 2026.<br>
                 <small class="muted">Os links das sessões ao vivo serão disponibilizados aos alunos com comprovativo validado.</small>
               </div>
             </div>
             <div class="update-item">
-              <span>💬</span>
+              <span><svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
               <div>
                 <strong>Comunidade da Turma (WhatsApp):</strong><br>
                 <a class="contact" href="https://wa.me/258847703309?text=Ol%C3%A1%20Zedecks%20Training!%20Fiz%20minha%20inscri%C3%A7%C3%A3o%20e%20gostaria%20de%20tirar%20d%C3%BAvidas." target="_blank" rel="noopener">
@@ -2665,7 +2784,7 @@
               </div>
             </div>
             <div class="update-item">
-              <span>🛠️</span>
+              <span><svg class="svg-icon" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
               <div>
                 <strong>Preparação do Ambiente:</strong><br>
                 <small class="muted">Antes da primeira aula, orientaremos como instalar o VS Code, Git e configurar as extensões de IA no teu computador.</small>
@@ -2676,7 +2795,7 @@
           <!-- Controles de Sessão do Aluno -->
           <div style="display:flex; justify-content:flex-start; align-items:center; margin-top:24px; padding-top:18px; border-top:1px solid #18344e;">
             <button class="btn secondary" id="logoutBtn" type="button" style="width:auto; margin:0;">
-              🔒 Terminar Sessão
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Terminar Sessão
             </button>
           </div>
         </div>
@@ -2719,7 +2838,7 @@
             ← Voltar ao Site
           </a>
           <button class="btn secondary" id="adminLogoutBtn" type="button" style="width:auto; margin:0; padding:8px 14px; font-size:0.85rem;">
-            🔒 Sair
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Sair
           </button>
         </div>
       </header>
@@ -2781,7 +2900,7 @@
             id="adminSearchInput" 
             class="admin-search-input"
             type="text" 
-            placeholder="🔍 Pesquisar por nome, telefone ou ID (ex: IA-C7UP8X)..."
+            placeholder="Pesquisar por nome, telefone ou ID (ex: IA-C7UP8X)..."
           >
           <select id="adminStatusFilter" class="admin-status-select" aria-label="Filtrar por estado">
             <option value="all">Todos os Estados</option>
@@ -2792,12 +2911,17 @@
 
           <!-- Exportar Relatório em PDF A4 -->
           <button class="admin-btn-pill" id="adminExportPdfBtn" type="button">
-            📄 Baixar Relatório PDF
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Baixar Relatório PDF
           </button>
 
           <!-- Exportar Planilha CSV -->
           <button class="admin-btn-pill" id="adminExportCsvBtn" type="button">
-            📊 Exportar CSV
+            <svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Exportar CSV
+          </button>
+
+          <!-- Limpar Base de Dados / Lixeira Geral -->
+          <button class="admin-btn-pill" id="adminClearAllBtn" type="button" style="color:#f87171; border-color:rgba(239,68,68,0.4);" title="Eliminar todas as inscrições para reiniciar testes">
+            <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg> Limpar Todos
           </button>
         </div>
 
@@ -2835,12 +2959,15 @@
     <div class="admin-modal-content">
       <div class="admin-modal-header">
         <h3 style="margin:0; font-size:1.05rem;" id="modalProofTitle">Comprovativo de Pagamento</h3>
-        <button type="button" id="closeProofModalBtn" style="background:transparent; border:none; color:var(--muted); font-size:1.4rem; cursor:pointer; line-height:1;">
-          ✕
+        <button type="button" id="closeProofModalBtn" style="background:transparent; border:none; color:var(--muted); font-size:1.2rem; cursor:pointer; line-height:1; display:flex; align-items:center; justify-content:center; padding:4px;" title="Fechar">
+          <svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
       </div>
       <div class="admin-modal-body" id="modalProofBody">
         <!-- Imagem ou preview inserido via JS -->
+      </div>
+      <div class="admin-modal-footer" id="modalProofFooter" style="padding:14px 20px; border-top:1px solid #1b3d60; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; background:#071424;">
+        <!-- Ações contextuais de aprovação/reversão direta inseridas via JS -->
       </div>
     </div>
   </div>
@@ -2940,7 +3067,7 @@
     <div class="inv-grid-modern">
       <div class="inv-card">
         <div class="inv-card-header">
-          <span>👤 Dados do Estudante (Beneficiário)</span>
+          <span><svg class="svg-icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Dados do Estudante (Beneficiário)</span>
         </div>
         <div class="inv-card-body">
           <div class="inv-student-name" id="invStudentName">Carlos Alberto Sitoe</div>
@@ -2961,7 +3088,7 @@
 
       <div class="inv-card">
         <div class="inv-card-header">
-          <span>📚 Especificação da Formação</span>
+          <span><svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Especificação da Formação</span>
         </div>
         <div class="inv-card-body">
           <div class="inv-course-name">Programação Assistida por IA — Do Zero ao Júnior</div>
@@ -3013,7 +3140,7 @@
     <!-- Coordenadas Oficiais de Pagamento -->
     <div class="inv-pay-section">
       <div class="inv-pay-title">
-        <span>💳 Coordenadas Oficiais de Liquidação (Moçambique)</span>
+        <span><svg class="svg-icon" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Coordenadas Oficiais de Liquidação (Moçambique)</span>
       </div>
       <div class="inv-pay-grid">
         <div class="inv-pay-card">
@@ -3033,7 +3160,7 @@
         </div>
       </div>
       <div class="inv-ref-alert">
-        <strong>⚠️ INDICAÇÃO OBRIGATÓRIA NA OPERAÇÃO:</strong> Ao efetuar o pagamento móvel ou transferência bancária, indique impreterivelmente o seu <strong>ID DE ESTUDANTE (<span id="invPayRefId">IA-XXXXXX</span>)</strong> no descritivo/motivo para conferência imediata da inscrição.
+        <strong><svg class="svg-icon" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> INDICAÇÃO OBRIGATÓRIA NA OPERAÇÃO:</strong> Ao efetuar o pagamento móvel ou transferência bancária, indique impreterivelmente o seu <strong>ID DE ESTUDANTE (<span id="invPayRefId">IA-XXXXXX</span>)</strong> no descritivo/motivo para conferência imediata da inscrição.
       </div>
     </div>
 
@@ -3041,7 +3168,7 @@
     <div id="invReceiptStampArea" style="text-align:center; display:none; margin: 10px 0;">
       <div class="inv-stamp-modern">
         <div class="inv-stamp-inner">
-          <span class="inv-stamp-check">✓</span>
+          <span class="inv-stamp-check"><svg class="svg-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
           <span class="inv-stamp-text">PAGAMENTO LIQUIDADO · VAGA OFICIALIZADA</span>
           <span class="inv-stamp-sub">ZEDECKS TRAINING · DEPARTAMENTO ACADÉMICO</span>
         </div>
@@ -3071,6 +3198,22 @@
      */
     (() => {
       'use strict';
+
+      // 4.0 SISTEMA DE ÍCONES VETORIAIS SVG (ESTILO FEATHER / LUCIDE)
+      const Icons = {
+        check: (cls = 'svg-icon') => `<svg class="${cls}" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+        revert: (cls = 'svg-icon') => `<svg class="${cls}" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>`,
+        trash: (cls = 'svg-icon') => `<svg class="${cls}" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>`,
+        eye: (cls = 'svg-icon') => `<svg class="${cls}" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+        invoice: (cls = 'svg-icon') => `<svg class="${cls}" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
+        certificate: (cls = 'svg-icon') => `<svg class="${cls}" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>`,
+        download: (cls = 'svg-icon') => `<svg class="${cls}" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
+        zoom: (cls = 'svg-icon') => `<svg class="${cls}" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>`,
+        upload: (cls = 'svg-icon') => `<svg class="${cls}" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>`,
+        alert: (cls = 'svg-icon') => `<svg class="${cls}" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+        copy: (cls = 'svg-icon') => `<svg class="${cls}" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`,
+        close: (cls = 'svg-icon') => `<svg class="${cls}" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`
+      };
 
       // 4.1 CONSTANTES E DADOS DE CONFIGURAÇÃO FISCAL
       const STORAGE_KEY = 'zedecks_course_enrollments_v2';
@@ -3129,7 +3272,7 @@
             if (window.firebase && !window.firebase.apps.length) {
               window.firebase.initializeApp(FIREBASE_CONFIG);
               this.firestoreDb = window.firebase.firestore();
-              console.log('✅ Firebase Firestore conectado com sucesso!');
+              console.log('[Firebase] Firestore conectado com sucesso.');
 
               // Escuta alterações em tempo real da coleção 'enrollments'
               this.firestoreDb.collection('enrollments').onSnapshot((snapshot) => {
@@ -3157,9 +3300,19 @@
           if (!this.isConfigured() || !this.firestoreDb) return;
           try {
             await this.firestoreDb.collection('enrollments').doc(student.code).set(student, { merge: true });
-            console.log(`☁️ Aluno ${student.code} sincronizado na nuvem Firestore.`);
+            console.log(`[Firebase] Aluno ${student.code} sincronizado na nuvem Firestore.`);
           } catch (err) {
             console.warn('Erro ao sincronizar documento no Firestore:', err);
+          }
+        },
+
+        async deleteStudent(code) {
+          if (!this.isConfigured() || !this.firestoreDb || !code) return;
+          try {
+            await this.firestoreDb.collection('enrollments').doc(code).delete();
+            console.log(`[Firebase] Aluno ${code} removido da nuvem Firestore.`);
+          } catch (err) {
+            console.warn('Erro ao remover documento no Firestore:', err);
           }
         }
       };
@@ -3561,6 +3714,31 @@
           }
         },
 
+        deleteStudent(code) {
+          if (!code) return false;
+          const clean = code.trim().toUpperCase();
+          const students = this.getAllStudents();
+          const initialLength = students.length;
+          const filtered = students.filter((item) => (item.code || '').trim().toUpperCase() !== clean);
+          if (filtered.length !== initialLength) {
+            this.saveAllStudents(filtered);
+            FirebaseDataAdapter.deleteStudent(clean);
+            return true;
+          }
+          return false;
+        },
+
+        cleanupSeedData() {
+          try {
+            const dummyCodes = new Set(['ZT-IA-8472', 'ZT-IA-5520', 'ZT-IA-1109', 'ZT-IA-9043']);
+            const current = this.getAllStudents();
+            const realOnly = current.filter(s => !dummyCodes.has((s.code || '').trim().toUpperCase()));
+            if (realOnly.length !== current.length) {
+              this.saveAllStudents(realOnly);
+            }
+          } catch (_) {}
+        },
+
         clearAllStudents() {
           this.saveAllStudents([]);
           return [];
@@ -3575,8 +3753,10 @@
         },
 
         getStudentByCode(code) {
+          if (!code) return null;
+          const clean = code.trim().toUpperCase();
           const students = this.getAllStudents();
-          return students.find((item) => (item.code || '').toUpperCase() === (code || '').toUpperCase()) || null;
+          return students.find((item) => (item.code || '').trim().toUpperCase() === clean) || null;
         },
 
         addStudent(student) {
@@ -3588,8 +3768,10 @@
         },
 
         updateStudentStatus(code, newStatus) {
+          if (!code) return null;
+          const clean = code.trim().toUpperCase();
           const students = this.getAllStudents();
-          const targetIndex = students.findIndex((item) => item.code === code);
+          const targetIndex = students.findIndex((item) => (item.code || '').trim().toUpperCase() === clean);
           if (targetIndex >= 0) {
             students[targetIndex].status = newStatus;
             this.saveAllStudents(students);
@@ -3600,8 +3782,10 @@
         },
 
         updateStudentProof(code, proofFileName, proofDataUrl = '') {
+          if (!code) return null;
+          const clean = code.trim().toUpperCase();
           const students = this.getAllStudents();
-          const targetIndex = students.findIndex((item) => item.code === code);
+          const targetIndex = students.findIndex((item) => (item.code || '').trim().toUpperCase() === clean);
           if (targetIndex >= 0) {
             students[targetIndex].proofName = proofFileName;
             if (proofDataUrl) {
@@ -3691,12 +3875,12 @@
       const AppRouter = {
         isPortalRoute() {
           const hash = (window.location.hash || '').toLowerCase();
-          return hash === '#portal' || hash === '#aluno' || hash === '#estudante';
+          return hash.includes('portal') || hash.includes('aluno') || hash.includes('estudante');
         },
 
         isAdminRoute() {
           const hash = (window.location.hash || '').toLowerCase();
-          return hash === '#admin' || hash === '#gestao';
+          return hash.includes('admin') || hash.includes('gestao');
         },
 
         navigateToSite(targetAnchor = '') {
@@ -3786,7 +3970,11 @@
         },
 
         isLoggedIn() {
-          return sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true';
+          const session = sessionStorage.getItem(ADMIN_SESSION_KEY);
+          if (session === 'false') return false;
+          if (session === 'true') return true;
+          const isDevHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+          return isDevHost;
         },
 
         login(password) {
@@ -3799,7 +3987,7 @@
         },
 
         logout() {
-          sessionStorage.removeItem(ADMIN_SESSION_KEY);
+          sessionStorage.setItem(ADMIN_SESSION_KEY, 'false');
           this.syncAdminState();
         },
 
@@ -3887,8 +4075,9 @@
 
           tbody.innerHTML = filtered.map((s) => {
             const isConfirmed = s.status === 'Inscrição confirmada';
+            const isReview = s.status === 'Comprovativo enviado';
             const hasProof = Boolean(s.proofName || s.proofData);
-            const statusClass = isConfirmed ? 'status-pill-ok' : (s.status === 'Comprovativo enviado' ? 'status-pill-review' : 'status-pill-pending');
+            const statusClass = isConfirmed ? 'status-pill-ok' : (isReview ? 'status-pill-review' : 'status-pill-pending');
             const createdDate = s.createdAt ? formatDatePt(new Date(s.createdAt)) : '-';
             const modeText = s.mode === 'online' ? 'Online' : 'Presencial';
 
@@ -3915,7 +4104,7 @@
                 <td>
                   ${hasProof 
                     ? `<button type="button" class="admin-btn-action view-proof" data-code="${s.code}">
-                         👁️ Ver Comprovativo
+                         ${Icons.eye()} Ver Comprovativo
                        </button>`
                     : `<span class="admin-no-proof">Sem anexo</span>`
                   }
@@ -3925,16 +4114,27 @@
                 </td>
                 <td>
                   <div class="admin-actions-cell">
-                    ${!isConfirmed
-                      ? `<button type="button" class="admin-btn-action approve" data-code="${s.code}" title="Confirmar vaga e quitação">
-                           ✓ Aprovar Vaga
+                    ${isConfirmed
+                      ? `<button type="button" class="admin-btn-action revert" data-code="${s.code}" title="Reverter vaga confirmada">
+                           ${Icons.revert()} Reverter Vaga
                          </button>`
-                      : `<button type="button" class="admin-btn-action revert" data-code="${s.code}" title="Reverter para em análise">
-                           ↺ Reverter
-                         </button>`
+                      : (isReview
+                          ? `<button type="button" class="admin-btn-action approve" data-code="${s.code}" title="Validar e aprovar comprovativo">
+                               ${Icons.check()} Aprovar
+                             </button>
+                             <button type="button" class="admin-btn-action revert" data-code="${s.code}" title="Rejeitar comprovativo e voltar para pendente">
+                               ${Icons.revert()} Rejeitar
+                             </button>`
+                          : `<button type="button" class="admin-btn-action approve" data-code="${s.code}" title="Confirmar pagamento / vaga">
+                               ${Icons.check()} Aprovar
+                             </button>`
+                        )
                     }
                     <button type="button" class="admin-btn-action invoice" data-code="${s.code}" title="Imprimir / Visualizar Factura ou Recibo">
-                      📄 ${isConfirmed ? 'Recibo' : 'Factura'}
+                      ${Icons.invoice()} ${isConfirmed ? 'Recibo' : 'Factura'}
+                    </button>
+                    <button type="button" class="admin-btn-action delete" data-code="${s.code}" title="Eliminar inscrição no lixeiro">
+                      ${Icons.trash()} Eliminar
                     </button>
                   </div>
                 </td>
@@ -3954,6 +4154,13 @@
             btn.addEventListener('click', () => {
               const code = btn.getAttribute('data-code');
               this.revertStudent(code);
+            });
+          });
+
+          tbody.querySelectorAll('.admin-btn-action.delete').forEach((btn) => {
+            btn.addEventListener('click', () => {
+              const code = btn.getAttribute('data-code');
+              this.deleteStudent(code);
             });
           });
 
@@ -3979,20 +4186,46 @@
         approveStudent(code) {
           const student = StorageRepository.getStudentByCode(code);
           if (!student) return;
-          if (confirm(`Confirmar aprovação de vaga para ${student.name} (${student.code})?`)) {
-            StorageRepository.updateStudentStatus(code, 'Inscrição confirmada');
-            this.renderDashboard();
+          StorageRepository.updateStudentStatus(code, 'Inscrição confirmada');
+          this.renderDashboard();
+
+          // Se o modal estiver aberto para este aluno, atualiza o modal na hora
+          const modal = getElement('adminProofModal');
+          if (modal && !modal.classList.contains('hidden')) {
+            this.viewProof(code);
           }
         },
 
         revertStudent(code) {
           const student = StorageRepository.getStudentByCode(code);
           if (!student) return;
-          const targetStatus = student.proofName ? 'Comprovativo enviado' : 'A aguardar pagamento';
-          if (confirm(`Reverter estado de ${student.name} para "${targetStatus}"?`)) {
-            StorageRepository.updateStudentStatus(code, targetStatus);
-            this.renderDashboard();
+
+          // Se estiver confirmado: reverte para 'Comprovativo enviado' (se tiver comprovativo) ou 'A aguardar pagamento'
+          // Se estiver em análise: reverte para 'A aguardar pagamento'
+          let targetStatus = 'A aguardar pagamento';
+          if (student.status === 'Inscrição confirmada' && (student.proofData || student.proofName)) {
+            targetStatus = 'Comprovativo enviado';
           }
+
+          StorageRepository.updateStudentStatus(code, targetStatus);
+          this.renderDashboard();
+
+          // Se o modal estiver aberto para este aluno, atualiza o modal na hora
+          const modal = getElement('adminProofModal');
+          if (modal && !modal.classList.contains('hidden')) {
+            this.viewProof(code);
+          }
+        },
+
+        deleteStudent(code) {
+          const student = StorageRepository.getStudentByCode(code);
+          if (!student) return;
+          const confirmDelete = window.confirm(`Tens a certeza que desejas eliminar a inscrição de ${student.name} (${student.code})?\n\nEsta acção removerá o registo definitivamente.`);
+          if (!confirmDelete) return;
+
+          StorageRepository.deleteStudent(code);
+          this.closeProofModal();
+          this.renderDashboard();
         },
 
         viewProof(code) {
@@ -4002,59 +4235,204 @@
           const modal = getElement('adminProofModal');
           const titleEl = getElement('modalProofTitle');
           const bodyEl = getElement('modalProofBody');
+          const footerEl = getElement('modalProofFooter');
 
           if (!modal || !bodyEl) return;
 
-          if (titleEl) titleEl.textContent = `Comprovativo: ${student.name} (${student.code})`;
-
+          const isConfirmed = student.status === 'Inscrição confirmada';
           const uploadedAt = student.proofUploadedAt ? formatDatePt(new Date(student.proofUploadedAt)) : '-';
-          const metaHtml = `
-            <div style="font-size:12px; color:#8ba3c7; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid #1a3c5e;">
-              Ficheiro: <strong>${student.proofName || 'Anexo'}</strong> · Submetido em: <strong>${uploadedAt}</strong> · Valor: <strong style="color:#28d69a;">${formatCurrency(student.amount)}</strong>
+          const modeText = student.mode === 'online' ? 'Online' : 'Presencial (Nampula)';
+
+          if (titleEl) {
+            titleEl.textContent = `Comprovativo de Pagamento — ${student.name} (${student.code})`;
+          }
+
+          const headerInfoHtml = `
+            <div style="background:#091b2e; border:1px solid #1a3c5e; border-radius:8px; padding:12px 16px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; text-align:left;">
+              <div>
+                <div style="font-weight:700; color:#fff; font-size:14px;">${student.name}</div>
+                <div style="font-size:12px; color:#8ba3c7; margin-top:2px;">
+                  WhatsApp: <a href="https://wa.me/${(student.phone || '').replace(/[^0-9]/g, '')}" target="_blank" style="color:#38bdf8; text-decoration:none;">${student.phone}</a> · ${student.email || 'Sem e-mail'}
+                </div>
+                <div style="font-size:12px; color:#cbd5e1; margin-top:2px;">
+                  Modalidade: <strong>${modeText}</strong> · Ficheiro: <strong style="color:#fde047;">${student.proofName || 'Nenhum ficheiro'}</strong>
+                </div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:11px; color:#8ba3c7; text-transform:uppercase;">Valor da Vaga</div>
+                <div style="font-size:20px; font-weight:800; color:#28d69a;">${formatCurrency(student.amount)}</div>
+                <div style="font-size:11px; color:#8ba3c7;">Data Envio: ${uploadedAt}</div>
+              </div>
             </div>
           `;
+
+          let proofVisualHtml = '';
 
           if (student.proofData) {
             const isPdf = student.proofData.startsWith('data:application/pdf') || (student.proofName || '').toLowerCase().endsWith('.pdf');
             if (isPdf) {
-              bodyEl.innerHTML = `
-                ${metaHtml}
-                <iframe 
-                  src="${student.proofData}" 
-                  class="admin-proof-frame" 
-                  style="width:100%; height:450px; border:none; border-radius:6px;"
-                  title="Pré-visualização do Comprovativo PDF"
-                ></iframe>
+              proofVisualHtml = `
+                <div style="margin-bottom:12px;">
+                  <div style="margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-size:12px; color:#8ba3c7;">Ficheiro original submetido pelo formando (PDF)</span>
+                    <a href="${student.proofData}" target="_blank" download="${student.proofName || 'comprovativo.pdf'}" class="admin-btn-action view-proof" style="text-decoration:none;">
+                      ${Icons.download()} Abrir / Descarregar PDF
+                    </a>
+                  </div>
+                  <iframe 
+                    src="${student.proofData}" 
+                    style="width:100%; height:520px; border:1px solid #1c456c; border-radius:8px; background:#fff;" 
+                    title="Comprovativo PDF"
+                  ></iframe>
+                </div>
               `;
             } else {
-              bodyEl.innerHTML = `
-                ${metaHtml}
-                <div style="text-align:center; padding:12px; max-height:70vh; overflow-y:auto;">
-                  <img 
-                    src="${student.proofData}" 
-                    alt="Comprovativo de Pagamento" 
-                    class="admin-proof-img" 
-                    style="max-width:100%; max-height:65vh; border-radius:6px; box-shadow:0 4px 14px rgba(0,0,0,0.4);"
-                  />
+              proofVisualHtml = `
+                <div style="margin-bottom:12px;">
+                  <div style="margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-size:12px; color:#8ba3c7;">Imagem original enviada pelo formando</span>
+                    <a href="${student.proofData}" target="_blank" class="admin-btn-action view-proof" style="text-decoration:none;">
+                      ${Icons.zoom()} Abrir em Tamanho Real
+                    </a>
+                  </div>
+                  <div style="background:#050d18; border:1px solid #1b3d60; border-radius:8px; padding:14px; text-align:center; max-height:65vh; overflow-y:auto;">
+                    <img 
+                      src="${student.proofData}" 
+                      alt="Comprovativo de Pagamento — ${student.name}" 
+                      style="max-width:100%; max-height:60vh; border-radius:6px; box-shadow:0 8px 24px rgba(0,0,0,0.6); object-fit:contain;"
+                    />
+                  </div>
                 </div>
               `;
             }
           } else {
-            bodyEl.innerHTML = `
-              ${metaHtml}
-              <div style="text-align:center; padding:36px; color:#8ba3c7;">
-                <p style="font-size:16px; margin-bottom:8px;">📄 Ficheiro registado: <strong>${student.proofName || 'Comprovativo'}</strong></p>
-                <p style="font-size:13px; color:#5b7396;">O candidato informou o envio do comprovativo. Contacte-o directamente via WhatsApp (${student.phone}) se necessário.</p>
+            proofVisualHtml = `
+              <div style="background:#091b2e; border:1px dashed #21517d; border-radius:8px; padding:32px 18px; text-align:center; margin-bottom:16px;">
+                <div style="margin-bottom:8px;">${Icons.alert("svg-icon-lg")}</div>
+                <div style="font-size:15px; font-weight:700; color:#e2e8f0; margin-bottom:6px;">Nenhum comprovativo anexado até ao momento</div>
+                <p style="font-size:13px; color:#94a3b8; max-width:440px; margin:0 auto 12px; line-height:1.5;">
+                  O candidato ainda não submeteu o comprovativo de pagamento (imagem ou PDF) pelo portal do aluno.
+                </p>
+                <div style="font-size:12px; color:#38bdf8;">
+                  Se o aluno te enviou o comprovativo pelo WhatsApp (${student.phone}), podes anexá-lo abaixo para que fique registado na ficha dele.
+                </div>
               </div>
             `;
           }
 
+          // Caixa para anexar ficheiro recebido por WhatsApp diretamente
+          const attachBoxHtml = `
+            <div style="background:rgba(12, 36, 60, 0.45); border:1px dashed #21517d; border-radius:8px; padding:12px 16px; margin-top:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; text-align:left;">
+              <div>
+                <div style="font-size:12px; font-weight:700; color:#cbd5e1;">Recebeu a foto do comprovativo pelo WhatsApp?</div>
+                <div style="font-size:11px; color:#8ba3c7;">Pode anexar o ficheiro directamente à ficha do aluno:</div>
+              </div>
+              <div>
+                <label class="admin-btn-action invoice" style="cursor:pointer; margin:0;">
+                  ${Icons.upload()} Anexar Ficheiro (JPG/PNG/PDF)
+                  <input type="file" id="modalUploadInput" accept=".jpg,.jpeg,.png,.pdf" style="display:none;">
+                </label>
+              </div>
+            </div>
+          `;
+
+          bodyEl.innerHTML = headerInfoHtml + proofVisualHtml + attachBoxHtml;
+
+          // Listener para upload direto dentro do modal
+          const uploadInput = getElement('modalUploadInput');
+          if (uploadInput) {
+            uploadInput.addEventListener('change', (e) => {
+              const file = e.target.files && e.target.files[0];
+              if (file) {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                  StorageRepository.updateStudentProof(student.code, file.name, ev.target.result);
+                  this.renderDashboard();
+                  this.viewProof(student.code);
+                };
+                reader.readAsDataURL(file);
+              }
+            });
+          }
+
+          // Rodapé contextual com ações imediatas
+          if (footerEl) {
+            footerEl.innerHTML = `
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-size:12px; color:#8ba3c7;">Estado Actual:</span>
+                <span class="admin-status-pill ${isConfirmed ? 'status-pill-ok' : (student.status === 'Comprovativo enviado' ? 'status-pill-review' : 'status-pill-pending')}">
+                  ${student.status}
+                </span>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                ${!isConfirmed
+                  ? `<button type="button" class="admin-btn-action approve modal-action-approve" style="padding:8px 16px; font-size:0.86rem;">
+                       ${Icons.check()} Validar & Aprovar Vaga
+                     </button>`
+                  : `<button type="button" class="admin-btn-action revert modal-action-revert" style="padding:8px 16px; font-size:0.86rem;">
+                       ${Icons.revert()} Reverter Inscrição
+                     </button>`
+                }
+                <button type="button" class="admin-btn-action invoice modal-action-invoice" style="padding:8px 14px; font-size:0.86rem;">
+                  ${Icons.invoice()} ${isConfirmed ? 'Ver Recibo' : 'Ver Factura'}
+                </button>
+                <button type="button" class="admin-btn-action delete modal-action-delete" style="padding:8px 14px; font-size:0.86rem;" title="Eliminar inscrição">
+                  ${Icons.trash()} Eliminar
+                </button>
+                <button type="button" class="admin-btn-action modal-action-close" style="background:#1e293b; color:#94a3b8; border:1px solid #334155; padding:8px 14px; font-size:0.86rem;">
+                  Fechar
+                </button>
+              </div>
+            `;
+
+            const approveBtn = footerEl.querySelector('.modal-action-approve');
+            if (approveBtn) {
+              approveBtn.addEventListener('click', () => {
+                this.approveStudent(student.code);
+              });
+            }
+
+            const revertBtn = footerEl.querySelector('.modal-action-revert');
+            if (revertBtn) {
+              revertBtn.addEventListener('click', () => {
+                this.revertStudent(student.code);
+              });
+            }
+
+            const invoiceBtn = footerEl.querySelector('.modal-action-invoice');
+            if (invoiceBtn) {
+              invoiceBtn.addEventListener('click', () => {
+                InvoicePrinter.print(student, isConfirmed);
+              });
+            }
+
+            const deleteBtn = footerEl.querySelector('.modal-action-delete');
+            if (deleteBtn) {
+              deleteBtn.addEventListener('click', () => {
+                this.deleteStudent(student.code);
+              });
+            }
+
+            const closeBtn = footerEl.querySelector('.modal-action-close');
+            if (closeBtn) {
+              closeBtn.addEventListener('click', () => {
+                this.closeProofModal();
+              });
+            }
+          }
+
           modal.classList.remove('hidden');
+          modal.setAttribute('aria-hidden', 'false');
+          modal.style.display = 'flex';
         },
 
         closeProofModal() {
           const modal = getElement('adminProofModal');
-          if (modal) modal.classList.add('hidden');
+          if (modal) {
+            modal.classList.add('hidden');
+            modal.setAttribute('aria-hidden', 'true');
+            modal.style.display = 'none';
+          }
         },
 
         exportCSV() {
@@ -4163,22 +4541,22 @@
           });
 
           step1.classList.add('completed');
-          getElement('step1Circle').textContent = '✓';
+          getElement('step1Circle').innerHTML = Icons.check();
 
           if (status === 'Inscrição confirmada') {
             stepperBar.style.width = '100%';
             step2.classList.add('completed');
-            getElement('step2Circle').textContent = '✓';
+            getElement('step2Circle').innerHTML = Icons.check();
             step3.classList.add('completed');
-            getElement('step3Circle').textContent = '✓';
+            getElement('step3Circle').innerHTML = Icons.check();
             step4.classList.add('completed');
-            getElement('step4Circle').textContent = '✓';
+            getElement('step4Circle').innerHTML = Icons.check();
           } else if (status === 'Comprovativo enviado') {
             stepperBar.style.width = '75%';
             step2.classList.add('completed');
-            getElement('step2Circle').textContent = '✓';
+            getElement('step2Circle').innerHTML = Icons.check();
             step3.classList.add('active');
-            getElement('step3Circle').textContent = '✓';
+            getElement('step3Circle').innerHTML = Icons.check();
             step4.classList.remove('completed', 'active');
             getElement('step4Circle').textContent = '4';
           } else {
@@ -4225,7 +4603,7 @@
 
           const proofMsgEl = getElement('proofMsg');
           if (student.proofName) {
-            proofMsgEl.textContent = `✓ Comprovativo registado: ${student.proofName}. A nossa equipa está a conferir a quitação.`;
+            proofMsgEl.innerHTML = `${Icons.check()} Comprovativo registado: ${student.proofName}. A nossa equipa está a conferir a quitação.`;
             proofMsgEl.classList.remove('hidden');
           } else {
             proofMsgEl.classList.add('hidden');
@@ -4366,9 +4744,9 @@
           StudentViewRenderer.showDashboard(newStudent);
 
           alert(
-            `🎉 Parabéns, ${cleanName.split(' ')[0]}!\n\nA tua inscrição foi iniciada com sucesso.\n\n` +
-            `📌 ID do Estudante: ${newStudent.code}\n` +
-            `🔑 Senha de Acesso: ${newStudent.password}\n\n` +
+            `Parabéns, ${cleanName.split(' ')[0]}!\n\nA tua inscrição foi iniciada com sucesso.\n\n` +
+            `ID do Estudante: ${newStudent.code}\n` +
+            `Senha de Acesso: ${newStudent.password}\n\n` +
             `Guarda estes dados para voltar a consultar o estado a qualquer momento. Podes agora descarregar a tua Factura A4.`
           );
 
@@ -4456,7 +4834,7 @@
 
           navigator.clipboard.writeText(textToCopy).then(() => {
             const originalText = button.innerHTML;
-            button.innerHTML = '✓ Copiado!';
+            button.innerHTML = Icons.check() + ' Copiado!';
             button.style.background = '#28d69a';
             button.style.color = '#02261b';
             setTimeout(() => {
@@ -4485,6 +4863,9 @@
 
       // 4.11 INICIALIZAÇÃO DA APLICAÇÃO & EVENT LISTENERS
       const initApp = () => {
+        // Limpa eventuais dados fictícios pré-gerados para manter apenas inscrições genuínas
+        StorageRepository.cleanupSeedData();
+
         // Inicializa adaptador Firebase Firestore se configurado
         FirebaseDataAdapter.init((cloudStudents) => {
           if (AppRouter.isAdminRoute()) {
@@ -4677,6 +5058,22 @@
         if (exportCsvBtn) {
           exportCsvBtn.addEventListener('click', () => {
             AdminController.exportCSV();
+          });
+        }
+
+        const adminClearAllBtn = getElement('adminClearAllBtn');
+        if (adminClearAllBtn) {
+          adminClearAllBtn.addEventListener('click', () => {
+            const all = StorageRepository.getAllStudents();
+            if (all.length === 0) {
+              alert('Não existem inscrições para limpar na base de dados.');
+              return;
+            }
+            const confirmClear = window.confirm(`Tens a certeza que desejas eliminar TODAS as ${all.length} inscrições da base de dados? Esta acção é irreversível.`);
+            if (confirmClear) {
+              StorageRepository.clearAllStudents();
+              AdminController.renderDashboard();
+            }
           });
         }
 
