@@ -3,7 +3,7 @@
   "version": "1.2.0",
   "description": "Landing page e Portal do Aluno com faturação pró-forma A4 em PDF e painel administrativo para o curso de Programação Assistida por IA da Zedecks Training.",
   "main": "index.html",
-  "homepage": "https://iradoweck.github.io/inscricao-ia-curso/",
+  "homepage": "https://inscricao.zedecks.com",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/iradoweck/inscricao-ia-curso.git"

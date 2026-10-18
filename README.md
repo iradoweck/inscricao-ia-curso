@@ -1,13 +1,13 @@
 # ZEDECKS TRAINING — Programação Assistida por IA
 
-[![Deploy to GitHub Pages](https://github.com/iradoweck/inscricao-ia-curso/actions/workflows/deploy.yml/badge.svg)](https://github.com/iradoweck/inscricao-ia-curso/actions/workflows/deploy.yml)
-[![Live Site](https://img.shields.io/badge/Demo%20Live-GitHub%20Pages-00b7ff?logo=github&style=flat-square)](https://iradoweck.github.io/inscricao-ia-curso/)
-[![Architecture](https://img.shields.io/badge/Architecture-Single--File%20Clean%20Code-10b981?style=flat-square)](index.html)
+[![Live Site](https://img.shields.io/badge/Produção-inscricao.zedecks.com-00b7ff?logo=googlechrome&style=flat-square)](https://inscricao.zedecks.com)
+[![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages%20(Branch%20main)-10b981?logo=github&style=flat-square)](https://inscricao.zedecks.com)
+[![Architecture](https://img.shields.io/badge/Architecture-Single--File%20Clean%20Code-0ea5e9?style=flat-square)](index.html)
 [![License](https://img.shields.io/badge/License-Source--Available-ffb21c?style=flat-square)](LICENSE.md)
 
 > **Landing Page oficial, Portal do Aluno & Painel Administrativo** para o curso *"Programação Assistida por IA — Do Zero ao Júnior"*.
 >
-> 🌐 **Acesso Online (Produção):** [https://iradoweck.github.io/inscricao-ia-curso/](https://iradoweck.github.io/inscricao-ia-curso/)
+> 🌐 **Acesso Online (Produção Oficial):** [https://inscricao.zedecks.com](https://inscricao.zedecks.com)
 
 ---
 
@@ -180,7 +180,7 @@ Para deixar o repositório oficial no GitHub com a apresentação profissional r
   ```
 - **Website URL:**
   ```text
-  https://iradoweck.github.io/inscricao-ia-curso/
+  https://inscricao.zedecks.com
   ```
 - **Topics (Tags):**
   `landing-page`, `student-portal`, `clean-code`, `vanilla-javascript`, `ai-coding`, `invoice-generator`, `admin-dashboard`, `github-pages`, `mozambique`
