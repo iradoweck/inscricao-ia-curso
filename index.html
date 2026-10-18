@@ -1663,42 +1663,103 @@
     .admin-metric-card .value.green { color: var(--green); }
     .admin-metric-card .value.blue { color: var(--blue); }
 
+    /* 2.11.B BARRA DE CONTROLES EM LINHA ÚNICA (SEARCH, SELECT & BOTÕES) */
     .admin-controls-bar {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .admin-search-box {
-      flex: 1;
-      min-width: 250px;
-    }
-
-    .admin-search-box input {
-      width: 100%;
-      padding: 10px 14px;
-      background: #071524;
-      border: 1px solid #193a5a;
-      border-radius: var(--radius-md);
-      color: var(--text);
-      font-size: 0.9rem;
-      font-family: inherit;
-    }
-
-    .admin-search-box input:focus {
-      outline: none;
-      border-color: var(--blue);
-      box-shadow: 0 0 10px rgba(0, 183, 255, 0.25);
-    }
-
-    .admin-actions-group {
-      display: flex;
+      flex-direction: row;
       align-items: center;
       gap: 10px;
-      flex-wrap: wrap;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .admin-search-input {
+      flex: 1 1 auto;
+      min-width: 240px;
+      height: 42px;
+      padding: 0 14px;
+      background: #071524 !important;
+      border: 1px solid #193a5a !important;
+      border-radius: var(--radius-md) !important;
+      color: var(--text) !important;
+      font-size: 0.9rem;
+      font-family: inherit;
+      box-sizing: border-box;
+      margin: 0 !important;
+    }
+
+    .admin-search-input:focus {
+      outline: none;
+      border-color: var(--blue) !important;
+      box-shadow: 0 0 10px rgba(0, 183, 255, 0.25) !important;
+    }
+
+    .admin-status-select {
+      flex: 0 0 auto;
+      width: auto !important;
+      min-width: 190px;
+      max-width: 220px;
+      height: 42px;
+      padding: 0 30px 0 12px;
+      background: #071524 !important;
+      border: 1px solid #193a5a !important;
+      border-radius: var(--radius-md) !important;
+      color: var(--text) !important;
+      font-size: 0.88rem;
+      font-family: inherit;
+      box-sizing: border-box;
+      cursor: pointer;
+      margin: 0 !important;
+    }
+
+    .admin-btn-pill {
+      flex: 0 0 auto;
+      width: auto !important;
+      max-width: none !important;
+      height: 42px;
+      margin: 0 !important;
+      padding: 0 16px !important;
+      font-size: 0.86rem;
+      font-weight: 700;
+      font-family: inherit;
+      color: #ffffff !important;
+      background: #0c243c !important;
+      border: 1px solid #1f4f7a !important;
+      border-radius: var(--radius-md) !important;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      white-space: nowrap;
+      box-sizing: border-box;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+    }
+
+    .admin-btn-pill:hover {
+      background: #133659 !important;
+      border-color: var(--blue) !important;
+      color: #ffffff !important;
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 900px) {
+      .admin-controls-bar {
+        flex-wrap: wrap;
+      }
+      .admin-search-input {
+        flex: 1 1 100%;
+        width: 100%;
+      }
+      .admin-status-select {
+        flex: 1 1 100%;
+        width: 100% !important;
+        max-width: 100%;
+      }
+      .admin-btn-pill {
+        flex: 1 1 calc(50% - 6px);
+      }
     }
 
     .admin-table-wrap {
@@ -2474,14 +2535,10 @@
             </div>
           </div>
 
-          <!-- Controles de Sessão e Ferramenta de Demonstração / Validação -->
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:24px; padding-top:18px; border-top:1px solid #18344e;">
+          <!-- Controles de Sessão do Aluno -->
+          <div style="display:flex; justify-content:flex-start; align-items:center; margin-top:24px; padding-top:18px; border-top:1px solid #18344e;">
             <button class="btn secondary" id="logoutBtn" type="button" style="width:auto; margin:0;">
               🔒 Terminar Sessão
-            </button>
-            <!-- Toggle de simulação para o usuário testar a validação de admin e emissão de recibo -->
-            <button class="copy-chip" id="adminToggleValidationBtn" type="button" style="background:#132d44;" title="Simular aprovação de admin para testar recibo de quitação">
-              ⚙️ Simular Aprovação Admin (Testar Recibo)
             </button>
           </div>
         </div>
@@ -2580,33 +2637,30 @@
           </div>
         </div>
 
-        <!-- Barra de Controles: Busca, Filtro e Exportações (PDF / CSV) -->
+        <!-- Barra de Controles em Linha Única: Busca, Filtro e Exportações -->
         <div class="admin-controls-bar">
-          <div class="admin-search-box">
-            <input 
-              id="adminSearchInput" 
-              type="text" 
-              placeholder="🔍 Pesquisar por nome, telefone ou ID (ex: IA-C7UP8X)..."
-            >
-          </div>
-          <div class="admin-actions-group">
-            <select id="adminStatusFilter" style="background:#071524; border:1px solid #193a5a; border-radius:var(--radius-md); color:var(--text); padding:9px 12px; font-size:0.88rem; font-family:inherit;">
-              <option value="all">Todos os Estados</option>
-              <option value="proof">Comprovativo Enviado (Em Análise)</option>
-              <option value="confirmed">Inscrição Confirmada</option>
-              <option value="waiting">A Aguardar Pagamento</option>
-            </select>
+          <input 
+            id="adminSearchInput" 
+            class="admin-search-input"
+            type="text" 
+            placeholder="🔍 Pesquisar por nome, telefone ou ID (ex: IA-C7UP8X)..."
+          >
+          <select id="adminStatusFilter" class="admin-status-select" aria-label="Filtrar por estado">
+            <option value="all">Todos os Estados</option>
+            <option value="A aguardar pagamento">A Aguardar Pagamento</option>
+            <option value="Comprovativo enviado">Comprovativo em Análise</option>
+            <option value="Inscrição confirmada">Inscrição Confirmada</option>
+          </select>
 
-            <!-- Exportar Relatório em PDF A4 -->
-            <button class="btn secondary" id="adminExportPdfBtn" type="button" style="width:auto; margin:0; padding:9px 15px; font-size:0.86rem; display:inline-flex; align-items:center; gap:6px;">
-              📄 Baixar Relatório PDF
-            </button>
+          <!-- Exportar Relatório em PDF A4 -->
+          <button class="admin-btn-pill" id="adminExportPdfBtn" type="button">
+            📄 Baixar Relatório PDF
+          </button>
 
-            <!-- Exportar Planilha CSV -->
-            <button class="btn secondary" id="adminExportCsvBtn" type="button" style="width:auto; margin:0; padding:9px 15px; font-size:0.86rem; display:inline-flex; align-items:center; gap:6px;">
-              📊 Exportar CSV
-            </button>
-          </div>
+          <!-- Exportar Planilha CSV -->
+          <button class="admin-btn-pill" id="adminExportCsvBtn" type="button">
+            📊 Exportar CSV
+          </button>
         </div>
 
         <!-- Tabela Responsiva de Alunos -->
@@ -4248,27 +4302,6 @@
           });
         },
 
-        handleToggleAdminValidation() {
-          if (!activeStudentSession) return;
-
-          const isCurrentlyConfirmed = activeStudentSession.status === 'Inscrição confirmada';
-          const newStatus = isCurrentlyConfirmed ? 'Comprovativo enviado' : 'Inscrição confirmada';
-
-          const updated = StorageRepository.updateStudentStatus(activeStudentSession.code, newStatus);
-          if (updated) {
-            activeStudentSession = updated;
-            StudentViewRenderer.render(updated);
-
-            if (newStatus === 'Inscrição confirmada') {
-              alert(
-                `Simulação Admin: Vaga de ${updated.name} confirmada!\n\nAgora a barra atingiu 100% e o botão de "Baixar Recibo de Quitação" está liberado.`
-              );
-            } else {
-              alert('Simulação Admin: Estado revertido para Comprovativo em Análise.');
-            }
-          }
-        },
-
         handleGeneratePassword() {
           const newPass = CredentialGenerator.generateSuggestedPassword();
           const passInput = getElement('password');
@@ -4473,14 +4506,14 @@
         }
 
         // Exportações de Dados do Administrador (CSV e Relatório PDF Executivo A4)
-        const exportCsvBtn = getElement('exportCsvBtn');
+        const exportCsvBtn = getElement('adminExportCsvBtn') || getElement('exportCsvBtn');
         if (exportCsvBtn) {
           exportCsvBtn.addEventListener('click', () => {
             AdminController.exportCSV();
           });
         }
 
-        const exportPdfBtn = getElement('exportPdfBtn');
+        const exportPdfBtn = getElement('adminExportPdfBtn') || getElement('exportPdfBtn');
         if (exportPdfBtn) {
           exportPdfBtn.addEventListener('click', () => {
             AdminController.exportReportPDF();
@@ -4527,9 +4560,6 @@
         document.querySelectorAll('.copy-chip[data-copy]').forEach((btn) => {
           btn.addEventListener('click', FormHandlers.handleCopyCoordinate);
         });
-
-        // Botão de simulação de aprovação admin
-        getElement('adminToggleValidationBtn').addEventListener('click', FormHandlers.handleToggleAdminValidation);
       };
 
       // Inicialização na montagem do DOM

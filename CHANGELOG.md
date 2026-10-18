@@ -15,6 +15,12 @@ O formato baseia-se no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0
 - Exportação completa da listagem de candidatos em formato **CSV** estruturado com codificação UTF-8 BOM.
 - Camada híbrida `FirebaseDataAdapter` para sincronização em nuvem via Cloud Firestore (`FIREBASE_CONFIG`) mantendo fallback automático para `localStorage`.
 
+### Modify
+- Alinhamento horizontal linear e responsivo da barra de busca, filtro de status e botões de exportação no painel de administração (`.admin-controls-bar`).
+
+### Remove
+- Remoção do botão provisório de simulação de aprovação (`adminToggleValidationBtn`) na Área do Aluno, consolidando a gestão oficial pelo Painel de Administração (`#admin`).
+
 ---
 
 ## [0.6.0] - 2026-10-17
