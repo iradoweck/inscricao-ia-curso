@@ -4,6 +4,19 @@ Todas as alterações notáveis neste projeto serão documentadas neste ficheiro
 
 O formato baseia-se no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e adere ao [Semantic Versioning (SemVer)](https://semver.org/).
 
+## [0.7.0] - 2026-10-18
+
+### Add
+- Painel Executivo de Administração (`#adminView` acessível em `#admin` e `#gestao`) com login mestre protegido por senha (`zedecks@admin`).
+- 4 KPIs analíticos em tempo real: Total de Inscrições, Receita Arrecadada (MT), Comprovativos/Vagas Pendentes e Vagas Confirmadas.
+- Tabela administrativa com busca instantânea por aluno, código, telefone ou e-mail, e filtros de estado.
+- Pré-visualização inline de comprovativos em modal responsiva com suporte a imagens e visualizador integrado de PDF via Base64.
+- Emissão e impressão oficial do **Relatório Executivo Geral em PDF (A4)** com cabeçalho institucional, tabela discriminada e campo de assinatura da Coordenação Geral.
+- Exportação completa da listagem de candidatos em formato **CSV** estruturado com codificação UTF-8 BOM.
+- Camada híbrida `FirebaseDataAdapter` para sincronização em nuvem via Cloud Firestore (`FIREBASE_CONFIG`) mantendo fallback automático para `localStorage`.
+
+---
+
 ## [0.6.0] - 2026-10-17
 
 ### Add

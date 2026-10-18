@@ -99,7 +99,16 @@ Para máxima legibilidade, manutenibilidade e adesão rigorosa ao **Clean Code**
 - **Factura à Pagar Oficial**: Formatada em folha A4 com `@media print` para salvar direto como PDF de alta resolução pelo navegador (`window.print()`).
 - **Cards de Pagamento Oficiais**: Coordenadas para M-Pesa (`+258 84 770 3309` · Titular: `EDMILSON M********O`), E-Mola (`+258 87 770 3308` · Titular: `EDMILSON ADELINO MUACIGARRO`) e Millennium BIM (NIB: `0001 0000 0038 5397 39457` · Titular: `EDMILSON ADELINO MUACIGARRO`), com botão de cópia com 1 clique e instrução obrigatória de menção do ID do aluno no motivo do pagamento.
 - **Recibo de Quitação**: Disponível para download formal em A4 assim que a matrícula é validada.
-- **Canal Contínuo**: Acesso permanente por ID/Telefone e senha para consultar comunicados do início das aulas e canal de WhatsApp da turma.
+
+### 3. Painel Executivo de Administração & Gestão de Vagas (`#admin` / `#gestao`)
+- **Acesso Restrito**: Login protegido por senha mestre (`zedecks@admin`).
+- **Métricas Analíticas em Tempo Real**: 4 cartões KPI com total de inscritos, receita total estimada em Meticais (MT), pendências e matrículas oficializadas.
+- **Tabela de Candidatos**: Busca instantânea multicritério (Nome, ID, Telefone ou E-mail) e filtro por status.
+- **Auditoria de Comprovativos**: Modal responsiva para inspeção visual do comprovativo enviado pelo aluno, com suporte integrado para imagens e visualizador embutido de arquivos PDF.
+- **Aprovação e Reversão com 1 Clique**: Botões de confirmação direta que atualizam a barra do aluno para 100% e liberam o Recibo de Quitação.
+- **Relatório Oficial em PDF (A4)**: Emissão de relatório institucional formal com cabeçalho Zedecks Training, data/hora da extração, tabela discriminada e campo para assinatura da Coordenação Geral.
+- **Exportação CSV**: Download da base de dados completa estruturada em planilha com acentuação corrigida via UTF-8 BOM.
+- **Integração em Nuvem Híbrida**: Pronto para Firebase Firestore em tempo real (`FIREBASE_CONFIG`), operando nativamente em `localStorage` quando não configurado.
 
 ## 🚀 Como Executar Localmente
 

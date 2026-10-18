@@ -1591,6 +1591,290 @@
     }
 
     /* ------------------------------------------------------------------------
+       2.11 PAINEL DE ADMINISTRAÇÃO (#adminView) & EXPORTAÇÕES (PDF / CSV)
+    ------------------------------------------------------------------------ */
+    #adminView.hidden {
+      display: none !important;
+    }
+
+    .admin-header {
+      padding: 24px 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-bottom: 1px solid rgba(24, 52, 78, 0.8);
+      margin-bottom: 26px;
+    }
+
+    .admin-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(235, 179, 56, 0.15);
+      border: 1px solid rgba(235, 179, 56, 0.45);
+      border-radius: var(--radius-pill);
+      color: var(--gold);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+    }
+
+    .admin-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .admin-metric-card {
+      background: #091a2d;
+      border: 1px solid #163756;
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: transform var(--transition-fast);
+    }
+
+    .admin-metric-card:hover {
+      transform: translateY(-2px);
+      border-color: #21517d;
+    }
+
+    .admin-metric-card .title {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+    }
+
+    .admin-metric-card .value {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: #ffffff;
+      font-family: var(--font-mono);
+      line-height: 1.2;
+    }
+
+    .admin-metric-card .value.gold { color: var(--gold); }
+    .admin-metric-card .value.green { color: var(--green); }
+    .admin-metric-card .value.blue { color: var(--blue); }
+
+    .admin-controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .admin-search-box {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .admin-search-box input {
+      width: 100%;
+      padding: 10px 14px;
+      background: #071524;
+      border: 1px solid #193a5a;
+      border-radius: var(--radius-md);
+      color: var(--text);
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+
+    .admin-search-box input:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 10px rgba(0, 183, 255, 0.25);
+    }
+
+    .admin-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .admin-table-wrap {
+      overflow-x: auto;
+      background: #081728;
+      border: 1px solid #163756;
+      border-radius: var(--radius-md);
+      margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    .admin-table th {
+      background: #0d2238;
+      color: #b3c9de;
+      padding: 12px 14px;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      border-bottom: 1px solid #1c456c;
+      white-space: nowrap;
+    }
+
+    .admin-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #132a42;
+      color: #e6f1fc;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .admin-table tr:hover td {
+      background: rgba(0, 183, 255, 0.04);
+    }
+
+    .btn-action-sm {
+      padding: 6px 11px;
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: inherit;
+    }
+
+    .btn-action-sm.approve {
+      background: #14532d;
+      color: #86efac;
+      border: 1px solid #22c55e;
+    }
+
+    .btn-action-sm.approve:hover {
+      background: #166534;
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.35);
+    }
+
+    .btn-action-sm.revert {
+      background: #451a03;
+      color: #fdba74;
+      border: 1px solid #f97316;
+    }
+
+    .btn-action-sm.revert:hover {
+      background: #7c2d12;
+      color: #ffffff;
+    }
+
+    .btn-action-sm.view-proof {
+      background: #0f3050;
+      color: #67e8f9;
+      border: 1px solid #0891b2;
+    }
+
+    .btn-action-sm.view-proof:hover {
+      background: #155e75;
+      color: #ffffff;
+    }
+
+    /* Modal do Comprovativo */
+    .admin-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 10, 20, 0.88);
+      backdrop-filter: blur(6px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .admin-modal-backdrop.hidden {
+      display: none !important;
+    }
+
+    .admin-modal-content {
+      background: #0a1b2d;
+      border: 1px solid #1e4b77;
+      border-radius: var(--radius-lg);
+      max-width: 720px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .admin-modal-header {
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1b3d60;
+    }
+
+    .admin-modal-body {
+      padding: 20px;
+      overflow-y: auto;
+      text-align: center;
+    }
+
+    .admin-modal-body img {
+      max-width: 100%;
+      max-height: 60vh;
+      border-radius: var(--radius-sm);
+      border: 1px solid #1b3d60;
+      object-fit: contain;
+    }
+
+    /* Relatório A4 para Impressão / Salvar PDF do Admin */
+    #adminReportPrintContainer {
+      display: none;
+    }
+
+    @media print {
+      body.printing-admin-report > *:not(#adminReportPrintContainer) {
+        display: none !important;
+      }
+      body.printing-admin-report #adminReportPrintContainer {
+        display: block !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 15mm 15mm;
+        font-family: Arial, sans-serif;
+      }
+      body.printing-admin-report #adminReportPrintContainer table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+      }
+      body.printing-admin-report #adminReportPrintContainer th,
+      body.printing-admin-report #adminReportPrintContainer td {
+        border: 1px solid #999;
+        padding: 8px 10px;
+        font-size: 11px;
+        text-align: left;
+      }
+      body.printing-admin-report #adminReportPrintContainer th {
+        background: #f0f4f8 !important;
+        font-weight: bold;
+      }
+    }
+
+    /* ------------------------------------------------------------------------
        2.10 RESPONSIVIDADE (MEDIA QUERIES)
     ------------------------------------------------------------------------ */
     @media (max-width: 880px) {
@@ -2211,6 +2495,215 @@
     </div>
   </div>
 
+  <!-- ==========================================================================
+    3.C VISTA DE ADMINISTRAÇÃO & GESTÃO DE VAGAS (#admin, #gestao)
+  ========================================================================== -->
+  <div id="adminView" class="hidden">
+    <div class="wrap">
+      <!-- Cabeçalho Oficial do Admin -->
+      <header class="admin-header">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <a href="#" class="brand-link" id="adminBrandLink" aria-label="Zedecks Training">
+            <img 
+              src="assets/img/ztrining-logo.png" 
+              alt="ZEDECKS TRAINING" 
+              class="logo-img" 
+              onerror="this.style.display='none'; document.getElementById('adminBrandFallback').style.display='block';"
+            >
+            <div id="adminBrandFallback" class="brand-fallback" style="display:none">
+              ZEDECKS <span>TRAINING</span>
+            </div>
+          </a>
+          <span class="admin-badge">PAINEL ADMINISTRATIVO</span>
+          <span class="cloud-status-badge" id="cloudStatusBadge" style="font-size:0.75rem; padding:3px 8px; border-radius:12px; background:#0c2238; border:1px solid #1a4269; color:#9ec8ef;">
+            Modo: Híbrido
+          </span>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <a href="#" class="btn-back-site" id="adminBackToSiteBtn">
+            ← Voltar ao Site
+          </a>
+          <button class="btn secondary" id="adminLogoutBtn" type="button" style="width:auto; margin:0; padding:8px 14px; font-size:0.85rem;">
+            🔒 Sair
+          </button>
+        </div>
+      </header>
+
+      <!-- 1. Tela de Login do Administrador -->
+      <section class="card" id="adminLoginBox" style="max-width:480px; margin:40px auto 60px;">
+        <h2 style="margin-bottom:6px">Acesso Restrito</h2>
+        <p class="muted" style="margin-bottom:20px; font-size:0.9rem;">
+          Introduz a Senha Mestre de Administrador para gerir candidatos, validar comprovativos e emitir relatórios.
+        </p>
+
+        <form id="adminLoginForm" novalidate>
+          <div class="field" style="margin-bottom:16px;">
+            <label for="adminPasswordInput">Senha de Administrador</label>
+            <input 
+              id="adminPasswordInput" 
+              type="password" 
+              required 
+              placeholder="Digita a senha de acesso"
+              autocomplete="current-password"
+            >
+            <div class="field-error" id="adminPasswordError">Senha incorreta. Tenta novamente.</div>
+          </div>
+          <button class="btn" type="submit" id="adminLoginSubmitBtn">
+            ENTRAR NO PAINEL ADMIN →
+          </button>
+        </form>
+      </section>
+
+      <!-- 2. Dashboard Executivo do Administrador -->
+      <section id="adminDashboard" class="hidden">
+        <!-- Métricas KPI -->
+        <div class="admin-metrics-grid">
+          <div class="admin-metric-card">
+            <span class="title">Total de Inscritos</span>
+            <span class="value blue" id="kpiTotal">0</span>
+            <small class="muted" id="kpiOnlineVsPresencial">0 Online · 0 Presencial</small>
+          </div>
+          <div class="admin-metric-card">
+            <span class="title">Vagas Confirmadas</span>
+            <span class="value green" id="kpiConfirmed">0</span>
+            <small class="muted" id="kpiConfirmedPercent">0% do total</small>
+          </div>
+          <div class="admin-metric-card">
+            <span class="title">Comprovativos em Análise</span>
+            <span class="value gold" id="kpiPendingProof">0</span>
+            <small class="muted">A aguardar validação</small>
+          </div>
+          <div class="admin-metric-card">
+            <span class="title">Receita Confirmada</span>
+            <span class="value green" id="kpiRevenue">0 MT</span>
+            <small class="muted" id="kpiExpectedRevenue">Potencial: 0 MT</small>
+          </div>
+        </div>
+
+        <!-- Barra de Controles: Busca, Filtro e Exportações (PDF / CSV) -->
+        <div class="admin-controls-bar">
+          <div class="admin-search-box">
+            <input 
+              id="adminSearchInput" 
+              type="text" 
+              placeholder="🔍 Pesquisar por nome, telefone ou ID (ex: IA-C7UP8X)..."
+            >
+          </div>
+          <div class="admin-actions-group">
+            <select id="adminStatusFilter" style="background:#071524; border:1px solid #193a5a; border-radius:var(--radius-md); color:var(--text); padding:9px 12px; font-size:0.88rem; font-family:inherit;">
+              <option value="all">Todos os Estados</option>
+              <option value="proof">Comprovativo Enviado (Em Análise)</option>
+              <option value="confirmed">Inscrição Confirmada</option>
+              <option value="waiting">A Aguardar Pagamento</option>
+            </select>
+
+            <!-- Exportar Relatório em PDF A4 -->
+            <button class="btn secondary" id="adminExportPdfBtn" type="button" style="width:auto; margin:0; padding:9px 15px; font-size:0.86rem; display:inline-flex; align-items:center; gap:6px;">
+              📄 Baixar Relatório PDF
+            </button>
+
+            <!-- Exportar Planilha CSV -->
+            <button class="btn secondary" id="adminExportCsvBtn" type="button" style="width:auto; margin:0; padding:9px 15px; font-size:0.86rem; display:inline-flex; align-items:center; gap:6px;">
+              📊 Exportar CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Tabela Responsiva de Alunos -->
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="adminStudentsTable">
+            <thead>
+              <tr>
+                <th>ID Aluno</th>
+                <th>Nome Completo</th>
+                <th>WhatsApp / Tel</th>
+                <th>Modalidade</th>
+                <th>Valor</th>
+                <th>Comprovativo</th>
+                <th>Estado</th>
+                <th>Ações de Validação</th>
+              </tr>
+            </thead>
+            <tbody id="adminStudentsTbody">
+              <!-- Linhas geradas dinamicamente via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Rodapé Oficial do Admin -->
+      <footer class="footer">
+        <strong>ZEDECKS TRAINING</strong> · Painel de Gestão Acadêmica & Finanças · Nampula, Moçambique
+      </footer>
+    </div>
+  </div>
+
+  <!-- Modal de Visualização de Comprovativo -->
+  <div class="admin-modal-backdrop hidden" id="adminProofModal" aria-hidden="true">
+    <div class="admin-modal-content">
+      <div class="admin-modal-header">
+        <h3 style="margin:0; font-size:1.05rem;" id="modalProofTitle">Comprovativo de Pagamento</h3>
+        <button type="button" id="closeProofModalBtn" style="background:transparent; border:none; color:var(--muted); font-size:1.4rem; cursor:pointer; line-height:1;">
+          ✕
+        </button>
+      </div>
+      <div class="admin-modal-body" id="modalProofBody">
+        <!-- Imagem ou preview inserido via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Template Executivo para Impressão de Relatório Geral em PDF (A4) -->
+  <div id="adminReportPrintContainer" aria-hidden="true">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #000; padding-bottom:12px; margin-bottom:16px;">
+      <div>
+        <h1 style="margin:0; font-size:20px; text-transform:uppercase; font-family:Arial, sans-serif;">ZEDECKS TRAINING</h1>
+        <p style="margin:3px 0 0; font-size:12px; color:#444;">Centro de Formação Prática em IA & Engenharia de Software</p>
+        <p style="margin:2px 0 0; font-size:11px; color:#666;">Nampula, Moçambique · Suporte: +258 84 770 3309</p>
+      </div>
+      <div style="text-align:right;">
+        <h2 style="margin:0; font-size:15px; text-transform:uppercase;">Relatório Geral de Inscrições</h2>
+        <p style="margin:4px 0 0; font-size:11px;">Data de Emissão: <strong id="reportPrintDate">-</strong></p>
+        <p style="margin:2px 0 0; font-size:11px;">Emitido por: <strong>Administração Acadêmica</strong></p>
+      </div>
+    </div>
+
+    <!-- Resumo dos Indicadores no Relatório -->
+    <div style="display:flex; gap:16px; margin-bottom:16px; border:1px solid #ccc; padding:10px; background:#fbfbfb;">
+      <div style="flex:1;">Total de Inscritos: <strong id="repKpiTotal">0</strong></div>
+      <div style="flex:1;">Confirmados: <strong id="repKpiConfirmed">0</strong></div>
+      <div style="flex:1;">Em Análise: <strong id="repKpiPending">0</strong></div>
+      <div style="flex:1;">Receita Confirmada: <strong id="repKpiRevenue">0 MT</strong></div>
+    </div>
+
+    <!-- Tabela do Relatório -->
+    <table id="reportPrintTable">
+      <thead>
+        <tr>
+          <th style="width:12%;">ID</th>
+          <th style="width:28%;">Estudante</th>
+          <th style="width:18%;">WhatsApp</th>
+          <th style="width:16%;">Modalidade</th>
+          <th style="width:12%;">Valor</th>
+          <th style="width:14%;">Estado</th>
+        </tr>
+      </thead>
+      <tbody id="reportPrintTbody">
+        <!-- Linhas geradas dinamicamente -->
+      </tbody>
+    </table>
+
+    <!-- Assinatura da Coordenação -->
+    <div style="margin-top:35px; display:flex; justify-content:space-between;">
+      <div style="width:40%; text-align:center; border-top:1px solid #000; padding-top:6px; font-size:11px;">
+        Coordenação do Curso
+      </div>
+      <div style="width:40%; text-align:center; border-top:1px solid #000; padding-top:6px; font-size:11px;">
+        Direção Zedecks Training
+      </div>
+    </div>
+  </div>
+
   <!-- 3.9 Template Executivo Oficial da Factura / Recibo A4 (Utilizado para Impressão e PDF) -->
   <div id="invoicePrintContainer" aria-hidden="true">
     <!-- Fita Superior Gradiente Corporativa -->
@@ -2389,8 +2882,20 @@
 
       // 4.1 CONSTANTES E DADOS DE CONFIGURAÇÃO FISCAL
       const STORAGE_KEY = 'zedecks_course_enrollments_v2';
+      const ADMIN_SESSION_KEY = 'zedecks_admin_session_v1';
+      const ADMIN_DEFAULT_PASSWORD = 'zedecks@admin';
       const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
       const VALID_EXTENSIONS_REGEX = /\.(jpg|jpeg|png|pdf)$/i;
+
+      // Configuração Firebase Firestore (Híbrida: preencha para sincronizar com a Cloud)
+      const FIREBASE_CONFIG = {
+        apiKey: "",
+        authDomain: "",
+        projectId: "",
+        storageBucket: "",
+        messagingSenderId: "",
+        appId: ""
+      };
 
       const COURSE_PRICES = {
         online: 4000,
@@ -2414,6 +2919,58 @@
 
       // Sessão em memória do estudante ativo na Área do Aluno
       let activeStudentSession = null;
+
+      // 4.1.B ADAPTADOR HÍBRIDO CLOUD FIRESTORE / LOCALSTORAGE
+      const FirebaseDataAdapter = {
+        firestoreDb: null,
+        isConfigured() {
+          return Boolean(FIREBASE_CONFIG.apiKey && FIREBASE_CONFIG.projectId);
+        },
+
+        init(onSyncCallback) {
+          if (!this.isConfigured()) {
+            console.info('ℹ️ Firebase não configurado (chaves vazias). O sistema está a operar localmente com persistência em LocalStorage.');
+            return;
+          }
+
+          try {
+            if (window.firebase && !window.firebase.apps.length) {
+              window.firebase.initializeApp(FIREBASE_CONFIG);
+              this.firestoreDb = window.firebase.firestore();
+              console.log('✅ Firebase Firestore conectado com sucesso!');
+
+              // Escuta alterações em tempo real da coleção 'enrollments'
+              this.firestoreDb.collection('enrollments').onSnapshot((snapshot) => {
+                const cloudStudents = [];
+                snapshot.forEach((doc) => {
+                  cloudStudents.push(doc.data());
+                });
+
+                if (cloudStudents.length > 0) {
+                  StorageRepository.saveAllStudents(cloudStudents);
+                  if (typeof onSyncCallback === 'function') {
+                    onSyncCallback(cloudStudents);
+                  }
+                }
+              }, (err) => {
+                console.warn('Aviso de conexão Firestore:', err);
+              });
+            }
+          } catch (e) {
+            console.warn('Erro ao inicializar Firebase SDK:', e);
+          }
+        },
+
+        async saveStudent(student) {
+          if (!this.isConfigured() || !this.firestoreDb) return;
+          try {
+            await this.firestoreDb.collection('enrollments').doc(student.code).set(student, { merge: true });
+            console.log(`☁️ Aluno ${student.code} sincronizado na nuvem Firestore.`);
+          } catch (err) {
+            console.warn('Erro ao sincronizar documento no Firestore:', err);
+          }
+        }
+      };
 
       // 4.2 UTILITÁRIOS DE DOM E FORMATAÇÃO
       const getElement = (id) => document.getElementById(id);
@@ -2798,7 +3355,7 @@
         }
       };
 
-      // 4.5 REPOSITÓRIO LOCAL (LOCALSTORAGE)
+      // 4.5 REPOSITÓRIO DE DADOS (LOCALSTORAGE + FIRESTORE SYNC)
       const StorageRepository = {
         getAllStudents() {
           try {
@@ -2817,10 +3374,16 @@
           }
         },
 
+        getStudentByCode(code) {
+          const students = this.getAllStudents();
+          return students.find((item) => (item.code || '').toUpperCase() === (code || '').toUpperCase()) || null;
+        },
+
         addStudent(student) {
           const students = this.getAllStudents();
           students.push(student);
           this.saveAllStudents(students);
+          FirebaseDataAdapter.saveStudent(student);
           return student;
         },
 
@@ -2830,19 +3393,24 @@
           if (targetIndex >= 0) {
             students[targetIndex].status = newStatus;
             this.saveAllStudents(students);
+            FirebaseDataAdapter.saveStudent(students[targetIndex]);
             return students[targetIndex];
           }
           return null;
         },
 
-        updateStudentProof(code, proofFileName) {
+        updateStudentProof(code, proofFileName, proofDataUrl = '') {
           const students = this.getAllStudents();
           const targetIndex = students.findIndex((item) => item.code === code);
           if (targetIndex >= 0) {
             students[targetIndex].proofName = proofFileName;
+            if (proofDataUrl) {
+              students[targetIndex].proofData = proofDataUrl;
+            }
             students[targetIndex].status = 'Comprovativo enviado';
             students[targetIndex].proofUploadedAt = new Date().toISOString();
             this.saveAllStudents(students);
+            FirebaseDataAdapter.saveStudent(students[targetIndex]);
             return students[targetIndex];
           }
           return null;
@@ -2919,11 +3487,16 @@
         }
       };
 
-      // 4.7 ROTEADOR DE PÁGINAS INDEPENDENTES (HASH ROUTER: #portal, #aluno, #estudante)
+      // 4.7 ROTEADOR DE PÁGINAS INDEPENDENTES (HASH ROUTER: #site, #portal, #admin)
       const AppRouter = {
         isPortalRoute() {
           const hash = (window.location.hash || '').toLowerCase();
           return hash === '#portal' || hash === '#aluno' || hash === '#estudante';
+        },
+
+        isAdminRoute() {
+          const hash = (window.location.hash || '').toLowerCase();
+          return hash === '#admin' || hash === '#gestao';
         },
 
         navigateToSite(targetAnchor = '') {
@@ -2945,13 +3518,26 @@
           window.location.hash = '#portal';
         },
 
+        navigateToAdmin() {
+          window.location.hash = '#admin';
+        },
+
         syncView() {
           const isPortal = this.isPortalRoute();
+          const isAdmin = this.isAdminRoute();
           const landingView = getElement('landingView');
           const portalView = getElement('portalView');
+          const adminView = getElement('adminView');
 
-          if (isPortal) {
+          if (isAdmin) {
             if (landingView) landingView.classList.add('hidden');
+            if (portalView) portalView.classList.add('hidden');
+            if (adminView) adminView.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            AdminController.syncAdminState();
+          } else if (isPortal) {
+            if (landingView) landingView.classList.add('hidden');
+            if (adminView) adminView.classList.add('hidden');
             if (portalView) portalView.classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'instant' });
 
@@ -2962,6 +3548,7 @@
             }
           } else {
             if (portalView) portalView.classList.add('hidden');
+            if (adminView) adminView.classList.add('hidden');
             if (landingView) landingView.classList.remove('hidden');
 
             const hash = window.location.hash;
@@ -2975,7 +3562,7 @@
         },
 
         selectModeAndScroll(mode) {
-          if (this.isPortalRoute()) {
+          if (this.isPortalRoute() || this.isAdminRoute()) {
             this.navigateToSite('inscricao');
           }
           const modeSelect = getElement('mode');
@@ -2988,6 +3575,356 @@
           if (targetSection) {
             targetSection.scrollIntoView({ behavior: 'smooth' });
           }
+        }
+      };
+
+      // 4.7.B CONTROLADOR EXECUTIVO DE ADMINISTRAÇÃO (#adminView)
+      const AdminController = {
+        filterState: {
+          query: '',
+          status: 'all'
+        },
+
+        isLoggedIn() {
+          return sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true';
+        },
+
+        login(password) {
+          if (password === ADMIN_DEFAULT_PASSWORD) {
+            sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
+            this.syncAdminState();
+            return { success: true };
+          }
+          return { success: false, message: 'Senha de administrador incorreta.' };
+        },
+
+        logout() {
+          sessionStorage.removeItem(ADMIN_SESSION_KEY);
+          this.syncAdminState();
+        },
+
+        syncAdminState() {
+          const loginBox = getElement('adminLoginBox');
+          const dashboard = getElement('adminDashboard');
+          if (!loginBox || !dashboard) return;
+
+          if (this.isLoggedIn()) {
+            loginBox.classList.add('hidden');
+            dashboard.classList.remove('hidden');
+            this.renderDashboard();
+          } else {
+            dashboard.classList.add('hidden');
+            loginBox.classList.remove('hidden');
+            const passInput = getElement('adminPasswordInput');
+            if (passInput) {
+              passInput.value = '';
+              passInput.focus();
+            }
+          }
+        },
+
+        getFilteredStudents() {
+          const all = StorageRepository.getAllStudents();
+          const query = (this.filterState.query || '').trim().toLowerCase();
+          const statusFilter = this.filterState.status;
+
+          return all.filter((s) => {
+            const matchesQuery = !query || 
+              (s.name || '').toLowerCase().includes(query) ||
+              (s.code || '').toLowerCase().includes(query) ||
+              (s.phone || '').includes(query) ||
+              (s.email || '').toLowerCase().includes(query);
+
+            const matchesStatus = statusFilter === 'all' || s.status === statusFilter;
+            return matchesQuery && matchesStatus;
+          });
+        },
+
+        renderDashboard() {
+          const all = StorageRepository.getAllStudents();
+          const filtered = this.getFilteredStudents();
+
+          // 1. Métricas KPI
+          const totalEnrollments = all.length;
+          const totalRevenue = all.reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
+          const pendingCount = all.filter(s => s.status === 'A aguardar pagamento' || s.status === 'Comprovativo enviado').length;
+          const confirmedCount = all.filter(s => s.status === 'Inscrição confirmada').length;
+
+          if (getElement('adminTotalCount')) getElement('adminTotalCount').textContent = totalEnrollments;
+          if (getElement('adminTotalRevenue')) getElement('adminTotalRevenue').textContent = formatCurrency(totalRevenue);
+          if (getElement('adminPendingCount')) getElement('adminPendingCount').textContent = pendingCount;
+          if (getElement('adminConfirmedCount')) getElement('adminConfirmedCount').textContent = confirmedCount;
+
+          // 2. Renderização da Tabela
+          const tbody = getElement('adminTableBody');
+          const countInfo = getElement('adminFilteredCount');
+          if (countInfo) {
+            countInfo.textContent = `A exibir ${filtered.length} de ${all.length} inscrições`;
+          }
+
+          if (!tbody) return;
+
+          if (filtered.length === 0) {
+            tbody.innerHTML = `
+              <tr>
+                <td colspan="7" style="text-align:center; padding:36px; color:#8ba3c7;">
+                  Nenhuma inscrição encontrada com os filtros actuais.
+                </td>
+              </tr>
+            `;
+            return;
+          }
+
+          tbody.innerHTML = filtered.map((s) => {
+            const isConfirmed = s.status === 'Inscrição confirmada';
+            const hasProof = Boolean(s.proofName || s.proofData);
+            const statusClass = isConfirmed ? 'status-pill-ok' : (s.status === 'Comprovativo enviado' ? 'status-pill-review' : 'status-pill-pending');
+            const createdDate = s.createdAt ? formatDatePt(new Date(s.createdAt)) : '-';
+            const modeText = s.mode === 'online' ? 'Online' : 'Presencial';
+
+            return `
+              <tr>
+                <td>
+                  <strong style="color:var(--primary); font-family:monospace; font-size:13px;">${s.code}</strong>
+                  <div style="font-size:11px; color:#8ba3c7;">${createdDate}</div>
+                </td>
+                <td>
+                  <div style="font-weight:600; color:#fff;">${s.name}</div>
+                  <div style="font-size:12px; color:#8ba3c7;">${s.phone}</div>
+                  <div style="font-size:11px; color:#5b7396;">${s.email || '-'}</div>
+                </td>
+                <td>
+                  <span class="admin-badge-mode">${modeText}</span>
+                  <div style="font-size:11px; color:#8ba3c7; margin-top:2px;">${COURSE_LEVEL_LABELS[s.level] || s.level || 'Geral'}</div>
+                </td>
+                <td>
+                  <strong style="color:#28d69a;">${formatCurrency(s.amount)}</strong>
+                </td>
+                <td>
+                  <span class="admin-status-pill ${statusClass}">${s.status}</span>
+                </td>
+                <td>
+                  ${hasProof 
+                    ? `<button type="button" class="admin-btn-action view-proof" data-code="${s.code}">
+                         👁️ Ver Comprovativo
+                       </button>`
+                    : `<span style="font-size:12px; color:#5b7396;">Sem anexo</span>`
+                  }
+                </td>
+                <td>
+                  <div class="admin-actions-cell">
+                    ${!isConfirmed
+                      ? `<button type="button" class="admin-btn-action approve" data-code="${s.code}" title="Confirmar vaga e quitação">
+                           ✓ Aprovar Vaga
+                         </button>`
+                      : `<button type="button" class="admin-btn-action revert" data-code="${s.code}" title="Reverter para em análise">
+                           ↺ Reverter
+                         </button>`
+                    }
+                    <button type="button" class="admin-btn-action invoice" data-code="${s.code}" title="Imprimir / Visualizar Factura ou Recibo">
+                      📄 ${isConfirmed ? 'Recibo' : 'Factura'}
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            `;
+          }).join('');
+
+          // Listeners dinâmicos na tabela
+          tbody.querySelectorAll('.admin-btn-action.approve').forEach((btn) => {
+            btn.addEventListener('click', () => {
+              const code = btn.getAttribute('data-code');
+              this.approveStudent(code);
+            });
+          });
+
+          tbody.querySelectorAll('.admin-btn-action.revert').forEach((btn) => {
+            btn.addEventListener('click', () => {
+              const code = btn.getAttribute('data-code');
+              this.revertStudent(code);
+            });
+          });
+
+          tbody.querySelectorAll('.admin-btn-action.view-proof').forEach((btn) => {
+            btn.addEventListener('click', () => {
+              const code = btn.getAttribute('data-code');
+              this.viewProof(code);
+            });
+          });
+
+          tbody.querySelectorAll('.admin-btn-action.invoice').forEach((btn) => {
+            btn.addEventListener('click', () => {
+              const code = btn.getAttribute('data-code');
+              const student = StorageRepository.getStudentByCode(code);
+              if (student) {
+                const isReceipt = student.status === 'Inscrição confirmada';
+                InvoicePrinter.print(student, isReceipt);
+              }
+            });
+          });
+        },
+
+        approveStudent(code) {
+          const student = StorageRepository.getStudentByCode(code);
+          if (!student) return;
+          if (confirm(`Confirmar aprovação de vaga para ${student.name} (${student.code})?`)) {
+            StorageRepository.updateStudentStatus(code, 'Inscrição confirmada');
+            this.renderDashboard();
+          }
+        },
+
+        revertStudent(code) {
+          const student = StorageRepository.getStudentByCode(code);
+          if (!student) return;
+          const targetStatus = student.proofName ? 'Comprovativo enviado' : 'A aguardar pagamento';
+          if (confirm(`Reverter estado de ${student.name} para "${targetStatus}"?`)) {
+            StorageRepository.updateStudentStatus(code, targetStatus);
+            this.renderDashboard();
+          }
+        },
+
+        viewProof(code) {
+          const student = StorageRepository.getStudentByCode(code);
+          if (!student) return;
+
+          const modal = getElement('adminProofModal');
+          const titleEl = getElement('adminProofStudentTitle');
+          const metaEl = getElement('adminProofMeta');
+          const previewContainer = getElement('adminProofPreviewContainer');
+
+          if (!modal || !previewContainer) return;
+
+          if (titleEl) titleEl.textContent = `Comprovativo: ${student.name} (${student.code})`;
+          if (metaEl) {
+            const uploadedAt = student.proofUploadedAt ? formatDatePt(new Date(student.proofUploadedAt)) : '-';
+            metaEl.textContent = `Ficheiro: ${student.proofName || 'Anexo'} · Submetido em: ${uploadedAt} · Valor: ${formatCurrency(student.amount)}`;
+          }
+
+          if (student.proofData) {
+            const isPdf = student.proofData.startsWith('data:application/pdf') || (student.proofName || '').toLowerCase().endsWith('.pdf');
+            if (isPdf) {
+              previewContainer.innerHTML = `
+                <iframe 
+                  src="${student.proofData}" 
+                  class="admin-proof-frame" 
+                  title="Pré-visualização do Comprovativo PDF"
+                ></iframe>
+              `;
+            } else {
+              previewContainer.innerHTML = `
+                <div style="text-align:center; padding:12px;">
+                  <img 
+                    src="${student.proofData}" 
+                    alt="Comprovativo de Pagamento" 
+                    class="admin-proof-img" 
+                  />
+                </div>
+              `;
+            }
+          } else {
+            previewContainer.innerHTML = `
+              <div style="text-align:center; padding:36px; color:#8ba3c7;">
+                <p style="font-size:16px; margin-bottom:8px;">📄 Ficheiro registado: <strong>${student.proofName || 'Comprovativo'}</strong></p>
+                <p style="font-size:13px; color:#5b7396;">Este anexo foi submetido em modo somente-nome antes da activação de pré-visualização em Base64.</p>
+              </div>
+            `;
+          }
+
+          modal.classList.remove('hidden');
+        },
+
+        closeProofModal() {
+          const modal = getElement('adminProofModal');
+          if (modal) modal.classList.add('hidden');
+        },
+
+        exportCSV() {
+          const students = this.getFilteredStudents();
+          if (students.length === 0) {
+            alert('Não há inscrições para exportar.');
+            return;
+          }
+
+          const headers = ['ID', 'Nome Completo', 'Telefone', 'Email', 'Modalidade', 'Nivel', 'Valor_MT', 'Estado', 'Comprovativo', 'Data_Inscricao'];
+          const rows = students.map((s) => [
+            `"${s.code || ''}"`,
+            `"${(s.name || '').replace(/"/g, '""')}"`,
+            `"${s.phone || ''}"`,
+            `"${s.email || ''}"`,
+            `"${s.mode === 'online' ? 'Online' : 'Presencial'}"`,
+            `"${(COURSE_LEVEL_LABELS[s.level] || s.level || '').replace(/"/g, '""')}"`,
+            `"${s.amount || 0}"`,
+            `"${s.status || ''}"`,
+            `"${s.proofName || ''}"`,
+            `"${s.createdAt || ''}"`
+          ]);
+
+          const csvContent = '\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\r\n');
+          const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.setAttribute('href', url);
+          link.setAttribute('download', `inscricoes_zedecks_ia_${new Date().toISOString().slice(0, 10)}.csv`);
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        },
+
+        exportReportPDF() {
+          const students = this.getFilteredStudents();
+          if (students.length === 0) {
+            alert('Não há inscrições nos filtros seleccionados para emitir relatório.');
+            return;
+          }
+
+          const printContainer = getElement('adminReportPrintContainer');
+          const printTbody = getElement('adminReportPrintTbody');
+          const printDate = getElement('adminReportPrintDate');
+          const printTotalCount = getElement('adminReportTotalCount');
+          const printTotalRevenue = getElement('adminReportTotalRevenue');
+          const printConfirmedCount = getElement('adminReportConfirmedCount');
+
+          if (!printContainer || !printTbody) return;
+
+          const now = new Date();
+          if (printDate) printDate.textContent = `${formatDatePt(now)} às ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+          const totalRevenue = students.reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
+          const confirmedCount = students.filter(s => s.status === 'Inscrição confirmada').length;
+
+          if (printTotalCount) printTotalCount.textContent = students.length;
+          if (printTotalRevenue) printTotalRevenue.textContent = formatCurrency(totalRevenue);
+          if (printConfirmedCount) printConfirmedCount.textContent = confirmedCount;
+
+          printTbody.innerHTML = students.map((s, idx) => {
+            const isConfirmed = s.status === 'Inscrição confirmada';
+            const statusLabel = isConfirmed ? 'CONFIRMADO' : (s.status === 'Comprovativo enviado' ? 'EM ANÁLISE' : 'PENDENTE');
+            return `
+              <tr>
+                <td style="text-align:center;">${idx + 1}</td>
+                <td style="font-family:monospace; font-weight:bold;">${s.code}</td>
+                <td><strong>${s.name}</strong></td>
+                <td>${s.phone}</td>
+                <td>${s.mode === 'online' ? 'Online' : 'Presencial (Nampula)'}</td>
+                <td style="text-align:right; font-weight:bold;">${formatCurrency(s.amount)}</td>
+                <td style="text-align:center;">
+                  <span style="font-weight:bold; font-size:10px; padding:2px 5px; border-radius:3px; background:${isConfirmed ? '#d4edda' : '#fff3cd'}; color:${isConfirmed ? '#155724' : '#856404'}; border:1px solid ${isConfirmed ? '#c3e6cb' : '#ffeeba'};">
+                    ${statusLabel}
+                  </span>
+                </td>
+              </tr>
+            `;
+          }).join('');
+
+          document.body.classList.add('printing-admin-report');
+          window.print();
+
+          const cleanPrintClass = () => {
+            document.body.classList.remove('printing-admin-report');
+            window.removeEventListener('afterprint', cleanPrintClass);
+          };
+          window.addEventListener('afterprint', cleanPrintClass);
+          setTimeout(cleanPrintClass, 1500);
         }
       };
 
@@ -3264,20 +4201,31 @@
             return;
           }
 
-          const updatedStudent = StorageRepository.updateStudentProof(
-            activeStudentSession.code, 
-            file.name
-          );
-
-          if (updatedStudent) {
-            activeStudentSession = updatedStudent;
-            StudentViewRenderer.render(updatedStudent);
-            fileInput.value = '';
-
-            alert(
-              `Comprovativo submetido com sucesso (${file.name})!\n\nA equipa da Zedecks Training validará a confirmação da tua vaga.`
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const base64Data = e.target.result;
+            const updatedStudent = StorageRepository.updateStudentProof(
+              activeStudentSession.code, 
+              file.name,
+              base64Data
             );
-          }
+
+            if (updatedStudent) {
+              activeStudentSession = updatedStudent;
+              StudentViewRenderer.render(updatedStudent);
+              fileInput.value = '';
+
+              alert(
+                `Comprovativo submetido com sucesso (${file.name})!\n\nA equipa da Zedecks Training validará a confirmação da tua vaga.`
+              );
+            }
+          };
+
+          reader.onerror = () => {
+            alert('Erro ao processar o ficheiro. Por favor, tenta novamente.');
+          };
+
+          reader.readAsDataURL(file);
         },
 
         handleCopyCoordinate(event) {
@@ -3337,6 +4285,13 @@
 
       // 4.11 INICIALIZAÇÃO DA APLICAÇÃO & EVENT LISTENERS
       const initApp = () => {
+        // Inicializa adaptador Firebase Firestore se configurado
+        FirebaseDataAdapter.init((cloudStudents) => {
+          if (AppRouter.isAdminRoute()) {
+            AdminController.renderDashboard();
+          }
+        });
+
         const passInput = getElement('password');
         if (passInput && !passInput.value) {
           passInput.value = CredentialGenerator.generateSuggestedPassword();
@@ -3360,6 +4315,23 @@
           portalBrandLink.addEventListener('click', (e) => {
             e.preventDefault();
             AppRouter.navigateToSite();
+          });
+        }
+
+        // Navegação do Painel de Administração
+        const adminBrandLink = getElement('adminBrandLink');
+        if (adminBrandLink) {
+          adminBrandLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            AppRouter.navigateToSite();
+          });
+        }
+
+        const backToPortalFromAdminBtn = getElement('backToPortalFromAdminBtn');
+        if (backToPortalFromAdminBtn) {
+          backToPortalFromAdminBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            AppRouter.navigateToPortal();
           });
         }
 
@@ -3453,11 +4425,90 @@
         // Botão para sugerir nova senha
         getElement('generatePassBtn').addEventListener('click', FormHandlers.handleGeneratePassword);
 
-        // Submissão dos Formulários
+        // Submissão dos Formulários de Inscrição e Aluno
         getElement('registerForm').addEventListener('submit', FormHandlers.handleRegistration);
         getElement('loginForm').addEventListener('submit', FormHandlers.handleLogin);
         getElement('proofForm').addEventListener('submit', FormHandlers.handleProofUpload);
         getElement('logoutBtn').addEventListener('click', FormHandlers.handleLogout);
+
+        // Formulário e Ações de Administração (#adminView)
+        const adminLoginForm = getElement('adminLoginForm');
+        if (adminLoginForm) {
+          adminLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const passEl = getElement('adminPasswordInput');
+            const password = (passEl ? passEl.value : '').trim();
+            const result = AdminController.login(password);
+            if (!result.success) {
+              alert(result.message || 'Senha incorrecta.');
+              if (passEl) {
+                passEl.value = '';
+                passEl.focus();
+              }
+            }
+          });
+        }
+
+        const adminLogoutBtn = getElement('adminLogoutBtn');
+        if (adminLogoutBtn) {
+          adminLogoutBtn.addEventListener('click', () => {
+            AdminController.logout();
+          });
+        }
+
+        const adminSearchInput = getElement('adminSearchInput');
+        if (adminSearchInput) {
+          adminSearchInput.addEventListener('input', (e) => {
+            AdminController.filterState.query = e.target.value;
+            AdminController.renderDashboard();
+          });
+        }
+
+        const adminStatusFilter = getElement('adminStatusFilter');
+        if (adminStatusFilter) {
+          adminStatusFilter.addEventListener('change', (e) => {
+            AdminController.filterState.status = e.target.value;
+            AdminController.renderDashboard();
+          });
+        }
+
+        // Exportações de Dados do Administrador (CSV e Relatório PDF Executivo A4)
+        const exportCsvBtn = getElement('exportCsvBtn');
+        if (exportCsvBtn) {
+          exportCsvBtn.addEventListener('click', () => {
+            AdminController.exportCSV();
+          });
+        }
+
+        const exportPdfBtn = getElement('exportPdfBtn');
+        if (exportPdfBtn) {
+          exportPdfBtn.addEventListener('click', () => {
+            AdminController.exportReportPDF();
+          });
+        }
+
+        // Modal de Pré-visualização de Comprovativo
+        const closeProofModalBtn = getElement('closeProofModalBtn');
+        if (closeProofModalBtn) {
+          closeProofModalBtn.addEventListener('click', () => {
+            AdminController.closeProofModal();
+          });
+        }
+
+        const adminProofModal = getElement('adminProofModal');
+        if (adminProofModal) {
+          adminProofModal.addEventListener('click', (e) => {
+            if (e.target === adminProofModal) {
+              AdminController.closeProofModal();
+            }
+          });
+        }
+
+        window.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            AdminController.closeProofModal();
+          }
+        });
 
         // Botões de Download Direto da Factura e Recibo de Quitação (Impressão / PDF A4)
         getElement('downloadInvoiceBtn').addEventListener('click', () => {
