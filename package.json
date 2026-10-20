@@ -6,7 +6,7 @@
   "homepage": "https://inscricao.zedecks.com",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iradoweck/inscricao-ia-curso.git"
+    "url": "git+https://github.com/zedecktraining/inscricao-ia-curso.git"
   },
   "keywords": [
     "landing-page",
@@ -22,7 +22,7 @@
   "author": "Edmilson Adelino Muacigarro (Zedecks)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/iradoweck/inscricao-ia-curso/issues"
+    "url": "https://github.com/zedecktraining/inscricao-ia-curso/issues"
   },
   "scripts": {
     "dev": "python -m http.server 2025",

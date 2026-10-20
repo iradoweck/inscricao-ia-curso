@@ -14,11 +14,30 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#07111f">
-  <meta name="description" content="Curso Prático de Programação Assistida por IA — Aprende a pensar como um engenheiro e constrói projectos reais em qualquer linguagem.">
   <title>Inscrição | Programação Assistida por IA — Zedecks Training</title>
-  
-  <!-- Ícone da Aplicação -->
+  <meta name="description" content="Curso Prático de Programação Assistida por IA. Aprende a pensar como um engenheiro de software e constrói projectos reais em qualquer stack. Aulas presenciais em Nampula e turmas online ao vivo.">
+  <link rel="canonical" href="https://inscricao.zedecks.com/">
+
+  <!-- Open Graph / Redes Sociais (WhatsApp, Facebook, LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://inscricao.zedecks.com/">
+  <meta property="og:title" content="Inscrição | Programação Assistida por IA — Zedecks Training">
+  <meta property="og:description" content="Domina o desenvolvimento de software assistido por Inteligência Artificial. Do Zero ao Júnior. Turmas presenciais em Nampula e online ao vivo. Inscreve-te já!">
+  <meta property="og:image" content="https://inscricao.zedecks.com/assets/img/hero-programmer.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Zedecks Training — Curso de Programação Assistida por IA">
+  <meta property="og:site_name" content="Zedecks Training">
+
+  <!-- Twitter / X Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Inscrição | Programação Assistida por IA — Zedecks Training">
+  <meta name="twitter:description" content="Domina o desenvolvimento de software assistido por Inteligência Artificial do zero ao primeiro emprego júnior.">
+  <meta name="twitter:image" content="https://inscricao.zedecks.com/assets/img/hero-programmer.png">
+
+  <!-- Ícones da Aplicação -->
   <link rel="icon" type="image/png" href="assets/icone.png">
+  <link rel="apple-touch-icon" href="assets/icone.png">
 
   <!-- Firebase SDK v10 (Compat - Vanilla JavaScript sem bundler) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -2253,6 +2272,107 @@
       height: 20px;
       margin: 0;
     }
+
+    /* ------------------------------------------------------------------------
+       2.12 CRO & TRUST BADGES / BOTÃO WHATSAPP FLUTUANTE
+    ------------------------------------------------------------------------ */
+    .floating-whatsapp-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #25D366;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 9999px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.92rem;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4), 0 2px 6px rgba(0, 0, 0, 0.4);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    }
+    .floating-whatsapp-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 28px rgba(37, 211, 102, 0.55), 0 4px 10px rgba(0, 0, 0, 0.5);
+      color: #ffffff;
+    }
+    .floating-whatsapp-btn .svg-icon {
+      width: 20px;
+      height: 20px;
+      margin: 0;
+      stroke-width: 2.3;
+    }
+    @media (max-width: 640px) {
+      .floating-whatsapp-btn {
+        bottom: 18px;
+        right: 18px;
+        padding: 12px;
+        border-radius: 50%;
+      }
+      .floating-whatsapp-btn span {
+        display: none;
+      }
+    }
+
+    /* Badges de Confiança (Trust Badges) */
+    .trust-badges-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+      margin-bottom: 8px;
+    }
+    .trust-badge-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(12, 27, 45, 0.7);
+      border: 1px solid rgba(24, 52, 78, 0.8);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+    }
+    .trust-badge-item .svg-icon {
+      width: 20px;
+      height: 20px;
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+    .trust-badge-item .text {
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .trust-badge-item .text strong {
+      display: block;
+      color: #ffffff;
+      font-size: 0.84rem;
+    }
+
+    /* Pílula de Escassez Ética / Urgência */
+    .scarcity-callout {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 178, 28, 0.1);
+      border: 1px solid rgba(255, 178, 28, 0.35);
+      color: var(--gold);
+      padding: 9px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .scarcity-callout .svg-icon {
+      width: 18px;
+      height: 18px;
+      stroke-width: 2.4;
+      flex-shrink: 0;
+    }
   </style>
 </head>
 
@@ -2455,6 +2575,11 @@
               <svg class="svg-icon" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Já tens inscrição? Acede à tua Área do Aluno →
             </a>
           </div>
+
+          <div class="scarcity-callout">
+            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span><strong>Vagas Limitadas:</strong> Capacidade restrita no laboratório presencial em Nampula para garantir acompanhamento prático e individualizado.</span>
+          </div>
           
           <form id="registerForm" novalidate>
             <div class="grid">
@@ -2518,8 +2643,8 @@
                 <label for="mode">Modalidade de Ensino *</label>
                 <select id="mode" name="mode" required>
                   <option value="">Escolhe uma opção</option>
-                  <option value="online">Online ao Vivo — 4.000 MT</option>
-                  <option value="presencial">Presencial (Nampula) — 5.000 MT</option>
+                  <option value="online">Online ao Vivo — 4.000 MT (Acesso Remoto Flexível)</option>
+                  <option value="presencial">Presencial (Nampula) — 5.000 MT (Vagas Limitadas)</option>
                 </select>
                 <div class="field-error" id="modeError">Por favor, escolhe a modalidade pretendida.</div>
               </div>
@@ -2553,6 +2678,31 @@
               <span>→</span>
             </button>
 
+            <!-- Badges de Confiança e Garantia -->
+            <div class="trust-badges-grid">
+              <div class="trust-badge-item">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <div class="text">
+                  <strong>Inscrição 100% Segura</strong>
+                  <span>Dados protegidos com SSL</span>
+                </div>
+              </div>
+              <div class="trust-badge-item">
+                <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                <div class="text">
+                  <strong>Certificado de Conclusão</strong>
+                  <span>Emitido pela Zedecks Training</span>
+                </div>
+              </div>
+              <div class="trust-badge-item">
+                <svg class="svg-icon" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                <div class="text">
+                  <strong>Laboratório Prático</strong>
+                  <span>Projetos reais do Zero ao Júnior</span>
+                </div>
+              </div>
+            </div>
+
             <div style="text-align:center; margin-top:16px;">
               <span class="muted" style="font-size:0.88rem;">Já efectuaste a tua inscrição anteriormente? </span>
               <a href="#portal" class="contact" style="font-size:0.88rem; font-weight:600;">Entrar na Área do Aluno →</a>
@@ -2566,6 +2716,12 @@
         Dúvidas e suporte oficial: <a class="contact" href="https://wa.me/258847703309" target="_blank" rel="noopener">WhatsApp +258 84 770 3309</a><br>
         <strong>ZEDECKS TRAINING</strong> · Programação Assistida por IA · Do Zero ao Júnior
       </footer>
+
+      <!-- Botão Flutuante de Suporte via WhatsApp -->
+      <a href="https://wa.me/258847703309?text=Ol%C3%A1%20Zedecks%20Training!%20Gostaria%20de%20tirar%20d%C3%BAvidas%20sobre%20o%20Curso%20de%20Programa%C3%A7%C3%A3o%20com%20IA." target="_blank" rel="noopener" class="floating-whatsapp-btn" id="floatingSupportBtn" aria-label="Tirar dúvidas no WhatsApp com o suporte oficial">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <span>Dúvidas no WhatsApp</span>
+      </a>
 
     </main>
   </div>
@@ -2763,6 +2919,15 @@
               </button>
             </form>
             <div class="alert success hidden" id="proofMsg" style="margin-top:14px;"></div>
+
+            <!-- Opção Directa de Envio por WhatsApp -->
+            <div style="margin-top:16px; padding-top:14px; border-top:1px dashed #18344e; text-align:center;">
+              <p class="muted" style="margin:0 0 10px; font-size:0.85rem;">Prefere enviar directamente pelo WhatsApp?</p>
+              <a id="proofWhatsAppBtn" href="https://wa.me/258847703309" target="_blank" rel="noopener" class="btn secondary" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; width:100%; text-decoration:none; font-weight:600;">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span>ENVIAR COMPROVATIVO PELO WHATSAPP</span>
+              </a>
+            </div>
           </div>
 
           <!-- Caixa de Acompanhamento do Curso & Grupo da Turma -->
@@ -4882,6 +5047,13 @@
             proofMsgEl.classList.remove('hidden');
           } else {
             proofMsgEl.classList.add('hidden');
+          }
+
+          // Actualiza link personalizado de envio do comprovativo via WhatsApp
+          const proofWaBtn = getElement('proofWhatsAppBtn');
+          if (proofWaBtn) {
+            const waMsg = `Olá Zedecks Training! Sou o estudante ${student.name} (ID: ${student.code}). Segue o meu comprovativo de pagamento da inscrição no Curso de Programação Assistida por IA.`;
+            proofWaBtn.href = `https://wa.me/258847703309?text=${encodeURIComponent(waMsg)}`;
           }
         },
 
