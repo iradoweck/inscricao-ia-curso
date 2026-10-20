@@ -1,5 +1,6 @@
 # Scratch & Temporary files
 scratch/
+scripts/
 .DS_Store
 Thumbs.db
 kays

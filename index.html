@@ -3287,7 +3287,8 @@
       // 4.1 CONSTANTES E DADOS DE CONFIGURAÇÃO FISCAL
       const STORAGE_KEY = 'zedecks_course_enrollments_v2';
       const ADMIN_SESSION_KEY = 'zedecks_admin_session_v1';
-      const ADMIN_DEFAULT_PASSWORD = 'zedecks@admin';
+      // Hash SHA-256 seguro da senha de administrador (DevSecOps - previne vazamento de senha em texto claro no cliente)
+      const ADMIN_PASSWORD_HASH = '3048fa201672df958fdf8ac1d343302be079c132f3adb4341ad5874da3157933';
       const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
       const VALID_EXTENSIONS_REGEX = /\.(jpg|jpeg|png|pdf)$/i;
 
@@ -4220,8 +4221,10 @@
           return isDevHost;
         },
 
-        login(password) {
-          if (password === ADMIN_DEFAULT_PASSWORD) {
+        async login(password) {
+          if (!password) return { success: false, message: 'Por favor, insere a senha de administrador.' };
+          const hash = await CryptoSecurity.hashSecret(password);
+          if (hash === ADMIN_PASSWORD_HASH) {
             sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
             this.syncAdminState();
             return { success: true };
@@ -5340,11 +5343,11 @@
         // Formulário e Ações de Administração (#adminView)
         const adminLoginForm = getElement('adminLoginForm');
         if (adminLoginForm) {
-          adminLoginForm.addEventListener('submit', (e) => {
+          adminLoginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const passEl = getElement('adminPasswordInput');
             const password = (passEl ? passEl.value : '').trim();
-            const result = AdminController.login(password);
+            const result = await AdminController.login(password);
             if (!result.success) {
               alert(result.message || 'Senha incorrecta.');
               if (passEl) {

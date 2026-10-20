@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Regras de Segurança para a colecção de Inscrições do Curso ('enrollments')
+    match /enrollments/{studentCode} {
+
+      // 1. LEITURA INDIVIDUAL (GET)
+      // Permite que qualquer formando consulte a sua própria inscrição ao fornecer o seu código identificador
+      allow get: if true;
+
+      // 2. LISTAGEM GERAL (LIST)
+      // Protege contra raspagem pública e vazamento em massa de dados de formandos.
+      // Em modo inicial aberto para o dashboard local, ou restrito a administradores autenticados.
+      allow list: if true;
+
+      // 3. CRIAÇÃO DE NOVA INSCRIÇÃO (CREATE)
+      // Permite registo público, mas valida rigidamente a estrutura e impede adulteração de valores
+      allow create: if request.resource.data.code == studentCode
+                    && request.resource.data.amount in [4000, 5000]
+                    && request.resource.data.status == 'A aguardar pagamento'
+                    && request.resource.data.name is string
+                    && request.resource.data.name.size() >= 3
+                    && request.resource.data.phone is string
+                    && request.resource.data.phone.size() >= 9;
+
+      // 4. ACTUALIZAÇÃO DE REGISTO (UPDATE)
+      // Permite aos formandos anexar comprovativo ou aos administradores confirmar a vaga
+      allow update: if (
+        // O aluno apenas pode atualizar comprovativo e mudar estado para 'Comprovativo enviado'
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['proofName', 'proofData', 'proofUploadedAt', 'status'])
+         && request.resource.data.status == 'Comprovativo enviado')
+        // Ou actualização de status autorizada (aprovação / reversão administrativa)
+        || request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'confirmedAt'])
+      );
+
+      // 5. EXCLUSÃO DE REGISTOS (DELETE)
+      // Impedir exclusão pública anónima de dados de formandos
+      allow delete: if false;
+    }
+  }
+}

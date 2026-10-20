@@ -1,0 +1,48 @@
+# ==============================================================================
+# .geminiignore - FINOPS & CONTEXT WINDOW OPTIMIZATION (Zedecks Training)
+# ==============================================================================
+
+# 1. SISTEMA OPERACIONAL E EDITORES
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.vscode/*
+!.vscode/settings.json
+.idea/
+*.iml
+.history/
+
+# 2. DEPENDÊNCIAS E LOCK FILES (ECONOMIA DE TOKENS)
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# 3. SCRATCH E ARQUIVOS TEMPORÁRIOS
+scratch/
+*.tmp
+*.temp
+
+# 4. CHAVES E SEGREDOS LOCAIS
+kays
+.env
+.env.*
+!.env.example
+
+# 5. ASSETS BINÁRIOS E MULTIMÍDIA (PREVENÇÃO DE TOKENS DE VISÃO DESNECESSÁRIOS)
+assets/*.png
+assets/*.jpg
+assets/*.jpeg
+assets/*.webp
+assets/*.ico
+*.pdf
+
+# 6. SCRIPTS DE MIGRAÇÃO PONTUAIS
+scripts/
+
+# 7. LOGS E BANCOS TEMPORÁRIOS
+*.log
+*.sqlite
+*.sqlite3
+*.db
